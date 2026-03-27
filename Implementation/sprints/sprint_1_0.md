@@ -96,6 +96,7 @@ Obtain a playable vertical prototype with:
 3. Run internal mini-playtest (2-3 people).
 4. Note max 5 friction points.
 5. Prioritize fixes for Sprint 2.0.
+6. Record the playtest baseline and results in `Implementation/sprints/playtest/sprint_1.md`.
 
 ### Verification
 1. 80% of testers understand basic controls in under 2 minutes.

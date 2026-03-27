@@ -25,5 +25,8 @@ This folder contains the concrete execution of the plan: technical decisions, sp
 14. [Sprint 9.0](sprints/sprint_9_0.md)
 15. [Sprint 10.0](sprints/sprint_10_0.md)
 
+### Playtest Reports
+16. [Sprint 1.0 Playtest Results](sprints/playtest/sprint_1_0.md)
+
 ## Governance Rule
 All gameplay tuning values are referenced from `plan/04_technical/variables_gameplay.md`.
