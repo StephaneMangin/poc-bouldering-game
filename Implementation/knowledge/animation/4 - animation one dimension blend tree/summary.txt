@@ -1,0 +1,221 @@
+Introduction aux Blend Trees à une dimension avec paramètres float dans Unity
+Cette vidéo, présentée par Nicky, s’inscrit dans une série dédiée à l’apprentissage du système d’animation dans Unity. Après avoir exploré l’utilisation des paramètres booléens pour contrôler plusieurs animations dans la vidéo précédente, cette session se concentre sur les paramètres float pour créer des animations dynamiques via des Blend Trees à une dimension.
+
+Points clés et concepts abordés
+Blend Tree : Un noeud spécial dans l’Animator Controller permettant de mélanger dynamiquement plusieurs animations selon des valeurs de paramètres float.
+Paramètre float "Speed" : Utilisé pour refléter la vitesse du personnage et contrôler le blend entre animations (ex. marche et course).
+Transitions conditionnées par la vitesse :
+Passage à la Blend Tree quand 
+v
+e
+l
+o
+c
+i
+t
+y
+>
+0
+velocity>0.
+Retour à l’état idle quand 
+v
+e
+l
+o
+c
+i
+t
+y
+<
+0.05
+velocity<0.05 (valeur choisie pour détecter l’arrêt).
+Ajout des animations "walk" et "run" dans la Blend Tree via des Motion Fields.
+Options des animations dans la Blend Tree :
+Loop Time : Assure la boucle de l’animation.
+Loop Pose : Permet de lisser la transition entre la fin et le début d’une animation (exemple visuel avec un cube animé).
+Cycle Offset : Décale le point de départ de l’animation.
+Fonctionnement dynamique : En modifiant la valeur float "velocity", la Blend Tree génère automatiquement une animation intermédiaire entre la marche et la course, adaptée à la vitesse courante.
+Implémentation dans le code C#
+Déclaration et contrôle d’un paramètre float "velocity" pour piloter l’animation.
+
+Utilisation de Time.deltaTime pour une augmentation régulière de la vitesse lorsque la touche avant ("w") est pressée :
+
+v
+e
+l
+o
+c
+i
+t
+y
++
+=
+T
+i
+m
+e
+.
+d
+e
+l
+t
+a
+T
+i
+m
+e
+×
+a
+c
+c
+e
+l
+e
+r
+a
+t
+i
+o
+n
+velocity+=Time.deltaTime×acceleration
+
+Ajout d’une décélération lorsque la touche est relâchée :
+
+si pas de pression avant
+⇒
+v
+e
+l
+o
+c
+i
+t
+y
+−
+=
+T
+i
+m
+e
+.
+d
+e
+l
+t
+a
+T
+i
+m
+e
+×
+d
+e
+c
+e
+l
+e
+r
+a
+t
+i
+o
+n
+si pas de pression avant⇒velocity−=Time.deltaTime×deceleration
+
+Limitation de 
+v
+e
+l
+o
+c
+i
+t
+y
+velocity dans l’intervalle 
+[
+0
+,
+1
+]
+[0,1] avec réinitialisation à zéro si elle devient négative.
+
+Mise à jour du paramètre Animator via :
+
+a
+n
+i
+m
+a
+t
+o
+r
+.
+S
+e
+t
+F
+l
+o
+a
+t
+(
+"
+S
+p
+e
+e
+d
+"
+,
+v
+e
+l
+o
+c
+i
+t
+y
+)
+animator.SetFloat("Speed",velocity)
+
+Réglages avancés de la Blend Tree
+Option	Description
+Threshold	Valeur définissant la distribution de chaque animation selon le paramètre float (ex. vitesse).
+Automate Thresholds	Répartition automatique des seuils, désactivable pour réglages manuels.
+Speed	Contrôle la vitesse de lecture de l’animation.
+Adjust Time Scale	Options :
+- Reset Time Scale (remet vitesse à 1)
+- Homogeneous Speed (ajuste vitesse)
+Mirror	Miroir de l’animation, utile pour les personnages humanoïdes.
+Exemple : en fixant le seuil de la marche à 4, l’animation de marche sera jouée à 100 % jusqu’à ce que 
+v
+e
+l
+o
+c
+i
+t
+y
+velocity atteigne 4, retardant ainsi la transition vers la course.
+Les options de seuils automatiques peuvent utiliser des données liées au root motion (non utilisé ici).
+Types de Blend Trees
+Le système montré est un Blend Tree à une dimension (1D), basé sur un seul paramètre float.
+Unity propose aussi des Blend Trees à deux dimensions (2D), qui utilisent deux paramètres float et offrent plus de flexibilité :
+2D Simple Directional
+2D Freeform Directional
+2D Freeform Cartesian
+Direct
+La prochaine vidéo explorera ces Blend Trees 2D.
+Conclusion et perspectives
+Blend Trees à 1D permettent de créer des transitions fluides entre animations telles que la marche et la course en fonction d’une vitesse.
+L’utilisation de paramètres float dans l’Animator Controller offre un contrôle plus fin et dynamique que les booléens.
+La vidéo introduit également la programmation nécessaire pour gérer l’accélération et la décélération de la valeur float, synchronisée avec les animations.
+Les réglages des seuils et de la vitesse de lecture des animations permettent d’affiner le rendu visuel.
+Prochainement, la série abordera les Blend Trees à 2 dimensions et le retargeting d’animations sur différents personnages humanoïdes.
+Vocabulaire clé
+Blend Tree : Arbre de mélange d’animations.
+Paramètre float : Variable numérique flottante utilisée pour contrôler les transitions d’animation.
+Threshold (seuil) : Valeur de paramètre définissant le moment où chaque animation est appliquée dans le blend.
+Loop Time / Loop Pose / Cycle Offset : Options pour contrôler la répétition et la synchronisation des animations.
+Time.deltaTime : Temps écoulé depuis la dernière image, utilisé pour des calculs indépendants du framerate.
+Animator.SetFloat() : Fonction pour modifier un paramètre float dans l’Animator.

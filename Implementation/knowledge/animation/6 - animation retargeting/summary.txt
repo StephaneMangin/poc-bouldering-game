@@ -1,0 +1,65 @@
+Retargeting d’animations dans Unity
+Cette vidéo, présentée par Nicky, poursuit une série dédiée à l’apprentissage du système d’animation d’Unity, en se concentrant aujourd’hui sur la transfert (retargeting) d’animations entre différents personnages. L’objectif est de comprendre comment utiliser une animation créée pour un personnage sur d’autres modèles aux rigs différents, en s’appuyant sur le système d’avatars humanoïdes d’Unity.
+
+Contexte et Préparation
+Téléchargement initial d’un personnage et d’animations gratuites sur Mixamo.
+Importation dans Unity de plusieurs personnages :
+Un nouveau personnage Mixamo avec animation de saut.
+Deux personnages supplémentaires gratuits depuis l’Asset Store ou Package Manager Unity : Jammo (mascotte de la chaîne MixAndJam) et SpaceRobotKyle.
+Mise à jour des matériaux pour les rendre compatibles avec les pipelines de rendu URP ou HDRP.
+Ajout des composants Animator et création d’un contrôleur d’animation nommé retargetController.
+Problématique rencontrée
+L’animation de saut fonctionne uniquement sur le personnage Mixamo d’origine.
+Les autres personnages ne réagissent pas car les noms des os dans les rigs sont différents.
+Renommer les os manuellement n’est pas une solution viable, surtout avec des proportions différentes, car cela génère des résultats déformés.
+Solution : Avatar Humanoïde et Rig Humanoïde dans Unity
+Unity propose une conversion des rigs génériques en rigs humanoïdes via la création d’avatars humanoïdes. Ce système standardise la hiérarchie des os et permet le partage d’animations entre personnages humanoïdes, même s’ils ont des proportions différentes.
+
+Paramètres clés dans l’onglet Rig :
+Option	Description
+Animation Type	Quatre choix : None, Legacy, Generic, Humanoid. Humanoid permet la retargeting d’animations.
+Avatar Definition	"Create From This Model" ou "Copy From Avatar" : choix de créer ou copier un avatar humanoïde.
+Skin Weights	Nombre d’os influençant un vertex (par défaut 4) pour contrôler les déformations du mesh.
+Optimize Game Object	Option pour optimiser la hiérarchie des transforms avant publication, mais attention aux bugs.
+Configuration de l’avatar humanoïde
+Unity tente une auto-assignation des os basée sur les noms standards.
+Si les noms ne correspondent pas (ex : modèle Blender personnalisé), il faudra faire un mapping manuel.
+L’interface propose des options pour :
+Effacer, auto-mapper, charger ou sauvegarder les mappings d’os.
+Gérer la pose initiale : Reset, Sample Bind Pose, Enforce T-Pose.
+Le menu « Muscle and Settings » permet d’ajuster les contraintes musculaires pour éviter les déformations visuelles, notamment avec des modèles aux proportions extrêmes.
+Résultats et utilisation
+Conversion de tous les personnages en rigs humanoïdes avec avatars correspondants.
+Nécessité de dupliquer les animations après conversion pour qu’elles soient compatibles avec le rig humanoïde.
+Après ces étapes, le même saut peut être utilisé sans problème sur tous les personnages humanoïdes.
+Notes importantes
+Lors du téléchargement d’animations Mixamo sans skin, il est crucial de :
+Choisir le même personnage que celui utilisé dans le tutoriel pour conserver la cohérence des noms d’os.
+Sélectionner “Copy From Avatar” en choisissant l’avatar téléchargé.
+Tous les états d’animation dans l’Animator doivent être convertis en Humanoid pour éviter les conflits.
+Modifier le paramètre Root Transform Rotation des animations de “Body Orientation” à “Original” et activer Bake Into Pose pour un rendu correct.
+Les connaissances acquises permettent de contrôler via le joueur n’importe quel personnage humanoïde et animation, en combinant avec les techniques des vidéos précédentes.
+Conclusion
+Cette vidéo démontre l’importance du système d’avatars humanoïdes dans Unity pour faciliter la réutilisation des animations entre personnages différents. En configurant correctement les rigs et avatars, on obtient une interopérabilité efficace des animations, ce qui est essentiel dans le développement de jeux vidéo multi-personnages.
+
+Mots-clés essentiels
+Retargeting
+Avatar humanoïde
+Rig humanoïde
+Mixamo
+Animation Type (Generic vs Humanoid)
+Skin Weights
+Mapping des os
+Muscle Constraints
+Root Transform Rotation
+Timeline des étapes principales
+Temps approximatif	Étape clé
+00:00 - 01:10	Introduction et téléchargement de personnages/animations Mixamo
+01:10 - 02:58	Importation, ajout des personnages à la hiérarchie, création de retargetController
+02:58 - 04:23	Test de l’animation de saut, constat des incompatibilités avec autres personnages
+04:23 - 06:55	Présentation de l’onglet Rig, choix Humanoid, explication des paramètres importants
+06:55 - 09:39	Configuration de l’avatar humanoïde, auto-mapping, mapping manuel si nécessaire
+09:39 - 11:43	Paramètres musculaires et ajustements pour éviter déformations
+11:43 - 13:28	Conversion des personnages et animations en humanoïdes, test du retargeting réussi
+13:28 - 14:51	Recommandations finales et conseils pour la suite de la série
+Ce résumé couvre les concepts et procédures essentiels pour retargeter des animations dans Unity avec le système d’avatars humanoïdes, permettant une réutilisation flexible et efficace des animations sur plusieurs personnages.

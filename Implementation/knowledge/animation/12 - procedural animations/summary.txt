@@ -1,0 +1,83 @@
+Animation Rigging Package dans Unity
+Cette vidéo présente le Animation Rigging Package de Unity, un outil puissant permettant d’intégrer de l’animation procédurale directement dans le moteur de jeu, offrant ainsi une nouvelle dimension aux processus classiques d’animation.
+
+Contexte et pipeline classique d’animation dans Unity
+Le pipeline traditionnel commence par la modélisation et le texturage d’un personnage via un logiciel externe (ex. Blender).
+Suit ensuite le rigging (construction du squelette) et le weighting (répartition des influences des os sur la géométrie), deux étapes essentielles pour contrôler la déformation du modèle.
+Les animations sont créées par manipulation des os (rotation, déplacement, keyframing) avant d’être importées dans Unity.
+Ce pipeline, bien qu’efficace depuis des années, est désormais complété par des techniques d’animation procédurale.
+Animation procédurale : définition et exemples
+Contrairement à l’animation traditionnelle, où les mouvements des os sont préenregistrés, l’animation procédurale est générée en temps réel, s’adaptant à l’environnement et au contexte du jeu.
+Exemples d’utilisation :
+Uncharted : ajustements précis comme la main touchant un mur, placement des pieds, rotations naturelles de la tête et des bras.
+Fall Guys et Gang Beasts : animation quasi-entièrement basée sur la physique, forme poussée d’animation procédurale.
+L’animation procédurale n’est pas nouvelle, mais Unity propose désormais un outil intégré facilitant son usage.
+Ce que propose le Animation Rigging Package
+Un ensemble d’outils et une interface utilisateur intuitive dans l’éditeur Unity.
+Une bibliothèque de contraintes (constraints) permettant d’appliquer différents types d’animations procédurales et de rigs dynamiques.
+Le package est gratuit et maintenu officiellement par Unity, ce qui est un avantage en termes de corrections et support.
+Concepts clés : Rigging, Contraintes et Rigs
+Terme	Définition
+Rigging	Processus de création du squelette et d’application de contraintes entre os, contrôlant les mouvements et rotations.
+Contraintes	Règles appliquées aux os (ex : mouvement de la main entraîne celui du bras) pour simuler un comportement réaliste.
+Rigs	Collection d’os et contraintes pouvant couvrir tout un modèle ("uber rig") ou des parties spécifiques (ex : un bras).
+Mise en œuvre pratique dans Unity
+Téléchargement du package via le Package Manager.
+Importation d’un personnage avec squelette et poids réalisés dans un logiciel tiers (ex. Blender).
+Ajout de composants indispensables au GameObject parent :
+Animator (lié au système Mecanim, indispensable pour gérer les animations).
+Rig Builder (contrôle la liste des rigs, gère leur priorité).
+Optionnel mais recommandé : Bone Renderer pour visualiser et manipuler facilement les os dans la scène.
+Création d’un rig : un GameObject enfant avec le composant Rig, positionné au même niveau que la hiérarchie des os.
+Ajout de contraintes en tant qu’enfants du rig, chaque contrainte ayant ses propres propriétés.
+Exemple concret : suivi de cible par la tête (multi-aim constraint)
+Création d’un rig renommé en “TargetTracking” et d’un enfant “HeadTracking” avec la contrainte multi-aim.
+Le multi-aim contraint la rotation d’un os (ici la tête) vers un objet cible.
+Utilisation d’un objet “LookAtTarget” comme source vers laquelle la tête se tourne.
+La contrainte fonctionne uniquement en mode Play ou en mode preview.
+Paramètres clés de la contrainte multi-aim :
+Poids (
+w
+e
+i
+g
+h
+t
+weight) : influence de la contrainte (de 0 à 1).
+Aim Axis : axe qui pointe vers la cible, généralement 
+Z
+Z pour la tête.
+Up Axis et World Up Type : déterminent la direction vers le haut et gèrent la rotation sur cet axe.
+Limites de rotation (
+m
+i
+n
+min, 
+m
+a
+x
+max) sur chaque axe, typiquement autour de 
+−
+90
+∘
+−90 
+∘
+  à 
+90
+∘
+90 
+∘
+  pour un mouvement naturel.
+Possibilité d’utiliser plusieurs sources simultanément, avec rotation vers le centre des cibles.
+Flexibilité et modularité
+Le Rig Builder gère plusieurs rigs comme des couches, activables ou désactivables selon les besoins (ex : “TargetTracking”, “Climbing”, “PassiveInteractions”).
+Cette approche modulaire permet d’adapter l’animation procédurale à diverses situations en jeu.
+Perspectives et ressources
+La vidéo annonce des futurs tutoriels détaillant les contraintes avancées, leurs usages pratiques, les limitations du package et la technique de « baking » (pré-calcul) d’animations.
+Le projet de démonstration est accessible via le Patreon de la chaîne, offrant aussi la possibilité d’interagir et de voter pour les prochains sujets.
+Points clés à retenir
+Animation procédurale = animation générée en temps réel, réactive à l’environnement.
+Le Animation Rigging Package simplifie la création de rigs dynamiques et contraintes procédurales dans Unity.
+Les rigs sont des ensembles de contraintes appliquées aux os, permettant une animation flexible et contextuelle.
+L’outil est gratuit, intégré à Unity et basé sur le système Mecanim.
+Exemple pratique : suivi de cible de la tête par une contrainte multi-aim avec paramètres ajustables.

@@ -6,6 +6,9 @@ namespace Project.Core.Events
         HoldSlip,
         FatigueCritical,
         RunCompleted,
-        RunFailed
+        RunFailed,
+        CogUnstable,
+        WallAngleChanged,
+        BodyWallContact,
     }
 }

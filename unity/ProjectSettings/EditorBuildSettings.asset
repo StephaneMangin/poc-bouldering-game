@@ -4,6 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/BoulderingGym/Scenes/VerticalPrototype.unity
+    guid: fa5ef8723af2e7ad99ae8abb8a6cba9f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

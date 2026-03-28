@@ -1,0 +1,239 @@
+Processus chronologique de développement
+Étape	Description
+1. Préparation des animations	Téléchargement sur Mixamo de 3 animations (idle, marche, course), conversion en animations humanoïdes et import dans Unity.
+2. Configuration du personnage	Import du modèle Jammo, conversion en humanoïde, ajout du contrôleur d’animation (Animator Controller) avec états idle, walk, run et leurs transitions basées sur des booléens isWalking et isRunning.
+3. Mise en place du nouveau système d’input	Création d’un asset “Player Input” avec un Action Map “CharacterControls” contenant des actions Move (type Vector2) et Run (type bouton). Configuration des bindings clavier (WASD + Shift) et manette (joystick gauche + bumper gauche).
+4. Programmation des callbacks d’input	Déclaration d’une instance PlayerInput, activation/désactivation des maps d’actions dans les méthodes OnEnable/OnDisable, utilisation des callbacks started, performed et canceled pour gérer la saisie.
+5. Gestion du mouvement	Récupération des valeurs Vector2 d’entrée, conversion en Vector3 pour axes 
+x
+x et 
+z
+z, utilisation de CharacterController.Move multiplié par 
+T
+i
+m
+e
+.
+d
+e
+l
+t
+a
+T
+i
+m
+e
+Time.deltaTime pour un déplacement fluide et à vitesse constante.
+6. Synchronisation animation / mouvement	Contrôle des paramètres booléens de l’Animator via le script selon que le personnage se déplace ou non.
+7. Rotation du personnage	Utilisation des Quaternions et de la méthode Quaternion.Slerp pour faire tourner le personnage vers la direction du mouvement de façon fluide.
+8. Gestion de la course	Ajout d’un booléen isRunPressed lié à l’action Run, multiplication du mouvement par un multiplicateur de course (ex : 3), mise à jour des paramètres d’animation pour la course.
+9. Gestion de la gravité	Implémentation d’une fonction handleGravity qui applique une gravité négative sur l’axe 
+y
+y selon que le personnage est au sol ou non, permettant au personnage de tomber des plateformes.
+Concepts clés et définitions
+Terme / Concept	Définition / Usage
+Character Controller	Composant Unity permettant de gérer le déplacement d’un personnage sans gérer soi-même la physique complète.
+Animator Controller	Contrôleur d’animation qui gère les transitions entre états d’animation (idle, marche, course).
+Input Actions	Asset Unity regroupant les actions d’entrée, leurs bindings et propriétés dans le nouveau système d’input.
+CallbackContext	Objet passé aux callbacks d’input permettant de lire les valeurs de saisie en temps réel.
+Vector2 / Vector3	Vecteurs stockant les données de mouvement sur deux ou trois axes.
+Quaternion	Représentation mathématique des rotations en 3D utilisée pour des interpolations fluides.
+Time.deltaTime	Durée en secondes entre deux frames, utilisée pour uniformiser le déplacement indépendamment du framerate.
+Points importants et conclusions
+Conversion des animations en format humanoïde est essentielle pour utiliser la structure d’animation mecanim de Unity et permettre la réutilisation sur différents modèles humanoïdes.
+L’Animator Controller doit contenir des paramètres booléens (isWalking, isRunning) pour gérer les transitions entre états d’animation.
+Le nouveau système d’input Unity permet une configuration flexible avec actions, maps d’actions et bindings adaptables au clavier et manette.
+La gestion des callbacks started, performed et canceled est cruciale pour détecter les débuts, mises à jour et fins d’actions d’entrée.
+Multiplier le déplacement par 
+T
+i
+m
+e
+.
+d
+e
+l
+t
+a
+T
+i
+m
+e
+Time.deltaTime est indispensable pour éviter que le personnage se déplace trop vite en fonction du framerate.
+La rotation fluide du personnage est obtenue par interpolation sphérique entre la rotation actuelle et la rotation cible définie par la direction du mouvement (
+Q
+u
+a
+t
+e
+r
+n
+i
+o
+n
+.
+S
+l
+e
+r
+p
+Quaternion.Slerp).
+La gestion de la gravité est simplifiée mais efficace, en appliquant une force descendante constante ou plus forte selon si le personnage est au sol ou en chute.
+L’approche modulaire du code, avec séparation claire des fonctions (gestion du mouvement, rotation, animation, gravité), améliore la lisibilité et la maintenabilité.
+L’optimisation avec la conversion des paramètres d’animation en hashes entiers améliore la performance lors des accès dans l’Animator.
+Résumé des variables principales en script
+Variable	Type	Rôle
+p
+l
+a
+y
+e
+r
+I
+n
+p
+u
+t
+playerInput	PlayerInput	Instance du système d’input généré automatiquement
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+I
+n
+p
+u
+t
+currentMovementInput	Vector2	Valeurs d’entrée du joueur sur l’axe 
+x
+x et 
+y
+y
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+currentMovement	Vector3	Mouvement converti pour la scène, sur 
+x
+x et 
+z
+z
+i
+s
+M
+o
+v
+e
+m
+e
+n
+t
+P
+r
+e
+s
+s
+e
+d
+isMovementPressed	bool	Indique si le joueur est en train de bouger
+c
+h
+a
+r
+a
+c
+t
+e
+r
+C
+o
+n
+t
+r
+o
+l
+l
+e
+r
+characterController	CharacterController	Composant Unity gérant les déplacements
+a
+n
+i
+m
+a
+t
+o
+r
+animator	Animator	Composant contrôlant les animations
+i
+s
+R
+u
+n
+P
+r
+e
+s
+s
+e
+d
+isRunPressed	bool	Indique si la touche de course est appuyée
+r
+u
+n
+M
+u
+l
+t
+i
+p
+l
+i
+e
+r
+runMultiplier	float	Facteur de multiplication de la vitesse en course
+r
+o
+t
+a
+t
+i
+o
+n
+F
+a
+c
+t
+o
+r
+P
+e
+r
+F
+r
+a
+m
+e
+rotationFactorPerFrame	float	Vitesse d’interpolation de la rotation

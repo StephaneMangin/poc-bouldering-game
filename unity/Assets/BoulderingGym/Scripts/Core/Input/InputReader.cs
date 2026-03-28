@@ -18,7 +18,6 @@ namespace Project.Core.Input
         private InputAction _releaseAllAction;
         private InputAction _fallAction;
         private InputAction _landAction;
-        private InputAction _cameraRecenterAction;
         private InputAction _sprintAction;
 #endif
 
@@ -34,7 +33,6 @@ namespace Project.Core.Input
             _releaseAllAction.Enable();
             _fallAction.Enable();
             _landAction.Enable();
-                _cameraRecenterAction.Enable();
             _sprintAction.Enable();
 #endif
         }
@@ -50,7 +48,6 @@ namespace Project.Core.Input
             _releaseAllAction?.Disable();
             _fallAction?.Disable();
             _landAction?.Disable();
-                _cameraRecenterAction?.Disable();
             _sprintAction?.Disable();
 #endif
         }
@@ -182,15 +179,12 @@ namespace Project.Core.Input
             return useLegacyFallback && (UnityEngine.Input.GetKey(KeyCode.LeftShift) || UnityEngine.Input.GetKey(KeyCode.RightShift));
         }
 
-        public bool ConsumeCameraRecenterPressed()
+        public bool ReadWalkHeld()
         {
-#if ENABLE_INPUT_SYSTEM
-            if (_cameraRecenterAction != null && _cameraRecenterAction.WasPressedThisFrame())
-            {
-                return true;
-            }
-#endif
-            return useLegacyFallback && UnityEngine.Input.GetKeyDown(KeyCode.C);
+            return useLegacyFallback
+                && (UnityEngine.Input.GetKey(KeyCode.Z)
+                    || UnityEngine.Input.GetKey(KeyCode.W)
+                    || UnityEngine.Input.GetKey(KeyCode.UpArrow));
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -228,9 +222,6 @@ namespace Project.Core.Input
             _fallAction.AddBinding("<Gamepad>/buttonEast");
             _landAction = new InputAction("Land", InputActionType.Button, "<Keyboard>/space");
             _landAction.AddBinding("<Gamepad>/buttonSouth");
-
-            _cameraRecenterAction = new InputAction("CameraRecenter", InputActionType.Button, "<Keyboard>/c");
-            _cameraRecenterAction.AddBinding("<Gamepad>/rightStickPress");
 
             _sprintAction = new InputAction("Sprint", InputActionType.Button);
             _sprintAction.AddBinding("<Keyboard>/leftShift");

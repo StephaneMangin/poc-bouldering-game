@@ -1,0 +1,88 @@
+Animation dans Unity : Animation Tab, Animation Curves et Animation Events
+Cette vidéo propose une exploration approfondie des concepts fondamentaux liés à la gestion des animations dans Unity, en mettant l’accent sur l’interface d’animation, les courbes d’animation et les événements d’animation. Animée par Nikki sur la chaîne i heart game dev, elle s’adresse aux développeurs souhaitant maîtriser l’animation de personnages et d’objets dans Unity.
+
+Principaux points abordés
+Création d’un projet Unity et ajout d’objets
+
+Ajout d’un plan nommé ground avec un matériau coloré pour le décor.
+Ajout d’un cube dans la hiérarchie servant d’objet à animer.
+Ouverture et configuration de la fenêtre d’animation
+
+Activation de la fenêtre d’animation via clic droit près de la console.
+La fenêtre se divise en deux parties principales : menu à gauche et timeline à droite.
+Sélection du cube, création d’une nouvelle animation nommée first animation.
+Ajout de propriétés animables
+
+Sélection d’une propriété animable via Add Property, par exemple position dans le composant transform.
+Découverte que plusieurs composants peuvent être animés, pas uniquement la transformation (exemple : activation/désactivation d’un Box Collider dans une animation de dodge).
+Les propriétés animées sont représentées par des keyframes sur la timeline, qui stockent les valeurs à un instant donné.
+Fonctionnalités de la timeline et gestion des keyframes
+
+Mode preview (aperçu) pour visualiser l’animation sans modifier.
+Mode record pour enregistrer les modifications des propriétés et créer ou écraser des keyframes.
+Manipulation des keyframes : déplacement, sélection multiple, mise à l’échelle temporelle.
+Contrôles de navigation dans la timeline : aller au premier/dernier keyframe, avancer/reculer keyframe par keyframe, lecture de l’animation.
+Gestion des animations multiples sur un même objet et création de nouvelles animations.
+Paramètres avancés de la timeline
+
+Choix entre affichage en secondes ou en images (frames).
+Activation du mode ripple qui déplace les keyframes environnants lors d’un déplacement ou d’une mise à l’échelle.
+Contrôle du taux d’échantillonnage (samples), par défaut à 60 FPS, ajustable pour modifier la vitesse de lecture.
+Filtrage par sélection pour visualiser uniquement les keyframes d’objets spécifiques dans des rigs complexes.
+Ajout et utilisation des événements d’animation (Animation Events)
+
+Création d’événements sur la timeline, indiqués par une ligne blanche. Plusieurs événements peuvent se superposer sur une même frame.
+Un événement appelle une fonction publique définie dans un script attaché au même objet que l’animation, permettant une interaction dynamique.
+Les événements peuvent déclencher diverses actions : instanciation de projectiles, déclenchement de sons, changement d’état d’animation, rechargement d’arme, etc.
+Différence d’affichage dans l’inspecteur selon que l’on sélectionne l’objet dans la hiérarchie (liste des fonctions accessibles) ou l’animation dans le projet (entrée manuelle du nom de la fonction et paramètres).
+Animation Curves (courbes d’animation)
+
+Passage du mode Dope Sheet au mode Curves qui affiche les propriétés animées sous forme de graphiques.
+
+Chaque couleur correspond à une propriété (exemple : position 
+x
+x, 
+y
+y, 
+z
+z).
+
+Les courbes représentent l’interpolation entre les keyframes, permettant d’affiner la trajectoire des valeurs animées.
+
+Les tangentes (petits diamants connectés aux keyframes) contrôlent la forme des courbes et donc la fluidité et style de l’animation.
+
+Types de tangentes disponibles :
+
+Type de Tangente	Description	Impact sur l’animation
+Clamped Auto (par défaut)	Tangentes ajustées automatiquement pour une courbe lisse sans dépassement	Courbe fluide, sans overshoot
+Auto (ancien)	Tangentes fixées une fois, peut overshooter	Risque d’interpolations indésirables
+Free Smooth	Tangentes collinéaires, lisses des deux côtés	Courbe très fluide
+Flat	Tangentes horizontales, aplaties	Animation rigide sur ce segment
+Broken	Tangentes ajustables indépendamment à gauche et droite	Plus grande personnalisation (free, linear, constant, weighted)
+Modification des tangentes permet de changer radicalement la dynamique d’une animation.
+
+Application pratique sur une animation importée
+
+Duplication d’une animation importée en lecture seule pour la modifier.
+Ajout d’un événement pour tirer un projectile à un moment précis.
+Mise en place d’un prefab bullet, d’un bullet spawner attaché à l’arme, et d’un script avec fonction publique fire bullet.
+Résultat : tir de balle synchronisé avec l’animation.
+Correction de problèmes de clipping en modifiant les courbes de position/rotation sur certains os (exemple : bras droit).
+Amélioration de l’impact visuel via modification des courbes de rotation de la colonne vertébrale pour simuler le recul.
+Ajustement de la vitesse de l’animation en réduisant l’échelle temporelle des keyframes après l’événement pour accentuer l’effet du coup de feu.
+Tableau récapitulatif des fonctionnalités clés dans la fenêtre d’animation Unity
+Fonctionnalité	Description	Utilité principale
+Add Property	Ajout de propriétés animables (position, rotation, scale, etc.)	Contrôle précis des propriétés animées
+Keyframes	Points clés qui stockent les valeurs des propriétés à un instant donné	Base de l’animation par interpolation
+Record Mode	Permet d’enregistrer les changements pour créer/modifier des keyframes	Animation dynamique en temps réel
+Ripple Toggle	Mouvement synchronisé des keyframes environnants lors de modification	Gestion efficace du timing global
+Samples (FPS)	Réglage du nombre d’images par seconde de l’animation	Contrôle de la vitesse de lecture
+Filter by Selection	Affiche uniquement les keyframes des objets sélectionnés	Travail ciblé dans des rigs complexes
+Animation Events	Permet d’appeler des fonctions publiques à un moment précis dans l’animation	Synchronisation de logique de jeu avec animation
+Dope Sheet / Curves Toggle	Affichage des keyframes sous forme de liste ou de courbes colorées	Contrôle précis de l’interpolation et du mouvement
+Tangents Types	Différents types de tangentes pour ajuster la forme des courbes	Modulation fine du style d’animation
+Conclusions clés
+La fenêtre d’animation Unity est un outil puissant permettant non seulement de créer des animations mais aussi de modifier et d’enrichir des animations existantes.
+Les Animation Events ouvrent un large spectre d’interactions entre animation et scripts, rendant l’animation totalement intégrée à la logique de jeu.
+Les courbes d’animation et leurs tangentes offrent un contrôle avancé sur la fluidité et le style des mouvements, permettant de personnaliser l’animation pour un rendu plus naturel ou stylisé.
+La maîtrise des outils d’animation Unity permet de corriger des problèmes courants (clipping, rythme) et d’ajouter des effets visuels et fonctionnels essentiels.

@@ -1,11 +1,11 @@
-using Project.Features.Climbing.Presentation;
+using Project.Features.Player.Presentation;
 using UnityEngine;
 
 namespace Project.UI
 {
     public sealed class ClimbingStateOverlay : MonoBehaviour
     {
-        [SerializeField] private ClimbingStateMachineDriver driver;
+        [SerializeField] private PlayerStateMachineDriver driver;
 
         private GUIStyle _style;
 

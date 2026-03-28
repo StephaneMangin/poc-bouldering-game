@@ -1,0 +1,500 @@
+Concepts clés et avancées abordés
+Rappel du blend tree unidimensionnel : basé sur un seul paramètre float nommé 
+v
+e
+l
+o
+c
+i
+t
+y
+velocity, permettant de mixer dynamiquement les animations de marche et de course selon la vitesse du joueur.
+
+Introduction des blend trees 2D : ajout d’un second paramètre float, renommage des paramètres existants en 
+v
+e
+l
+o
+c
+i
+t
+y
+x
+velocity 
+x
+​
+  et 
+v
+e
+l
+o
+c
+i
+t
+y
+z
+velocity 
+z
+​
+  (anciennement 
+v
+e
+l
+o
+c
+i
+t
+y
+velocity), permettant de gérer les mouvements latéraux (strafe) en plus de l’avant/arrière.
+
+Types de blend trees 2D dans Unity :
+
+Type	Description	Cas d’usage principal
+2D Simple Directional	Utilise une seule animation par direction, limitation à < 180° entre motions, animations exclusives.	Concepts simples avec peu de motions
+2D Freeform Directional	Permet plusieurs animations dans la même direction, sans limitation d’angle entre motions.	Configurations complexes avec plusieurs animations par direction
+2D Freeform Cartesian	Calcul différent de l’influence, utilisé pour paramètres non directionnels (ex : angles vertical/horizontal).	Animations comme visées ou autres blends non directionnels
+Direct	Contrôle manuel du poids de chaque animation, souvent utilisé pour expressions faciales.	Contrôle granulaire spécifique, souvent manuel
+Mise en place du blend tree 2D simple directional :
+
+Ajout de 7 motions (idle, walk, run, strafe gauche/droite marche/course).
+Placement des motions sur un graphique 
+x
+,
+y
+x,y où 
+x
+=
+v
+e
+l
+o
+c
+i
+t
+y
+x
+x=velocity 
+x
+​
+ , 
+y
+=
+v
+e
+l
+o
+c
+i
+t
+y
+z
+y=velocity 
+z
+​
+ .
+Positionnement des animations selon leur direction et intensité :
+Idle : 
+(
+0
+,
+0
+)
+(0,0)
+Walk : 
+(
+0
+,
+0.5
+)
+(0,0.5)
+Run : 
+(
+0
+,
+2
+)
+(0,2)
+Strafe Walk/Run gauche : 
+(
+−
+0.5
+,
+0
+)
+(−0.5,0) et 
+(
+−
+2
+,
+0
+)
+(−2,0)
+Strafe Walk/Run droite : 
+(
+0.5
+,
+0
+)
+(0.5,0) et 
+(
+2
+,
+0
+)
+(2,0)
+Observation d’influences via un gradient de couleurs sur le graph (bleu = forte influence).
+Limites du blend tree 2D simple directional :
+
+Ne blend pas plusieurs animations dans la même direction.
+Exclusion d’animations à 180° de distance.
+Problème avec l’animation de course latérale gauche/droite.
+Conclusion : Simple directional n’est pas adapté à une configuration multi-directionnelle complexe.
+Adoption du blend tree 2D freeform directional :
+
+Fonctionne comme attendu avec toutes les animations blendées correctement.
+Idéal pour plusieurs animations dans une même direction sans restriction angulaire.
+Explication sommaire sur freeform cartesian :
+
+Différence subtile avec freeform directional dans le calcul des poids.
+Principalement utilisé pour des animations où les paramètres ne sont pas liés à la direction, exemple : angles de visée.
+Complexité mathématique confirmée par une thèse universitaire (niveau avancé).
+Direct blend tree :
+
+Contrôle manuel des poids, souvent pour expressions faciales.
+Sujet non approfondi ici mais mentionné pour référence future.
+Implémentation du contrôle via script C#
+Création d’un nouveau script pour contrôler le blend tree 2D nommé twoDimensionalAnimationStateController.
+
+Variables principales :
+
+Référence à l’Animator.
+Floats 
+v
+e
+l
+o
+c
+i
+t
+y
+x
+velocity 
+x
+​
+  et 
+v
+e
+l
+o
+c
+i
+t
+y
+z
+velocity 
+z
+​
+  initialisés à 0.
+Variables publiques 
+a
+c
+c
+e
+l
+e
+r
+a
+t
+i
+o
+n
+acceleration, 
+d
+e
+c
+e
+l
+e
+r
+a
+t
+i
+o
+n
+deceleration, 
+m
+a
+x
+i
+m
+u
+m
+W
+a
+l
+k
+V
+e
+l
+o
+c
+i
+t
+y
+maximumWalkVelocity, 
+m
+a
+x
+i
+m
+u
+m
+R
+u
+n
+V
+e
+l
+o
+c
+i
+t
+y
+maximumRunVelocity pour paramétrer la vitesse et son contrôle.
+Gestion des entrées utilisateur avec Input.GetKey pour les touches 
+W
+W, 
+A
+A, 
+D
+D (avant, gauche, droite) et 
+L
+e
+f
+t
+S
+h
+i
+f
+t
+LeftShift pour courir.
+
+Logique d’augmentation et de diminution des vitesses :
+
+Augmentation progressive des 
+v
+e
+l
+o
+c
+i
+t
+y
+x
+velocity 
+x
+​
+  et 
+v
+e
+l
+o
+c
+i
+t
+y
+z
+velocity 
+z
+​
+  selon les entrées et l’accélération.
+Décélération progressive quand aucune touche n’est pressée.
+Blocage des vitesses aux valeurs maximales selon marche ou course :
+c
+u
+r
+r
+e
+n
+t
+M
+a
+x
+V
+e
+l
+o
+c
+i
+t
+y
+=
+r
+u
+n
+P
+r
+e
+s
+s
+e
+d
+?
+m
+a
+x
+i
+m
+u
+m
+R
+u
+n
+V
+e
+l
+o
+c
+i
+t
+y
+:
+m
+a
+x
+i
+m
+u
+m
+W
+a
+l
+k
+V
+e
+l
+o
+c
+i
+t
+y
+currentMaxVelocity=runPressed?maximumRunVelocity:maximumWalkVelocity
+
+Gestion fine des seuils pour éviter les valeurs instables ou oscillantes (ex : seuil de 0.05 autour des maxima).
+Refactorisation du code pour optimiser :
+
+Passage de chaînes de caractères des paramètres à des int hash via Animator.StringToHash pour améliorer la performance.
+Remplacement des chaînes dans Input.GetKey par des KeyCode.
+Extraction des blocs de code volumineux dans des fonctions dédiées (ChangeVelocity et LockOrResetVelocity) pour améliorer la lisibilité.
+Résumé des apprentissages et conclusions
+La différence entre les types de blend trees 2D tient principalement à la façon dont Unity calcule l’influence de chaque animation selon les paramètres.
+
+Le blend tree 2D freeform directional est le plus adapté pour gérer plusieurs animations dans plusieurs directions simultanément, notamment dans un contexte de déplacement complexe (avant/arrière et strafe).
+
+L’implémentation logicielle nécessite une gestion fine des vitesses, avec accélération, décélération et plafonnement selon l’état du joueur (marche ou course).
+
+Le refactoring est crucial pour maintenir la performance et la clarté du code, surtout dans des scripts de contrôle d’animations complexes.
+
+Prochaines étapes annoncées : retargeting des animations Mixamo vers un autre modèle, arbres d’état d’animation plus complexes, gestion des couches d’animation et événements d’animation.
+
+Points Non spécifiés / Incertains
+Détails précis sur la physique ou les valeurs d’accélération/décélération optimales.
+Approfondissement mathématique des différences entre freeform directional et freeform cartesian (réf. à une thèse universitaire non détaillée).
+Mise en œuvre concrète du blend tree direct dans ce tutoriel (mentionné mais non traité).
+Mots-clés
+Blend Tree 2D, Unity Animation, Animator, 
+v
+e
+l
+o
+c
+i
+t
+y
+x
+velocity 
+x
+​
+ , 
+v
+e
+l
+o
+c
+i
+t
+y
+z
+velocity 
+z
+​
+ , Simple Directional, Freeform Directional, Freeform Cartesian, Direct Blend Tree, Accélération, Décélération, Refactorisation, Mixamo, Contrôle joueur, Animation dynamique.
+Tableau récapitulatif des paramètres d’animation et leurs positions dans le blend tree 2D
+Animation	Position 
+x
+x (
+v
+e
+l
+o
+c
+i
+t
+y
+x
+velocity 
+x
+​
+ )	Position 
+y
+y (
+v
+e
+l
+o
+c
+i
+t
+y
+z
+velocity 
+z
+​
+ )	Description
+Idle	
+0
+0	
+0
+0	Position neutre, immobile
+Walk	
+0
+0	
+0.5
+0.5	Marche avant
+Run	
+0
+0	
+2
+2	Course avant
+Strafe Walk Right	
+0.5
+0.5	
+0
+0	Marche latérale droite
+Strafe Run Right	
+2
+2	
+0
+0	Course latérale droite
+Strafe Walk Left	
+−
+0.5
+−0.5	
+0
+0	Marche latérale gauche
+Strafe Run Left	
+−
+2
+−2	
+0
+0	Course latérale gauche

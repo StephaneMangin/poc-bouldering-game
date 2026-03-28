@@ -1,0 +1,252 @@
+Principaux Concepts et Étapes du Rig d’Animation Procédurale
+Animation Rigging Package : offre une douzaine de composants de contraintes qui peuvent être combinés sur un rig pour créer des animations procédurales.
+Rig : dans ce projet, le gameobject initial nommé "Rig 1" est renommé en EnvironmentInteractionRig.
+Objectif : contrôler le mouvement des bras et des mains via des contraintes procédurales.
+Mise en place des contraintes
+Two-Bone IK Constraint (cinématique inverse à deux os) est utilisée pour chaque bras (gauche et droit) afin de positionner et orienter les articulations selon un point cible.
+Création de deux enfants du rig : LeftArm et RightArm.
+Pour chaque bras, ajout d’un composant Two-Bone IK.
+La propriété Tip est définie en attribuant le gameobject de la main correspondante.
+L’option “Auto Setup from Tip Transform” distribue automatiquement les propriétés Root, Mid et Tip aux os correspondants (épaule, avant-bras, main).
+Source Objects :
+Target : point vers lequel la main doit se déplacer.
+Hint : indique la direction de pliage du membre (situé derrière le coude).
+Visualisation des objets Target et Hint dans la scène via un maillage transparent pour faciliter le travail.
+Activation et visualisation de l’animation procédurale
+Activation possible via le mode preview ou le mode play dans Unity.
+Les mains suivent les cibles en temps réel, tout en conservant les animations clés du reste du corps.
+Positionnement par défaut :
+Les hints sont placés légèrement derrière les coudes pour un mouvement réaliste.
+Les mains sont positionnées à hauteur de coude devant le personnage.
+Ajout de la rotation des mains
+Problème : la main pointe naturellement les doigts vers l’avant, alors que pour toucher une surface, la paume doit être orientée vers l’avant.
+Solution : ajout d’une Multi-Rotation Constraint sur chaque bras.
+La main est l’objet contraint.
+La cible Two-Bone IK est la source.
+Cela permet à la main de s’aligner en rotation sur la cible.
+Le poids (weight) de la contrainte peut être ajusté pour faire varier l’influence entre les deux contraintes.
+Ajustement des offsets de rotation est nécessaire pour aligner l’axe de la paume avec l’axe Z avant de la cible.
+Exemple pour le personnage Banana Man : rotation de ±90° sur l’axe Y selon le bras.
+Programmation de la Machine à États d’Interaction avec l’Environnement
+Création d’un dossier EnvironmentInteractions dans le dossier scripts, contenant huit scripts :
+EnvironmentInteractionStateMachine
+EnvironmentInteractionContext
+EnvironmentInteractionState
+ApproachState
+TouchState
+SearchState
+RiseState
+ResetState
+La classe EnvironmentInteractionStateMachine hérite de StateManager, une classe abstraite contenant les méthodes MonoBehaviour.
+Déclaration d’un enum 
+E
+E
+n
+v
+i
+r
+o
+n
+m
+e
+n
+t
+I
+n
+t
+e
+r
+a
+c
+t
+i
+o
+n
+S
+t
+a
+t
+e
+EEnvironmentInteractionState avec les états suivants :
+S
+e
+a
+r
+c
+h
+Search, 
+A
+p
+p
+r
+o
+a
+c
+h
+Approach, 
+R
+i
+s
+e
+Rise, 
+T
+o
+u
+c
+h
+Touch, 
+R
+e
+s
+e
+t
+Reset.
+Cette enum permet d’assurer que la machine à états utilise uniquement ces états valides.
+Accès aux composants et validation
+Ajout de l’espace de noms UnityEngine.Animations.Rigging pour accéder aux types liés au rigging.
+Sérialisation des champs privés pour les contraintes :
+l
+e
+f
+t
+I
+K
+C
+o
+n
+s
+t
+r
+a
+i
+n
+t
+l
+​
+ eftIKConstraint, 
+r
+i
+g
+h
+t
+I
+K
+C
+o
+n
+s
+t
+r
+a
+i
+n
+t
+r
+​
+ ightIKConstraint (TwoBoneIKConstraint)
+l
+e
+f
+t
+M
+u
+l
+t
+i
+R
+o
+t
+a
+t
+i
+o
+n
+C
+o
+n
+s
+t
+r
+a
+i
+n
+t
+l
+​
+ eftMultiRotationConstraint, 
+r
+i
+g
+h
+t
+M
+u
+l
+t
+i
+R
+o
+t
+a
+t
+i
+o
+n
+C
+o
+n
+s
+t
+r
+a
+i
+n
+t
+r
+​
+ ightMultiRotationConstraint (MultiRotationConstraint)
+Sérialisation des champs pour la vitesse et collision du personnage :
+r
+i
+g
+i
+d
+b
+o
+d
+y
+r
+​
+ igidbody (Rigidbody)
+r
+o
+o
+t
+C
+o
+l
+l
+i
+d
+e
+r
+r
+​
+ ootCollider (CapsuleCollider)
+Utilisation de la classe Assert (namespace UnityEngine.Assertions) pour valider que ces références ne sont pas nulles à l’exécution, empêchant ainsi les erreurs.
+Une méthode ValidateConstraints vérifie chaque référence avec des messages d’erreur explicites.
+Points Clés et Conclusions
+Combinaison de contraintes Two-Bone IK et Multi-Rotation permet un contrôle procédural réaliste des bras et des mains, avec position et orientation adaptées aux interactions.
+Visualisation des cibles et hints facilite la configuration et le débogage.
+Machine à états structurée et typée via un enum garantit la robustesse du système d’interaction.
+Validation proactive des références dans Unity évite les erreurs d’exécution.
+La méthode décrite est adaptable à d’autres personnages, avec ajustements des offsets selon l’orientation locale des os.
+La vidéo souligne l’importance d’une bonne organisation des scripts et des composants pour un développement modulaire et maintenable.
+Table Chronologique des Étapes Principales
+Temps (min:sec)	Étape Clé
+00:00 - 00:01	Présentation du rig et création de EnvironmentInteractionRig
+00:01 - 00:03	Ajout et configuration du Two-Bone IK sur LeftArm et RightArm
+00:03 - 00:04	Visualisation des cibles et activation de l’animation procédurale
+00:04 - 00:06	Ajout de la Multi-Rotation Constraint pour la rotation des mains
+00:06 - 00:07	Finalisation du rig et préparation pour la programmation
+00:07 - 00:12	Introduction et mise en place de la machine à états pour l’interaction environnementale

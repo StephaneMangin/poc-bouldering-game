@@ -1,0 +1,48 @@
+Contrôleurs de personnages dans Unity
+Cette vidéo explique les concepts fondamentaux des contrôleurs de personnages dans Unity, afin d’aider les développeurs à choisir la meilleure solution adaptée à leur jeu. Trois options principales sont détaillées : le contrôleur de personnage intégré (Built-In Character Controller), le Rigidbody dynamique, et le Rigidbody cinématique, ainsi que la possibilité de créer un contrôleur personnalisé.
+
+Définitions et concepts clés
+Contrôleur de personnage : composant ou ensemble de composants attachés à un objet de jeu (gameobject), qui gèrent le mouvement et les interactions avec les collisions (sol, murs, escaliers, autres personnages, projectiles, etc.).
+Built-In Character Controller : composant Unity préfabriqué, combinant un collider et un script qui utilise la classe Character Controller intégrée, offrant des méthodes et propriétés pour :
+déplacement standard,
+gestion des collisions,
+déplacement sur terrains inégaux, pentes et escaliers.
+Rigidbody : composant permettant l’interaction avec le moteur physique de Unity, prenant en compte des propriétés telles que la gravité, la masse, la résistance (drag), et la dynamique des forces.
+Comparaison des contrôleurs
+Critère	Built-In Character Controller	Rigidbody Dynamique	Rigidbody Cinématique
+Interaction avec le système physique	Non	Oui	Partielle (impacte mais n’est pas impacté)
+Prise en compte de la gravité	Oui (via méthode SimpleMove)	Oui (automatique)	Non
+Détection des collisions	Oui	Oui	Oui
+Réactions aux forces externes	Non	Oui	Non
+Gestion des pentes	Monte/descend, ne glisse pas automatiquement	Glisse automatiquement, pas de gestion des escaliers	Déplacement contrôlé par code
+Besoin de programmation	Mouvement à programmer, certaines fonctionnalités intégrées	Mouvement et certaines propriétés à programmer	Contrôle total du mouvement à programmer
+Propriétés spécifiques	Propriété "isGrounded" intégrée	Pas de propriété "isGrounded" intégrée	Nécessite programmation personnalisée
+Explications détaillées
+Le contrôleur intégré est souvent la méthode la plus rapide à mettre en œuvre, car il offre plusieurs fonctionnalités prêtes à l’emploi, notamment la gestion des pentes et des escaliers, ainsi qu’une méthode SimpleMove intégrée pour appliquer la gravité.
+Le Rigidbody dynamique est entièrement soumis aux lois physiques : gravité, forces, collisions dynamiques. Il permet des interactions complexes avec d’autres objets physiques (exemple : un personnage poussé par un cube lancé). Cependant, il ne gère pas les escaliers et ne possède pas de propriété native pour vérifier si le personnage touche le sol.
+Le Rigidbody cinématique ne subit pas les forces physiques externes (gravité, collisions dynamiques) mais peut influencer les autres rigidbodies dynamiques. Il nécessite une programmation complète des mouvements et des réactions aux collisions.
+Le contrôleur personnalisé offre la plus grande flexibilité mais demande un développement complet de toutes les fonctionnalités, y compris la gestion des collisions, de la gravité, des pentes, etc.
+Recommandations et cas d’usage
+Pour un jeu comme un JRPG au tour par tour (ex. Pokémon), où les interactions physiques complexes sont peu nombreuses, le contrôleur intégré est souvent suffisant.
+Pour un jeu basé sur la physique et les interactions dynamiques (ex. Fall Guys), un contrôleur utilisant des Rigidbodies (dynamique ou cinématique) est plus approprié.
+Acheter un contrôleur préfabriqué dans l’Asset Store peut être judicieux pour gagner du temps, surtout si l’objectif est de sortir rapidement un jeu fonctionnel.
+Comprendre en profondeur les caractéristiques de chaque type de contrôleur permet de mieux adapter le choix à son projet.
+Points clés à retenir
+Le choix du contrôleur dépend largement du type de jeu et des besoins spécifiques du personnage.
+Le contrôleur intégré est simple et rapide à utiliser, mais limité en termes de physique.
+Les Rigidbodies permettent des interactions physiques complexes mais nécessitent plus de programmation.
+Un contrôleur personnalisé est le plus flexible mais aussi le plus complexe à développer.
+La programmation du mouvement est obligatoire dans tous les cas, même avec les contrôleurs intégrés ou rigides.
+La gestion de propriétés comme la détection du sol est intégrée dans le contrôleur intégré mais doit être codée pour les rigidbodies.
+Conclusion
+Pour choisir un contrôleur de personnage dans Unity, il est essentiel de bien définir les besoins fonctionnels de son jeu, notamment en matière de physique et d’interactions. Chaque option a ses avantages et ses limites, et souvent une solution hybride ou personnalisée est nécessaire pour obtenir un comportement optimal. La vidéo promet une suite avec des explications détaillées sur la programmation des mouvements pour chaque type de contrôleur, ainsi qu’une introduction à l’animation rigging dans Unity.
+
+Mots-clés
+Contrôleur de personnage (Character Controller)
+Rigidbody dynamique et cinématique
+PhysX Unity
+Collision, gravité, pentes, escaliers
+Mouvement de personnage
+Programmation de contrôleur personnalisé
+Asset Store Unity
+Animation rigging Unity

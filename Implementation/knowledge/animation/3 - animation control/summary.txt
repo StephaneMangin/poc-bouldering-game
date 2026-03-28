@@ -1,0 +1,321 @@
+Contrôle des animations avec Unity Animator Controller et booléens
+Cette vidéo, présentée par Mickey, fait partie d’une série dédiée à l’apprentissage du système d’animation d’Unity. Elle se concentre sur l’utilisation du Animator Controller, en particulier sur la gestion des transitions entre états d’animation via des paramètres booléens.
+
+Concepts clés abordés
+Animator Controller : composant central permettant de gérer les états d’animation et leurs transitions.
+Paramètres dans l’Animator : quatre types disponibles pour contrôler les transitions :
+Float : nombre à virgule flottante.
+Int : nombre entier.
+Bool : valeur booléenne (true/false).
+Trigger : booléen avec un traitement spécifique dans Unity.
+Transitions entre états d’animation : connexions entre animations définies par des conditions basées sur les paramètres.
+Processus expliqué dans la vidéo
+Création de paramètres booléens : ajout d’un paramètre booléen nommé 
+i
+s
+W
+a
+l
+k
+i
+n
+g
+isWalking dans l’onglet Parameters de l’Animator.
+Configuration des transitions : création d’une transition entre l’état Idle et Walk, reliant ces deux animations.
+Condition de transition : la transition vers l’état Walk est déclenchée seulement lorsque 
+i
+s
+W
+a
+l
+k
+i
+n
+g
+=
+t
+r
+u
+e
+isWalking=true.
+Contrôle par script C# :
+Attachement d’un script nommé AnimationStateController au personnage (Y Bot).
+Récupération du composant Animator via la méthode 
+G
+e
+t
+C
+o
+m
+p
+o
+n
+e
+n
+t
+<
+A
+n
+i
+m
+a
+t
+o
+r
+>
+(
+)
+GetComponent<Animator>() dans la fonction 
+S
+t
+a
+r
+t
+(
+)
+Start().
+Dans la fonction 
+U
+p
+d
+a
+t
+e
+(
+)
+Update(), lecture de l’entrée clavier avec 
+I
+n
+p
+u
+t
+.
+G
+e
+t
+K
+e
+y
+(
+"
+W
+"
+)
+Input.GetKey("W") pour déterminer si le joueur souhaite marcher.
+Mise à jour du paramètre booléen 
+i
+s
+W
+a
+l
+k
+i
+n
+g
+isWalking via 
+a
+n
+i
+m
+a
+t
+o
+r
+.
+S
+e
+t
+B
+o
+o
+l
+(
+"
+i
+s
+W
+a
+l
+k
+i
+n
+g
+"
+,
+t
+r
+u
+e
+/
+f
+a
+l
+s
+e
+)
+animator.SetBool("isWalking",true/false) selon l’état de la touche.
+Gestion du délai de transition :
+Le paramètre Has Exit Time est activé par défaut, ce qui impose que la transition se fasse uniquement après avoir joué 97 % de l’animation courante.
+Désactivation de Has Exit Time pour des transitions immédiates.
+Transition inverse : création d’une transition de retour de Walk vers Idle avec condition 
+i
+s
+W
+a
+l
+k
+i
+n
+g
+=
+f
+a
+l
+s
+e
+isWalking=false.
+Optimisation du script:
+Utilisation d’une variable booléenne locale 
+f
+o
+r
+w
+a
+r
+d
+P
+r
+e
+s
+s
+e
+d
+=
+I
+n
+p
+u
+t
+.
+G
+e
+t
+K
+e
+y
+(
+"
+W
+"
+)
+forwardPressed=Input.GetKey("W") pour éviter plusieurs appels à la fonction.
+Vérification de l’état actuel du paramètre avec 
+a
+n
+i
+m
+a
+t
+o
+r
+.
+G
+e
+t
+B
+o
+o
+l
+(
+"
+i
+s
+W
+a
+l
+k
+i
+n
+g
+"
+)
+animator.GetBool("isWalking") pour ne changer la valeur que si nécessaire.
+Utilisation de la fonction 
+A
+n
+i
+m
+a
+t
+o
+r
+.
+S
+t
+r
+i
+n
+g
+T
+o
+H
+a
+s
+h
+Animator.StringToHash pour améliorer les performances en convertissant les noms de paramètres en identifiants entiers.
+Extension à l’animation de course
+Ajout d’un nouveau paramètre booléen 
+i
+s
+R
+u
+n
+n
+i
+n
+g
+isRunning.
+Création de transitions entre Walk et Run basées sur 
+i
+s
+R
+u
+n
+n
+i
+n
+g
+isRunning.
+Gestion de l’entrée utilisateur via la touche 
+L
+e
+f
+t
+S
+h
+i
+f
+t
+LeftShift combinée à 
+W
+W dans le script.
+Conditions modifiées pour activer ou désactiver la course en fonction des deux touches.
+Application des mêmes optimisations que pour la marche (hash des chaînes, contrôle d’état).
+Réglages avancés des transitions
+Option de transition	Description
+Mute	Désactive complètement la transition, empêchant le changement d’animation via celle-ci.
+Solo	Ne joue que cette transition, bloquant toutes les autres transitions simultanées.
+Transition Duration	Durée du mélange entre deux animations, influence la fluidité (0 = transition instantanée).
+Transition Offset	Position de départ dans l’animation cible, exprimée en valeur normalisée (0 à 1).
+Interruption	Permet de changer d’animation en cours de transition seulement si la condition est respectée.
+Exemple d’interruption : si on passe de Idle à Walk et qu’on veut passer rapidement à Run pendant la transition, l’interruption doit être configurée sur Next State.
+La configuration Current State impose de terminer la transition en cours avant de changer d’état.
+Conclusions principales
+Le contrôle des animations via booléens dans l’Animator Controller est simple et efficace pour gérer des états comme l’Idle, la marche et la course.
+Les transitions peuvent être affinées avec des réglages de durée, d’interruption et d’offset pour améliorer la fluidité.
+L’intégration par script permet une interaction dynamique avec les entrées utilisateur, rendant les animations réactives.
+L’optimisation du code en évitant les appels redondants et en utilisant les hash d’Unity améliore les performances.
+Perspectives futures annoncées
+Exploration de méthodes alternatives comme l’utilisation de flow parameters et blender.
+Apprentissage du retargeting des animations sur différents personnages.
+Gestion des animations dans un espace 3D dynamique.

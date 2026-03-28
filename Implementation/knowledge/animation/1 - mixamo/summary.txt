@@ -1,0 +1,49 @@
+Introduction à l’animation dans Unity avec Mixamo
+Ce premier épisode d’une série dédiée à l’apprentissage du système d’animation d’Unity est présenté par Nikki, qui se concentre sur le développement de jeux vidéo à l’aide d’outils comme Unity, Logic Pro X et Blender. L’objectif principal de la série est de maîtriser l’animation dans Unity en utilisant la plateforme gratuite d’Adobe nommée Mixamo.
+
+Concepts clés abordés
+Mixamo : une plateforme gratuite d’Adobe permettant de télécharger des modèles 3D de personnages ainsi que des centaines d’animations. Accessible via un compte utilisateur, Mixamo est idéal pour le prototypage et l’apprentissage.
+Modèles recommandés : Nikki conseille d’utiliser les personnages génériques X-bot ou Y-bot pour leur flexibilité et leur simplicité lors du prototypage.
+Animations sélectionnées : pour le projet, trois animations sont choisies :
+Animation d’idle (immobile)
+Animation de marche
+Animation de course
+Configuration des paramètres d’export dans Mixamo
+Lors du téléchargement d’une animation, quatre menus déroulants sont présentés :
+
+Paramètre	Options disponibles	Choix recommandé par Nikki	Explication / Détails
+Format	FBX, FBX for Unity	FBX for Unity	Optimisation du texturage spécifique à Unity, meilleure intégration.
+Frames per second	24, 30, 60	30 fps	Unity utilise l’interpolation pour calculer les images entre deux frames, 30 fps équilibre qualité et taille.
+Keyframe reduction	None, Low, Medium, High	None	Réduction des images-clés proches pour diminuer la taille du fichier, mais cela peut entraîner des animations moins précises.
+Skinning	With Skin, Without Skin	Selon besoin (With Skin pour inclure modèle 3D)	Avec skin inclut le modèle 3D dans le fichier, sans skin intègre uniquement les données d’animation.
+Interpolation : méthode d’estimation des valeurs d’animation entre deux images-clés. Exemple donné : rotation du bras de 0° à 90°, interpolation crée une image intermédiaire à 45°.
+Réduction des images-clés : élimine les frames dont la différence est insignifiante pour économiser l’espace, mais risque de perte de précision.
+Organisation et importation dans Unity
+Création d’un nouveau projet Unity nommé Learning Animations.
+Suppression des objets par défaut et ajout d’un plan pour le sol à titre de repère.
+Structure de fichiers recommandée :
+Dossier Animations pour les animations.
+Dossier Mixamo pour les fichiers importés depuis Mixamo.
+Importation simple par glisser-déposer des fichiers FBX dans l’onglet Assets de Unity.
+Remarque importante : si le fichier n’inclut pas le skin, il ne contiendra que les données d’animation, pas le modèle 3D.
+Points importants et conseils
+Cocher l’option “in place” pour les animations de déplacement (marche, course) afin que le personnage ne se déplace pas dans la scène Unity lors de la lecture de l’animation. Cela n’est pas une erreur, mais un choix selon l’objectif.
+Nikki recommande de tester et d’explorer librement d’autres animations sur Mixamo avant de passer à la prochaine étape.
+Prochaines étapes annoncées
+Animation des personnages Mixamo dans Unity.
+Compréhension des états d’animation.
+Retargeting des animations d’un personnage à un autre.
+Fusion et blend des animations.
+Conclusion
+Cette introduction offre une base solide pour importer et configurer des animations Mixamo dans Unity, en insistant sur les bonnes pratiques d’export, l’organisation des assets, et les notions clés comme l’interpolation et la réduction d’images-clés. La série promet une exploration approfondie et progressive des fonctionnalités avancées d’animation dans Unity.
+
+Mots-clés
+Unity
+Mixamo
+Animation 3D
+FBX for Unity
+Interpolation
+Reduction des images-clés
+Skinning
+Retargeting
+Blend d’animations

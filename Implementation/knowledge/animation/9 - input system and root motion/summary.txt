@@ -1,0 +1,522 @@
+Points Clés et Concepts Essentiels
+Nouveau système d’entrée Unity :
+
+Sorti de la préversion, il simplifie la gestion des entrées multi-contrôleurs (gamepads, claviers, etc.).
+Installation via le Package Manager, activation en redémarrant Unity, désactivant l’ancien système d’entrée.
+Animations et root motion :
+
+Téléchargement d’animations (idle, walk, run) depuis Mixamo, sans cocher “in-place” pour permettre la root motion.
+Conversion des modèles en humanoïdes pour utiliser l’Animator Unity avec avatar et gestion automatique de la racine (root bone).
+Activation du “Loop Time” sur les animations pour les répéter en boucle.
+Mise en place d’un Animator Controller avec des états (idle, walk, run) et des transitions gérées par des paramètres booléens (
+i
+s
+W
+a
+l
+k
+i
+n
+g
+isWalking, 
+i
+s
+R
+u
+n
+n
+i
+n
+g
+isRunning).
+Explication de la root motion : le mouvement du personnage est "baked" dans l’animation, et doit être activé via la case “Apply root motion” dans l’Animator.
+Ajustement des paramètres “Root Transform” dans les animations pour corriger les mouvements (ex. : rotation en “Original” + “Bake Into Pose”).
+Configuration du nouveau système d’entrée :
+
+Création d’un InputAction asset nommé “PlayerInput”.
+Définition d’un Action Map (“CharacterControls”) regroupant des actions (“Movement”, “Run”).
+Assignation des bindings : joystick gauche pour le mouvement (type “Vector2”), bouton gauche d’épaule pour courir (type “Button” avec interaction “press and release”).
+Utilisation du bouton “Listen” pour détecter automatiquement les entrées du contrôleur (Nintendo Switch Pro, PS4, Xbox, etc.).
+Ajout d’un processeur “stick deadzone” pour filtrer les valeurs faibles du joystick.
+Programmation C# avec le nouveau système d’entrée :
+
+Génération automatique d’une classe C# à partir de l’InputAction asset pour un accès simplifié en code.
+Déclaration des variables :
+Animator 
+a
+n
+i
+m
+a
+t
+o
+r
+animator
+Hash des paramètres booléens 
+i
+s
+W
+a
+l
+k
+i
+n
+g
+H
+a
+s
+h
+isWalkingHash, 
+i
+s
+R
+u
+n
+n
+i
+n
+g
+H
+a
+s
+h
+isRunningHash
+Instance de la classe générée 
+i
+n
+p
+u
+t
+input (ex. PlayerInput)
+Variables pour stocker l’état des entrées : 
+V
+e
+c
+t
+o
+r
+2
+Vector2 
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+currentMovement, booléens 
+m
+o
+v
+e
+m
+e
+n
+t
+P
+r
+e
+s
+s
+e
+d
+movementPressed, 
+r
+u
+n
+P
+r
+e
+s
+s
+e
+d
+runPressed.
+Initialisation dans les fonctions 
+A
+w
+a
+k
+e
+(
+)
+Awake() (instanciation de 
+i
+n
+p
+u
+t
+input) et 
+S
+t
+a
+r
+t
+(
+)
+Start() (récupération de l’Animator).
+Activation/désactivation des Action Maps dans 
+O
+n
+E
+n
+a
+b
+l
+e
+(
+)
+OnEnable() / 
+O
+n
+D
+i
+s
+a
+b
+l
+e
+(
+)
+OnDisable().
+Mise en place de callback functions pour écouter les actions “Movement” et “Run” via 
+p
+e
+r
+f
+o
+r
+m
+e
+d
+performed (lambda expressions).
+Lecture des valeurs d’entrée avec 
+R
+e
+a
+d
+V
+a
+l
+u
+e
+<
+V
+e
+c
+t
+o
+r
+2
+>
+(
+)
+ReadValue<Vector2>() pour le joystick et 
+R
+e
+a
+d
+V
+a
+l
+u
+e
+A
+s
+B
+u
+t
+t
+o
+n
+(
+)
+ReadValueAsButton() pour le bouton run.
+Logique de mise à jour des paramètres d’animation selon les entrées : marche si joystick actif, course si bouton appuyé en plus.
+Appel de la fonction 
+h
+a
+n
+d
+l
+e
+M
+o
+v
+e
+m
+e
+n
+t
+(
+)
+handleMovement() dans 
+U
+p
+d
+a
+t
+e
+(
+)
+Update() pour appliquer le mouvement.
+Gestion de la rotation du personnage :
+
+Utilisation des valeurs normalisées de 
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+currentMovement (entre -1 et 1 sur x et y) pour orienter le personnage dans la bonne direction.
+Calcul d’une nouvelle position cible en 3D :
+newPosition
+=
+new Vector3
+(
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+.
+x
+,
+0
+,
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+.
+y
+)
+newPosition=new Vector3(currentMovement.x,0,currentMovement.y)
+
+Application de la rotation avec 
+t
+r
+a
+n
+s
+f
+o
+r
+m
+.
+L
+o
+o
+k
+A
+t
+(
+p
+o
+s
+i
+t
+i
+o
+n
+T
+o
+L
+o
+o
+k
+A
+t
+)
+transform.LookAt(positionToLookAt) où 
+p
+o
+s
+i
+t
+i
+o
+n
+T
+o
+L
+o
+o
+k
+A
+t
+=
+c
+u
+r
+r
+e
+n
+t
+P
+o
+s
+i
+t
+i
+o
+n
++
+n
+e
+w
+P
+o
+s
+i
+t
+i
+o
+n
+positionToLookAt=currentPosition+newPosition.
+Invocation de 
+h
+a
+n
+d
+l
+e
+R
+o
+t
+a
+t
+i
+o
+n
+(
+)
+handleRotation() dans la fonction 
+U
+p
+d
+a
+t
+e
+(
+)
+Update().
+Tableau récapitulatif des paramètres et actions
+Élément	Type/Description	Détails clés
+Action Map	“CharacterControls”	Contient les actions liées aux contrôles du perso
+Action “Movement”	Type : Pass-Through ou Value	Contrôle le joystick gauche (Vector2)
+Action “Run”	Type : Button	Bouton gauche d’épaule, interaction “press and release”
+Paramètres Animator	
+i
+s
+W
+a
+l
+k
+i
+n
+g
+isWalking, 
+i
+s
+R
+u
+n
+n
+i
+n
+g
+isRunning (booléens)	Contrôlent les transitions d’animation
+Variables de script	
+c
+u
+r
+r
+e
+n
+t
+M
+o
+v
+e
+m
+e
+n
+t
+currentMovement (Vector2), 
+m
+o
+v
+e
+m
+e
+n
+t
+P
+r
+e
+s
+s
+e
+d
+movementPressed, 
+r
+u
+n
+P
+r
+e
+s
+s
+e
+d
+runPressed (bool)	Stockent l’état actuel des entrées
+Conclusions et recommandations
+Le nouveau système d’entrée de Unity offre une gestion puissante et flexible des contrôles multi-appareils grâce aux Action Maps, aux bindings configurables et aux callbacks en C#.
+La root motion simplifie le déplacement réaliste des personnages en intégrant le mouvement dans les animations, mais nécessite une configuration précise des options d’importation et du contrôleur d’animations.
+La séparation claire entre la gestion des entrées (Input System) et la logique d’animation permet un code propre et maintenable.
+La rotation dynamique du personnage basée sur les valeurs du joystick ouvre la voie à des contrôles fluides et intuitifs, adaptés aux jeux 3D isométriques ou 360 degrés.
+Ce tutoriel pose une base solide avant d’aborder des concepts avancés comme les rigidbodies et les character controllers.
+Perspectives futures annoncées
+Extension vers du déplacement à 360 degrés.
+Intégration de rigidbodies et character controllers pour une physique réaliste.
+Exploration approfondie des processors et interactions dans le nouveau système d’entrée.

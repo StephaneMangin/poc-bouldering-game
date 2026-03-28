@@ -18,3 +18,28 @@ MonoBehaviour:
   hipsMoveSpeed: 2
   enduranceMax: 100
   enduranceCostGrab: 2
+  cogMaxOffset: 0.6
+  cogOffsetPenaltyStart: 0.2
+  cogOffsetPenaltyMult: 2
+  weightRatioHandsVertical: 0.35
+  weightRatioHandsOverhang: 0.55
+  weightRatioHandsStrongOverhang: 0.7
+  weightRatioHandsRoof: 0.9
+  weightRatioHandsSlab: 0.15
+  wallAngleEnduranceMultSlab: 0.6
+  wallAngleEnduranceMultVertical: 1
+  wallAngleEnduranceMultOverhang: 1.6
+  wallAngleEnduranceMultStrongOverhang: 2
+  wallAngleEnduranceMultRoof: 2.5
+  wallAngleFatigueMultSlab: 0.5
+  wallAngleFatigueMultVertical: 1
+  wallAngleFatigueMultOverhang: 1.8
+  wallAngleFatigueMultStrongOverhang: 2.5
+  wallAngleFatigueMultRoof: 3
+  wallAngleGripDrainMultSlab: 0.7
+  wallAngleGripDrainMultVertical: 1
+  wallAngleGripDrainMultOverhang: 1.4
+  wallAngleGripDrainMultStrongOverhang: 1.7
+  wallAngleGripDrainMultRoof: 2
+  slabBodyFriction: 0.4
+  bodyWallContactThreshold: 0.3

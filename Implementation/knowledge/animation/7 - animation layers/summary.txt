@@ -1,0 +1,48 @@
+Maîtriser les couches d’animation dans Unity avec le système Avatar
+Cette vidéo, présentée par Nicky sur la chaîne iHeartGameDev, fait partie d’une série dédiée à l’apprentissage du système d’animation Unity, plus précisément à l’utilisation combinée du système d’avatar humanoïde et des couches d’animation pour contrôler différentes parties du corps d’un personnage.
+
+Concepts clés et processus expliqués
+Problématique posée : comment faire qu’un personnage puisse viser une arme (mouvement des bras) tout en restant capable de marcher ou courir (mouvements des jambes et du torse).
+Solution Unity : l’utilisation des couches d’animation (Animation Layers) dans un contrôleur d’animation pour superposer des animations. La couche de base contrôle les mouvements principaux (ex. jambes, torse), tandis qu’une couche supplémentaire (ex. « arms ») contrôle uniquement certaines parties (ex. bras).
+Masques d’avatar (Avatar Masks) : ils permettent de spécifier quelles parties du corps sont affectées par une couche d’animation donnée. Par exemple, un masque exclut les jambes de la couche « aiming » pour que la marche ne soit pas interrompue.
+Paramètres des couches :
+Weight : influence de la couche, de 0 (aucun impact) à 1 (impact total).
+Mask : sélection des os affectés par la couche.
+Blending : modes Override (remplace l’animation en dessous) ou Additive (additionne les différences d’animation entre couches).
+Sync : synchronise la structure des états d’animation entre couches, utile pour des variantes (ex. animations « blessé » synchronisées avec la base).
+Timing : ajuste la vitesse d’animation pour correspondre à la couche source synchronisée.
+IK Pass : active la cinématique inverse (Inverse Kinematics) pour permettre des ajustements dynamiques (ex. position de la tête ou du bras suivant un objet).
+Étapes pratiques démontrées
+Importation d’animations Mixamo : téléchargement d’un personnage humanoïde (YBot) et différentes animations (idle, walk, run, pistol idle, crouch idle, injured idle/walk/run).
+Configuration rigide : passage des animations au type Humanoid et partage d’avatar pour réutilisation.
+Création d’un Animator Controller et ajout d’animations dans la couche de base.
+Ajout d’une couche « aiming » avec un masque ciblant uniquement les bras.
+Test de l’influence du poids de la couche pour superposer la visée à la marche.
+Explication détaillée du masque d’avatar avec sélection des os via l’inspecteur.
+Démonstration des modes de blending :
+Override remplace l’animation des os sélectionnés.
+Additive combine les couches en appliquant les différences par rapport à une pose de référence.
+Exemple avancé avec couches additives : contrôle indépendant de la visée verticale et horizontale via deux blend trees.
+Optimisation d’une animation accroupie (crouch) : réduction à deux keyframes avec pose de référence pour interpolation fluide et performances améliorées.
+Utilisation du mode Sync pour créer une couche « injured » synchronisée avec la couche de base, facilitant le changement d’animation en fonction de la santé du joueur.
+Réglage du paramètre Timing pour gérer des vitesses d’animation différentes entre couches synchronisées.
+Activation de IK Pass pour démontrer la cinématique inverse avec un exemple où la tête et le bras suivent des sphères mobiles dans la scène.
+Tableau récapitulatif des paramètres des couches d’animation
+Paramètre	Description	Exemple d’usage
+Weight	Influence de la couche, de 0 à 1	1 pour que la couche « aiming » soit active
+Mask	Sélection des os affectés par la couche	Masque excluant les jambes pour garder la marche
+Blending	Mode Override (remplace) ou Additive (additionne les différences par rapport à une pose)	Additive pour combiner visée verticale et horizontale
+Sync	Synchronisation des états entre couches	Couche « injured » synchronisée avec base
+Timing	Ajuste la durée et vitesse des animations synchronisées	Vitesse de marche doublée dans couche FastWalk
+IK Pass	Active la cinématique inverse (OnAnimatorIK)	Tête et bras suivent des objets dynamiquement
+Points importants et conclusions
+Les couches d’animation permettent un contrôle précis et modulaire des différentes parties du corps, en superposant des animations sans compromettre les mouvements principaux.
+L’usage des masques d’avatar est essentiel pour cibler précisément les os concernés par chaque couche.
+Le mode Additive est puissant mais sensible à la pose de référence utilisée, nécessitant une bonne préparation des animations.
+Le mode Sync facilite la gestion de variantes d’animations complexes, en conservant la cohérence des états.
+L’activation de IK Pass ouvre la porte à des ajustements dynamiques réalistes, améliorant la réactivité des animations à l’environnement.
+Cette vidéo prépare les spectateurs à des techniques avancées d’animation, notamment la gestion d’événements d’animation et l’intégration avec la physique Unity dans les tutoriels suivants.
+Conclusion
+Cette vidéo offre une introduction détaillée et pratique aux couches d’animation dans Unity, en combinant théorie et démonstrations concrètes. Elle met en lumière l’importance du système d’avatar humanoïde et des masques pour un contrôle fin du personnage, tout en présentant les paramètres fondamentaux des couches et leurs impacts sur l’animation. L’exemple de la visée en marchant illustre parfaitement la puissance de la méthode. Enfin, l’aperçu sur la cinématique inverse (IK) ouvre la voie à des animations encore plus réalistes et interactives.
+
+Un contenu essentiel pour tout développeur souhaitant maîtriser l’animation avancée dans Unity !

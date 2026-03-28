@@ -1,5 +1,5 @@
 using Project.Core.Domain;
-using Project.Features.Climbing.Presentation;
+using Project.Features.Camera.Presentation;
 using UnityEngine;
 
 namespace Project.UI
@@ -13,11 +13,11 @@ namespace Project.UI
         private GUIStyle _labelStyle;
         private float _grabRange;
         private float _hipsMoveSpeed;
-        private float _cameraSmooth;
+        private float _mouseSensitivity;
 
         private const float DefaultGrabRange = 1.6f;
         private const float DefaultMoveSpeed = 2.0f;
-        private const float DefaultCameraSmooth = 0.6f;
+        private const float DefaultMouseSensitivity = 2.0f;
 
         private void Awake()
         {
@@ -61,8 +61,8 @@ namespace Project.UI
             _hipsMoveSpeed = GUI.HorizontalSlider(new Rect(panelX + 180f, rowY + 5f, 250f, 20f), _hipsMoveSpeed, 1.0f, 8.0f);
 
             rowY += 46f;
-            GUI.Label(new Rect(panelX + 10f, rowY, 200f, 24f), $"Camera Smooth: {_cameraSmooth:F2}", _labelStyle);
-            _cameraSmooth = GUI.HorizontalSlider(new Rect(panelX + 180f, rowY + 5f, 250f, 20f), _cameraSmooth, 0.03f, 0.6f);
+            GUI.Label(new Rect(panelX + 10f, rowY, 200f, 24f), $"Mouse Sensitivity: {_mouseSensitivity:F2}", _labelStyle);
+            _mouseSensitivity = GUI.HorizontalSlider(new Rect(panelX + 180f, rowY + 5f, 250f, 20f), _mouseSensitivity, 0.5f, 5.0f);
 
             rowY += 54f;
             if (GUI.Button(new Rect(panelX + 10f, rowY, 130f, 28f), "Apply"))
@@ -92,7 +92,7 @@ namespace Project.UI
 
             if (cameraFollowController != null)
             {
-                cameraFollowController.FollowSmoothTime = _cameraSmooth;
+                cameraFollowController.MouseSensitivity = _mouseSensitivity;
             }
         }
 
@@ -100,14 +100,16 @@ namespace Project.UI
         {
             _grabRange = DefaultGrabRange;
             _hipsMoveSpeed = DefaultMoveSpeed;
-            _cameraSmooth = DefaultCameraSmooth;
+            _mouseSensitivity = DefaultMouseSensitivity;
         }
 
         private void SyncFromCurrentValues()
         {
             _grabRange = tuningConfig != null ? tuningConfig.grabRange : DefaultGrabRange;
             _hipsMoveSpeed = tuningConfig != null ? tuningConfig.hipsMoveSpeed : DefaultMoveSpeed;
-            _cameraSmooth = cameraFollowController != null ? cameraFollowController.FollowSmoothTime : DefaultCameraSmooth;
+            _mouseSensitivity = cameraFollowController != null
+                ? cameraFollowController.MouseSensitivity
+                : DefaultMouseSensitivity;
         }
     }
 }
