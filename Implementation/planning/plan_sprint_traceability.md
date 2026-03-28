@@ -7,6 +7,7 @@ Verify that every requirement in the plan is covered by at least one sprint with
 | Requirement | Plan source | Sprint(s) | Expected deliverable | Validation KPI |
 |---|---|---|---|---|
 | Stable player FSM | `plan/04_technical/player_fsm.md` | S1.0, S5.0 | Debuggable states and transitions (13 states) | 0 blocking transition |
+| Readable fall physics + route visual organization | `plan/01_gameplay/game_loop.md`, `plan/03_levels/routes_mvp.md` | S1.1 (extension) | Physics-driven fall + lane-organized wall + basic mannequin readability pass | Testers identify route intent and fall state |
 | COG + weight distribution | `plan/02_systems/physics_model.md` | S2.0 | COG computation + weight ratios + debug overlay | COG visibly affects climbing effort |
 | PhysicMaterials | `plan/02_systems/physics_model.md` | S2.0 | 6 materials (wall, holds, crash pad, shoe) | Distinguishable friction behavior |
 | Wall angle physics | `plan/02_systems/physics_model.md` | S2.0 | Slab/vertical/overhang/roof multipliers | Overhang feels harder than vertical |
