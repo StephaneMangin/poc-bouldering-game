@@ -41,11 +41,11 @@ namespace Project.Features.Climbing.Presentation
             torso = FindBest(root, "chest", "upperchest", "torso", "spine2", "spine1", "spine", "ribcage", "body");
             head = FindBest(root, "head");
 
-            leftUpperArm = FindBest(root, "leftupperarm", "lupperarm", "upperarml", "arm_l", "upperarml");
+            leftUpperArm = FindBest(root, "leftupperarm", "lupperarm", "upperarml", "arm_l", "leftarm");
             leftForearm = FindBest(root, "leftlowerarm", "leftforearm", "lforearm", "lowerarml", "forearm_l", "forearml");
             leftHand = FindBest(root, "lefthand", "lhand", "hand_l", "handl");
 
-            rightUpperArm = FindBest(root, "rightupperarm", "rupperarm", "upperarmr", "arm_r", "upperarmr");
+            rightUpperArm = FindBest(root, "rightupperarm", "rupperarm", "upperarmr", "arm_r", "rightarm");
             rightForearm = FindBest(root, "rightlowerarm", "rightforearm", "rforearm", "lowerarmr", "forearm_r", "forearmr");
             rightHand = FindBest(root, "righthand", "rhand", "hand_r", "handr");
 
