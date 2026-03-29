@@ -19,6 +19,7 @@ namespace Project.Core.Input
         private InputAction _fallAction;
         private InputAction _landAction;
         private InputAction _sprintAction;
+        private InputAction _chalkAction;
 #endif
 
         private void OnEnable()
@@ -34,6 +35,7 @@ namespace Project.Core.Input
             _fallAction.Enable();
             _landAction.Enable();
             _sprintAction.Enable();
+            _chalkAction.Enable();
 #endif
         }
 
@@ -49,6 +51,7 @@ namespace Project.Core.Input
             _fallAction?.Disable();
             _landAction?.Disable();
             _sprintAction?.Disable();
+            _chalkAction?.Disable();
 #endif
         }
 
@@ -187,6 +190,17 @@ namespace Project.Core.Input
                     || UnityEngine.Input.GetKey(KeyCode.UpArrow));
         }
 
+        public bool ConsumeChalkPressed()
+        {
+#if ENABLE_INPUT_SYSTEM
+            if (_chalkAction != null && _chalkAction.WasPressedThisFrame())
+            {
+                return true;
+            }
+#endif
+            return useLegacyFallback && UnityEngine.Input.GetKeyDown(KeyCode.C);
+        }
+
 #if ENABLE_INPUT_SYSTEM
         private void EnsureActionsCreated()
         {
@@ -227,6 +241,10 @@ namespace Project.Core.Input
             _sprintAction.AddBinding("<Keyboard>/leftShift");
             _sprintAction.AddBinding("<Keyboard>/rightShift");
             _sprintAction.AddBinding("<Gamepad>/leftStickPress");
+
+            _chalkAction = new InputAction("Chalk", InputActionType.Button);
+            _chalkAction.AddBinding("<Keyboard>/c");
+            _chalkAction.AddBinding("<Gamepad>/buttonWest");
         }
 
         private static void AddMoveComposite(InputAction action, string up, string down, string left, string right)

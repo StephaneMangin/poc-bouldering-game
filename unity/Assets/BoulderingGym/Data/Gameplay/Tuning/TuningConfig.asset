@@ -18,6 +18,9 @@ MonoBehaviour:
   hipsMoveSpeed: 2
   enduranceMax: 100
   enduranceCostGrab: 2
+  enduranceRegenRestPerS: 6
+  enduranceCostReposition: 4
+  enduranceCostDyno: 12
   cogMaxOffset: 0.6
   cogOffsetPenaltyStart: 0.2
   cogOffsetPenaltyMult: 2
@@ -43,3 +46,21 @@ MonoBehaviour:
   wallAngleGripDrainMultRoof: 2
   slabBodyFriction: 0.4
   bodyWallContactThreshold: 0.3
+  adherenceMax: 100
+  adherenceLossBasePerS: 1.5
+  adherenceLossBurst: 5
+  chalkRestoreValue: 35
+  chalkCooldownSeconds: 20
+  adherenceMicroSlipThreshold: 30
+  fatigueGainBasePerS: 7
+  fatigueRecoverRestPerS: 10
+  fatigueWarningThreshold: 60
+  fatigueCriticalThreshold: 80
+  fatigueFailureThreshold: 95
+  gripTypeFatigueMultJug: 0.6
+  gripTypeFatigueMultOpen: 0.8
+  gripTypeFatigueMultPinch: 1
+  gripTypeFatigueMultCrimp: 1.3
+  gripTypeFatigueMultGaston: 1.4
+  gripTypeFatigueMultUndercling: 1.5
+  gripTypeFatigueMultSloper: 1.2

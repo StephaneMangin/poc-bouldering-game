@@ -45,10 +45,10 @@ namespace Project.UI
                 return;
             }
 
-            const float panelX = 20f;
-            const float panelY = 120f;
-            const float panelW = 460f;
+            var panelW = 460f;
             const float panelH = 240f;
+            var panelX = Screen.width - panelW - 10f;
+            const float panelY = 240f;
 
             GUI.Box(new Rect(panelX, panelY, panelW, panelH), "Playtest Tuning (F1 to hide)");
 

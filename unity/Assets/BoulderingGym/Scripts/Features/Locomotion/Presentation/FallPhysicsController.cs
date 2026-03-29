@@ -12,7 +12,7 @@ namespace Project.Features.Locomotion.Presentation
         [SerializeField] private HipsMovementController hipsMovement;
         [SerializeField] private CharacterController characterController;
         [SerializeField] private Transform resetAnchor;
-        [SerializeField] private float resetBelowY = -2f;
+        [SerializeField] private float resetBelowY = -0.5f;
 
         private bool _isFalling;
         private Vector3 _initialPosition;
@@ -69,6 +69,12 @@ namespace Project.Features.Locomotion.Presentation
         {
             var targetPosition = resetAnchor != null ? resetAnchor.position : _initialPosition;
             var targetRotation = resetAnchor != null ? resetAnchor.rotation : _initialRotation;
+
+            // Add skinWidth margin so the CC doesn't spawn clipping into the crash pad
+            if (characterController != null)
+            {
+                targetPosition.y += characterController.skinWidth;
+            }
 
             if (characterController != null) characterController.enabled = false;
             transform.SetPositionAndRotation(targetPosition, targetRotation);

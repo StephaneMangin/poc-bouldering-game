@@ -36,6 +36,7 @@ namespace Project.Features.Locomotion.Presentation
         private int _groundedFrames;
 
         public bool IsWalking { get; private set; }
+        public bool IsWalkingBackward { get; private set; }
 
         private void Awake()
         {
@@ -85,31 +86,38 @@ namespace Project.Features.Locomotion.Presentation
             if (state != PlayerStateId.IdleGround && state != PlayerStateId.Falling)
             {
                 IsWalking = false;
+                IsWalkingBackward = false;
                 return;
             }
 
             ApplyGravity();
 
-            var wantsWalk = state == PlayerStateId.IdleGround
-                            && inputReader != null
-                            && inputReader.ReadWalkHeld();
+            var moveInput = state == PlayerStateId.IdleGround && inputReader != null
+                ? inputReader.ReadMove()
+                : Vector2.zero;
 
+            var hasInput = moveInput.sqrMagnitude > 0.01f;
             var horizontalMovement = Vector3.zero;
 
-            if (wantsWalk && cameraFollowController != null)
+            if (hasInput && cameraFollowController != null)
             {
-                var direction = Quaternion.Euler(0f, cameraFollowController.OrbitYaw, 0f) * Vector3.forward;
+                var yawRotation = Quaternion.Euler(0f, cameraFollowController.OrbitYaw, 0f);
+                var direction = yawRotation * new Vector3(moveInput.x, 0f, moveInput.y);
+                direction.Normalize();
                 horizontalMovement = direction * (walkSpeed * Time.deltaTime);
 
-                // Rotate body toward movement direction
-                var targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                // Rotate body toward camera forward (not movement direction)
+                // so backward walking plays correctly without spinning the character
+                var facingDirection = yawRotation * Vector3.forward;
+                var targetRotation = Quaternion.LookRotation(facingDirection, Vector3.up);
                 transform.rotation = Quaternion.Slerp(
                     transform.rotation,
                     targetRotation,
                     1f - Mathf.Exp(-turnSpeed * Time.deltaTime));
             }
 
-            IsWalking = wantsWalk;
+            IsWalkingBackward = hasInput && moveInput.y < -0.1f && Mathf.Abs(moveInput.x) < Mathf.Abs(moveInput.y);
+            IsWalking = hasInput && !IsWalkingBackward;
 
             var verticalMovement = new Vector3(0f, _verticalVelocity * Time.deltaTime, 0f);
             characterController.Move(horizontalMovement + verticalMovement);
@@ -155,6 +163,8 @@ namespace Project.Features.Locomotion.Presentation
             {
                 _groundedFrames = 0;
                 _verticalVelocity += gravity * Time.deltaTime;
+                // Clamp terminal velocity to avoid clipping through thin geometry
+                _verticalVelocity = Mathf.Max(_verticalVelocity, -15f);
             }
         }
     }

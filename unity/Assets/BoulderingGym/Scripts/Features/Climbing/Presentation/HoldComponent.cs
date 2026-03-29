@@ -1,4 +1,5 @@
 using System;
+using Project.Features.Climbing.Domain;
 using UnityEngine;
 
 namespace Project.Features.Climbing.Presentation
@@ -14,7 +15,9 @@ namespace Project.Features.Climbing.Presentation
     public struct HoldData
     {
         public HoldQuality holdQuality;
+        public GripType gripType;
         [Range(0.5f, 2.0f)] public float gripTextureHold;
+        [Range(0.5f, 2.0f)] public float gripTextureWall;
     }
 
     public sealed class HoldComponent : MonoBehaviour

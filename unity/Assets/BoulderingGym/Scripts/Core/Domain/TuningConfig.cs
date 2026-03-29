@@ -18,6 +18,9 @@ namespace Project.Core.Domain
         [Header("Endurance")]
         [Range(10f, 300f)] public float enduranceMax = 100f;
         [Range(0f, 20f)] public float enduranceCostGrab = 2f;
+        [Range(0f, 20f)] public float enduranceRegenRestPerS = 6f;
+        [Range(0f, 10f)] public float enduranceCostReposition = 4f;
+        [Range(0f, 25f)] public float enduranceCostDyno = 12f;
 
         [Header("Physics Model - COG")]
         [Range(0.2f, 1.2f)] public float cogMaxOffset = 0.6f;
@@ -55,5 +58,29 @@ namespace Project.Core.Domain
         [Header("Body-Wall Contact")]
         [Range(0.1f, 0.8f)] public float slabBodyFriction = 0.4f;
         [Range(0.1f, 0.6f)] public float bodyWallContactThreshold = 0.3f;
+
+        [Header("Grip (Adherence)")]
+        [Range(10f, 200f)] public float adherenceMax = 100f;
+        [Range(0f, 5f)] public float adherenceLossBasePerS = 1.5f;
+        [Range(0f, 15f)] public float adherenceLossBurst = 5f;
+        [Range(0f, 60f)] public float chalkRestoreValue = 35f;
+        [Range(5f, 60f)] public float chalkCooldownSeconds = 20f;
+        [Range(5f, 50f)] public float adherenceMicroSlipThreshold = 30f;
+
+        [Header("Local Fatigue")]
+        [Range(1f, 20f)] public float fatigueGainBasePerS = 7f;
+        [Range(0f, 20f)] public float fatigueRecoverRestPerS = 10f;
+        [Range(40f, 80f)] public float fatigueWarningThreshold = 60f;
+        [Range(60f, 95f)] public float fatigueCriticalThreshold = 80f;
+        [Range(85f, 100f)] public float fatigueFailureThreshold = 95f;
+
+        [Header("Grip Type - Fatigue Multipliers")]
+        [Range(0.3f, 1f)] public float gripTypeFatigueMultJug = 0.6f;
+        [Range(0.4f, 1.2f)] public float gripTypeFatigueMultOpen = 0.8f;
+        public float gripTypeFatigueMultPinch = 1.0f;
+        [Range(0.8f, 1.8f)] public float gripTypeFatigueMultCrimp = 1.3f;
+        [Range(1f, 2f)] public float gripTypeFatigueMultGaston = 1.4f;
+        [Range(1f, 2.2f)] public float gripTypeFatigueMultUndercling = 1.5f;
+        [Range(0.8f, 2f)] public float gripTypeFatigueMultSloper = 1.2f;
     }
 }

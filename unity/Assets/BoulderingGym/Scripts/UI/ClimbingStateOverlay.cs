@@ -7,14 +7,35 @@ namespace Project.UI
     {
         [SerializeField] private PlayerStateMachineDriver driver;
 
-        private GUIStyle _style;
+        private GUIStyle _labelStyle;
+        private GUIStyle _headerStyle;
+        private GUIStyle _valueStyle;
+        private GUIStyle _helpStyle;
 
         private void Awake()
         {
-            _style = new GUIStyle
+            _headerStyle = new GUIStyle
             {
-                fontSize = 20,
+                fontSize = 16,
+                fontStyle = FontStyle.Bold,
                 normal = { textColor = Color.white },
+            };
+            _labelStyle = new GUIStyle
+            {
+                fontSize = 14,
+                normal = { textColor = new Color(0.8f, 0.8f, 0.8f) },
+            };
+            _valueStyle = new GUIStyle
+            {
+                fontSize = 14,
+                fontStyle = FontStyle.Bold,
+                normal = { textColor = Color.white },
+            };
+            _helpStyle = new GUIStyle
+            {
+                fontSize = 11,
+                wordWrap = true,
+                normal = { textColor = new Color(0.7f, 0.7f, 0.7f) },
             };
         }
 
@@ -22,7 +43,9 @@ namespace Project.UI
         {
             if (driver == null || driver.StateMachine == null)
             {
-                GUI.Label(new Rect(20f, 20f, 500f, 30f), "FSM: <missing driver>", _style);
+                GUI.Box(new Rect(15f, 10f, 260f, 40f), "");
+                GUI.Label(new Rect(20f, 14f, 250f, 22f), "Player State", _headerStyle);
+                GUI.Label(new Rect(20f, 32f, 250f, 18f), "<missing driver>", _labelStyle);
                 return;
             }
 
@@ -35,9 +58,49 @@ namespace Project.UI
                 ? driver.PlayerHands.RightCurrentHold.name
                 : "None";
             var supportCount = driver.PlayerHands != null ? driver.PlayerHands.SupportCount : 0;
-            GUI.Label(new Rect(20f, 20f, 1600f, 30f), $"FSM: {state} | Last Trigger: {lastTrigger} | Status: {driver.LastActionStatus}", _style);
-            GUI.Label(new Rect(20f, 50f, 1600f, 30f), $"Hands: Left={leftHold} | Right={rightHold} | Supports={supportCount}", _style);
-            GUI.Label(new Rect(20f, 80f, 1600f, 30f), "InputReader defaults: ZQSD/WASD/arrows or gamepad left stick move | J left grab | E or L right grab | U/O release | R release all | C recenter camera (R3 gamepad) | F fall | Space land", _style);
+            var status = driver.LastActionStatus ?? "Ready";
+
+            const float panelX = 15f;
+            const float panelY = 10f;
+            const float panelW = 380f;
+            const float panelH = 170f;
+            const float labelW = 100f;
+            const float valueX = panelX + labelW + 10f;
+            const float valueW = panelW - labelW - 25f;
+
+            GUI.Box(new Rect(panelX, panelY, panelW, panelH), "");
+
+            var y = panelY + 6f;
+            GUI.Label(new Rect(panelX + 10f, y, panelW - 20f, 22f), "Player State", _headerStyle);
+            y += 24f;
+
+            GUI.Label(new Rect(panelX + 10f, y, labelW, 18f), "FSM State", _labelStyle);
+            GUI.Label(new Rect(valueX, y, valueW, 18f), state.ToString(), _valueStyle);
+            y += 20f;
+
+            GUI.Label(new Rect(panelX + 10f, y, labelW, 18f), "Last Trigger", _labelStyle);
+            GUI.Label(new Rect(valueX, y, valueW, 18f), lastTrigger, _valueStyle);
+            y += 20f;
+
+            GUI.Label(new Rect(panelX + 10f, y, labelW, 18f), "Left Hand", _labelStyle);
+            GUI.Label(new Rect(valueX, y, valueW, 18f), leftHold, _valueStyle);
+            y += 20f;
+
+            GUI.Label(new Rect(panelX + 10f, y, labelW, 18f), "Right Hand", _labelStyle);
+            GUI.Label(new Rect(valueX, y, valueW, 18f), rightHold, _valueStyle);
+            y += 20f;
+
+            GUI.Label(new Rect(panelX + 10f, y, labelW, 18f), "Supports", _labelStyle);
+            GUI.Label(new Rect(valueX, y, valueW, 18f), supportCount.ToString(), _valueStyle);
+            y += 20f;
+
+            GUI.Label(new Rect(panelX + 10f, y, labelW, 18f), "Status", _labelStyle);
+            GUI.Label(new Rect(valueX, y, valueW, 18f), status, _valueStyle);
+            y += 22f;
+
+            GUI.Label(new Rect(panelX + 10f, y, panelW - 20f, 30f),
+                "ZQSD/WASD move | J/E grab | U/O release | R release all | C chalk | F fall",
+                _helpStyle);
         }
     }
 }

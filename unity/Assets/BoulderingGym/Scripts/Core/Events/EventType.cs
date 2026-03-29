@@ -10,5 +10,10 @@ namespace Project.Core.Events
         CogUnstable,
         WallAngleChanged,
         BodyWallContact,
+        EnduranceLow,
+        GripMicroSlip,
+        FatigueWarning,
+        FatigueFailure,
+        ChalkUsed,
     }
 }

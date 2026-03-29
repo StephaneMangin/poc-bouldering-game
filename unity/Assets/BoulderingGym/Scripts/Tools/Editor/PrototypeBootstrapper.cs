@@ -2,11 +2,13 @@ using System.IO;
 using Project.Core.Domain;
 using Project.Core.Input;
 using Project.Features.Camera.Presentation;
+using Project.Features.Climbing.Domain;
 using Project.Features.Climbing.Presentation;
 using Project.Features.Locomotion.Presentation;
 using Project.Features.Physics.Domain;
 using Project.Features.Physics.Presentation;
 using Project.Features.Player.Presentation;
+using Project.Features.Resources.Presentation;
 using Project.Features.Visual.Presentation;
 using Project.UI;
 using UnityEditor;
@@ -142,6 +144,7 @@ namespace Project.Tools.Editor
             GymModule.EnsureWalls();
             HoldsModule.EnsureHolds();
             PhysicsModelModule.Setup(player, tuning);
+            ResourceModule.Setup(player, tuning);
 
             var driver = player.GetComponent<PlayerStateMachineDriver>();
             DebugUiModule.Setup(driver, tuning, camera.GetComponent<CameraFollowController>());
@@ -459,6 +462,7 @@ namespace Project.Tools.Editor
                 Helpers.SetSerializedField(fallPhysics, "hipsMovement", hipsMovement);
                 Helpers.SetSerializedField(fallPhysics, "characterController", cc);
                 Helpers.SetSerializedField(fallPhysics, "resetAnchor", resetAnchor);
+                Helpers.SetSerializedField(fallPhysics, "resetBelowY", -0.5f);
 
                 var visualOrchestrator = player.GetComponent<ClimberVisualOrchestrator>()
                                          ?? player.AddComponent<ClimberVisualOrchestrator>();
@@ -809,6 +813,7 @@ namespace Project.Tools.Editor
                 }
 
                 EnsureAnimatorParameter(controller, "is_walking", AnimatorControllerParameterType.Bool);
+                EnsureAnimatorParameter(controller, "is_walking_backward", AnimatorControllerParameterType.Bool);
                 EnsureAnimatorParameter(controller, "land", AnimatorControllerParameterType.Trigger);
                 EnsureAnimatorParameter(controller, "ClimbingState", AnimatorControllerParameterType.Int);
                 RemoveAnimatorParameter(controller, "movex");
@@ -850,9 +855,11 @@ namespace Project.Tools.Editor
 
                 var idleClip = LoadMixamoClip(animDir, "idle.fbx");
                 var walkClip = LoadMixamoClip(animDir, "walking.fbx");
+                var walkBackClip = LoadMixamoClip(animDir, "walking_backward.fbx");
                 var landClip = LoadMixamoClip(animDir, "landing.fbx");
 
                 landClip ??= idleClip;
+                walkBackClip ??= walkClip;
 
                 if (idleClip == null || walkClip == null)
                 {
@@ -860,7 +867,7 @@ namespace Project.Tools.Editor
                     return;
                 }
 
-                // 3-state machine: Idle, Walking, Landing
+                // 4-state machine: Idle, Walking, WalkingBackward, Landing
                 var idle = sm.AddState("Idle", new Vector3(0, 0, 0));
                 idle.motion = idleClip;
                 idle.iKOnFeet = true;
@@ -868,6 +875,10 @@ namespace Project.Tools.Editor
                 var walking = sm.AddState("Walking", new Vector3(300, 0, 0));
                 walking.motion = walkClip;
                 walking.iKOnFeet = true;
+
+                var walkingBackward = sm.AddState("WalkingBackward", new Vector3(300, 150, 0));
+                walkingBackward.motion = walkBackClip;
+                walkingBackward.iKOnFeet = true;
 
                 var landing = sm.AddState("Landing", new Vector3(0, 150, 0));
                 landing.motion = landClip;
@@ -886,6 +897,18 @@ namespace Project.Tools.Editor
                 tWalkToIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "is_walking");
                 tWalkToIdle.hasExitTime = false;
                 tWalkToIdle.duration = 0.15f;
+
+                // Idle → WalkingBackward (is_walking_backward = true)
+                var tIdleToWalkBack = idle.AddTransition(walkingBackward);
+                tIdleToWalkBack.AddCondition(AnimatorConditionMode.If, 0, "is_walking_backward");
+                tIdleToWalkBack.hasExitTime = false;
+                tIdleToWalkBack.duration = 0.15f;
+
+                // WalkingBackward → Idle (is_walking_backward = false)
+                var tWalkBackToIdle = walkingBackward.AddTransition(idle);
+                tWalkBackToIdle.AddCondition(AnimatorConditionMode.IfNot, 0, "is_walking_backward");
+                tWalkBackToIdle.hasExitTime = false;
+                tWalkBackToIdle.duration = 0.15f;
 
                 // Any State → Landing (land trigger)
                 var tAnyToLand = sm.AddAnyStateTransition(landing);
@@ -1199,6 +1222,19 @@ namespace Project.Tools.Editor
         {
             private enum HoldShape { Jug, Crimp, Sloper, Pinch, Volume }
 
+            private static GripType ShapeToGripType(HoldShape shape)
+            {
+                return shape switch
+                {
+                    HoldShape.Jug => GripType.Jug,
+                    HoldShape.Crimp => GripType.Crimp,
+                    HoldShape.Sloper => GripType.Sloper,
+                    HoldShape.Pinch => GripType.Pinch,
+                    HoldShape.Volume => GripType.Open,
+                    _ => GripType.Jug,
+                };
+            }
+
             // ── Circuit colors (Block'Out style) ──
             private static readonly Color CircuitYellow = new(0.95f, 0.85f, 0.15f, 1f);
             private static readonly Color CircuitGreen = new(0.2f, 0.75f, 0.3f, 1f);
@@ -1381,6 +1417,14 @@ namespace Project.Tools.Editor
                 var holdComponent = hold.GetComponent<HoldComponent>();
                 if (holdComponent == null) holdComponent = hold.AddComponent<HoldComponent>();
                 Helpers.SetSerializedField(holdComponent, "gripPoint", gripPoint.transform);
+                holdComponent.data = new HoldData
+                {
+                    holdQuality = HoldQuality.Standard,
+                    gripType = ShapeToGripType(shape),
+                    gripTextureHold = 1f,
+                    gripTextureWall = 1f,
+                };
+                EditorUtility.SetDirty(holdComponent);
             }
 
             private static GameObject BuildHoldGeometry(HoldShape shape)
@@ -1587,6 +1631,38 @@ namespace Project.Tools.Editor
                                      ?? debugUi.AddComponent<PhysicsDebugOverlay>();
                 var physicsDriver = Object.FindAnyObjectByType<PhysicsModelDriver>();
                 Helpers.SetSerializedField(physicsOverlay, "physicsDriver", physicsDriver);
+
+                // Sprint 3.0: ResourceHUD
+                var resourceHud = debugUi.GetComponent<ResourceHUD>()
+                                  ?? debugUi.AddComponent<ResourceHUD>();
+                var resourceDriverRef = Object.FindAnyObjectByType<ResourceSystemDriver>();
+                Helpers.SetSerializedField(resourceHud, "resourceDriver", resourceDriverRef);
+            }
+        }
+
+        // ═════════════════════════════════════════════════════════════════
+        //  ResourceModule — ResourceSystemDriver on player
+        // ═════════════════════════════════════════════════════════════════
+        private static class ResourceModule
+        {
+            public static void Setup(GameObject player, TuningConfig tuningConfig)
+            {
+                var resourceDriver = player.GetComponent<ResourceSystemDriver>()
+                                     ?? player.AddComponent<ResourceSystemDriver>();
+
+                Helpers.SetSerializedField(resourceDriver, "tuningConfig", tuningConfig);
+
+                var physicsDriver = player.GetComponent<PhysicsModelDriver>();
+                Helpers.SetSerializedField(resourceDriver, "physicsDriver", physicsDriver);
+
+                var playerDriverRef = player.GetComponent<PlayerStateMachineDriver>();
+                Helpers.SetSerializedField(resourceDriver, "playerDriver", playerDriverRef);
+
+                var hands = player.GetComponent<PlayerHandsController>();
+                Helpers.SetSerializedField(resourceDriver, "playerHands", hands);
+
+                var inputReader = player.GetComponent<InputReader>();
+                Helpers.SetSerializedField(resourceDriver, "inputReader", inputReader);
             }
         }
 

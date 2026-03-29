@@ -11,13 +11,16 @@ namespace Project.Features.Locomotion.Presentation
 
         [Header("Animator Parameters")]
         [SerializeField] private string walkingParameter = "is_walking";
+        [SerializeField] private string walkingBackwardParameter = "is_walking_backward";
         [SerializeField] private string landParameter = "land";
         [SerializeField] private string stateParameter = "ClimbingState";
 
         private int _walkingHash;
+        private int _walkingBackwardHash;
         private int _landHash;
         private int _stateHash;
         private bool _hasWalking;
+        private bool _hasWalkingBackward;
         private bool _hasLand;
         private bool _hasState;
         private PlayerStateId _previousState;
@@ -53,14 +56,16 @@ namespace Project.Features.Locomotion.Presentation
             }
 
             _walkingHash = Animator.StringToHash(walkingParameter);
+            _walkingBackwardHash = Animator.StringToHash(walkingBackwardParameter);
             _landHash = Animator.StringToHash(landParameter);
             _stateHash = Animator.StringToHash(stateParameter);
             _hasWalking = HasParameter(walkingParameter);
+            _hasWalkingBackward = HasParameter(walkingBackwardParameter);
             _hasLand = HasParameter(landParameter);
             _hasState = HasParameter(stateParameter);
         }
 
-        public void UpdateAnimatorState(PlayerStateId state, bool isWalking)
+        public void UpdateAnimatorState(PlayerStateId state, bool isWalking, bool isWalkingBackward = false)
         {
             if (mannequinAnimator == null)
             {
@@ -80,6 +85,11 @@ namespace Project.Features.Locomotion.Presentation
             if (_hasWalking)
             {
                 mannequinAnimator.SetBool(_walkingHash, isWalking);
+            }
+
+            if (_hasWalkingBackward)
+            {
+                mannequinAnimator.SetBool(_walkingBackwardHash, isWalkingBackward);
             }
 
             if (_hasLand && _previousState == PlayerStateId.Falling && state == PlayerStateId.IdleGround)

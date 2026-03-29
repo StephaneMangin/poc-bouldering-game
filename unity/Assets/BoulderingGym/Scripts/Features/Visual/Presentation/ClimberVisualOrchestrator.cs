@@ -49,8 +49,9 @@ namespace Project.Features.Visual.Presentation
 
             var state = driver.StateMachine.CurrentState.Id;
             var isWalking = groundLocomotionController != null && groundLocomotionController.IsWalking;
+            var isWalkingBackward = groundLocomotionController != null && groundLocomotionController.IsWalkingBackward;
 
-            _animatorController.UpdateAnimatorState(state, isWalking);
+            _animatorController.UpdateAnimatorState(state, isWalking, isWalkingBackward);
         }
 
         private void LateUpdate()

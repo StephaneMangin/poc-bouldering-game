@@ -23050,7 +23050,7 @@ MonoBehaviour:
   hipsMovement: {fileID: 1634177117}
   characterController: {fileID: 1282994124}
   resetAnchor: {fileID: 1820594233}
-  resetBelowY: -2
+  resetBelowY: -0.5
 --- !u!114 &1282994121
 MonoBehaviour:
   m_ObjectHideFlags: 0
