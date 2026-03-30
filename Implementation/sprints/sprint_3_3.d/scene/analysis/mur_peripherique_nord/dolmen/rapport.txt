@@ -1,0 +1,21 @@
+# Dolmen
+Structure: Mur périphérique Nord
+Aire: 11.2 m²
+Hauteur: 5.0 m
+Centroïde: (15.1, 9.4)
+Photos: 1
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 8.58 m  (15.8,5.5)→(15.8,14.1)  azimut=90°
+  2. 6.95 m  (14.4,12.5)→(14.4,5.5)  azimut=-90°
+  3. 2.17 m  (15.8,14.1)→(14.4,12.5)  azimut=-131°
+  4. 1.44 m  (14.4,5.5)→(15.8,5.5)  azimut=0°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 4
+Lignes horizontales: 0
+Lignes angulées: 7
+Angle dominant: 54.8°
+Type de mur: dévers

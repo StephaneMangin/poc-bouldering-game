@@ -1,0 +1,23 @@
+# Oublié
+Structure: Island
+Aire: 8.4 m²
+Hauteur: 5.0 m
+Centroïde: (4.6, -0.3)
+Photos: 3
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 2.98 m  (3.2,0.6)→(2.6,-2.3)  azimut=-101°
+  2. 2.18 m  (2.6,-2.3)→(4.8,-1.9)  azimut=9°
+  3. 2.12 m  (5.2,1.4)→(3.2,0.6)  azimut=-157°
+  4. 1.93 m  (4.8,-1.9)→(6.0,-0.5)  azimut=51°
+  5. 1.23 m  (6.0,-0.5)→(6.0,0.8)  azimut=90°
+  6. 1.04 m  (6.0,0.8)→(5.2,1.4)  azimut=141°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 150
+Lignes horizontales: 66
+Lignes angulées: 160
+Angle dominant: 73.9°
+Type de mur: léger dévers

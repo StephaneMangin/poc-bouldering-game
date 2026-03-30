@@ -25,9 +25,9 @@ namespace Project.Features.Locomotion.Presentation
         [Header("Climbing Body Follow")]
         [SerializeField] private float climbBodySnapSpeed = 12f;
         [SerializeField] private Transform pelvisBone;
+        [SerializeField] private ClimberIKController ikController;
 
         private Vector3 _pelvisBoneOffset;
-        private ClimbingBodySolver.AnatomyParams _measuredAnatomy;
 
         private void Awake()
         {
@@ -51,10 +51,9 @@ namespace Project.Features.Locomotion.Presentation
                 wallNormalReference = movementTarget.Find("WallNormalReference");
             }
 
-            HumanoidRigMapping rig = null;
             if (pelvisBone == null && movementTarget != null)
             {
-                rig = movementTarget.GetComponentInChildren<HumanoidRigMapping>();
+                var rig = movementTarget.GetComponentInChildren<HumanoidRigMapping>();
                 if (rig != null)
                 {
                     pelvisBone = rig.pelvis;
@@ -66,22 +65,20 @@ namespace Project.Features.Locomotion.Presentation
                 _pelvisBoneOffset = pelvisBone.position - movementTarget.position;
             }
 
-            _measuredAnatomy = MeasureAnatomy(rig);
+            if (ikController == null && movementTarget != null)
+            {
+                ikController = movementTarget.GetComponentInChildren<ClimberIKController>();
+            }
         }
 
-        private static ClimbingBodySolver.AnatomyParams MeasureAnatomy(HumanoidRigMapping rig)
+        /// <summary>
+        /// Reads anatomy measured by the IK controller. Falls back to defaults until the IK
+        /// finishes its own rig measurement (no temporal coupling — IK runs its measurement
+        /// before any Update tick consumes this).
+        /// </summary>
+        private ClimbingBodySolver.AnatomyParams GetAnatomy()
         {
-            if (rig == null || rig.pelvis == null)
-            {
-                return ClimbingBodySolver.AnatomyParams.Default;
-            }
-
-            return ClimbingBodySolver.AnatomyParams.FromMeasurements(
-                rig.pelvis.position,
-                rig.leftUpperArm.position, rig.leftForearm.position, rig.leftHand.position,
-                rig.rightUpperArm.position, rig.rightForearm.position, rig.rightHand.position,
-                rig.leftUpperLeg.position, rig.leftLowerLeg.position, rig.leftFoot.position,
-                rig.rightUpperLeg.position, rig.rightLowerLeg.position, rig.rightFoot.position);
+            return ikController != null ? ikController.MeasuredAnatomy : ClimbingBodySolver.AnatomyParams.Default;
         }
 
         private void Update()
@@ -146,7 +143,7 @@ namespace Project.Features.Locomotion.Presentation
 
             var contacts = BuildLimbContacts(hands);
             var wallNormal = WallGeometry.GetWallNormal(wallNormalReference);
-            var solution = ClimbingBodySolver.Solve(contacts, _measuredAnatomy, wallNormal);
+            var solution = ClimbingBodySolver.Solve(contacts, GetAnatomy(), wallNormal);
 
             if (!solution.IsValid)
             {

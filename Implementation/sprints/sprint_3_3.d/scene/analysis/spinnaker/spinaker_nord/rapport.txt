@@ -1,0 +1,29 @@
+# Spinaker Nord
+Structure: Spinnaker
+Aire: 6.6 m²
+Hauteur: 5.0 m
+Centroïde: (-8.9, -3.6)
+Photos: 7
+
+## Géométrie du plan (footprint)
+Sommets: 12
+Arêtes (par longueur décroissante):
+  1. 4.78 m  (-8.6,-6.2)→(-3.8,-6.2)  azimut=0°
+  2. 4.49 m  (-11.8,-3.0)→(-8.6,-6.2)  azimut=-46°
+  3. 4.21 m  (-12.1,1.2)→(-11.8,-3.0)  azimut=-85°
+  4. 2.17 m  (-11.5,-0.9)→(-12.0,1.2)  azimut=102°
+  5. 1.98 m  (-8.7,-5.1)→(-10.1,-3.7)  azimut=135°
+  6. 1.76 m  (-3.8,-6.0)→(-5.6,-5.9)  azimut=177°
+  7. 1.65 m  (-5.6,-5.9)→(-7.2,-5.7)  azimut=173°
+  8. 1.62 m  (-11.0,-2.4)→(-11.5,-0.9)  azimut=109°
+  9. 1.59 m  (-7.2,-5.7)→(-8.7,-5.1)  azimut=159°
+  10. 1.57 m  (-10.1,-3.7)→(-11.0,-2.4)  azimut=125°
+  11. 0.17 m  (-3.8,-6.2)→(-3.8,-6.0)  azimut=90°
+  12. 0.13 m  (-12.0,1.2)→(-12.1,1.2)  azimut=176°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 146
+Lignes horizontales: 16
+Lignes angulées: 122
+Angle dominant: 77.6°
+Type de mur: léger dévers

@@ -1,0 +1,21 @@
+# Tortue
+Structure: Island
+Aire: 4.1 m²
+Hauteur: 5.0 m
+Centroïde: (-6.1, 7.0)
+Photos: 9
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 2.97 m  (-4.6,5.6)→(-5.5,8.4)  azimut=109°
+  2. 2.92 m  (-7.4,6.4)→(-4.6,5.6)  azimut=-16°
+  3. 1.48 m  (-5.5,8.4)→(-6.8,7.6)  azimut=-148°
+  4. 1.36 m  (-6.8,7.6)→(-7.4,6.4)  azimut=-116°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 568
+Lignes horizontales: 91
+Lignes angulées: 287
+Angle dominant: 84.0°
+Type de mur: vertical

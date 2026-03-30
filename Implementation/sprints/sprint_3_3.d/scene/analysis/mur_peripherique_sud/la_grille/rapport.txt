@@ -1,0 +1,21 @@
+# La Grille
+Structure: Mur périphérique Sud
+Aire: 16.8 m²
+Hauteur: 5.0 m
+Centroïde: (14.6, -3.1)
+Photos: 1
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 6.90 m  (12.7,0.3)→(14.0,-6.5)  azimut=-79°
+  2. 6.76 m  (15.8,-6.5)→(15.8,0.3)  azimut=90°
+  3. 3.14 m  (15.8,0.3)→(12.7,0.3)  azimut=180°
+  4. 1.82 m  (14.0,-6.5)→(15.8,-6.5)  azimut=0°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 18
+Lignes horizontales: 8
+Lignes angulées: 12
+Angle dominant: 84.6°
+Type de mur: vertical

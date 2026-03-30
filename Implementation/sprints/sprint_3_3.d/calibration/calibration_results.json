@@ -1,0 +1,73 @@
+{
+  "images": [
+    {
+      "filename": "image_001.jpg",
+      "image_size": [
+        720,
+        960
+      ],
+      "lines": {
+        "horizontal": 50,
+        "vertical": 21,
+        "angled": 17
+      },
+      "vp_horizontal": [
+        812.0000000000001,
+        260.0
+      ],
+      "vp_vertical": [
+        345.96004917025203,
+        513.0516287645975
+      ],
+      "horizon_y_px": 260.0,
+      "camera_height_m": 2.29,
+      "fov_deg": 92.0,
+      "pitch_deg": -11.0,
+      "px_per_meter": 271.8
+    },
+    {
+      "filename": "image_053.jpg",
+      "image_size": [
+        640,
+        480
+      ],
+      "lines": {
+        "horizontal": 0,
+        "vertical": 3,
+        "angled": 0
+      },
+      "vp_horizontal": null,
+      "vp_vertical": null,
+      "horizon_y_px": 320.0,
+      "camera_height_m": 1.6,
+      "fov_deg": 93.0,
+      "pitch_deg": 0.0,
+      "px_per_meter": 272.7
+    },
+    {
+      "filename": "image_074.jpg",
+      "image_size": [
+        1152,
+        2048
+      ],
+      "lines": {
+        "horizontal": 149,
+        "vertical": 40,
+        "angled": 54
+      },
+      "vp_horizontal": [
+        399.4999999999999,
+        179.0
+      ],
+      "vp_vertical": [
+        1833.8429752066113,
+        183.85123966942518
+      ],
+      "horizon_y_px": 179.0,
+      "camera_height_m": 3.32,
+      "fov_deg": 76.0,
+      "pitch_deg": 13.0,
+      "px_per_meter": 275.9
+    }
+  ]
+}

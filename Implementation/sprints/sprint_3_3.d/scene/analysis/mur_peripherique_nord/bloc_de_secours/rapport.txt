@@ -1,0 +1,23 @@
+# Bloc de secours
+Structure: Mur périphérique Nord
+Aire: 12.9 m²
+Hauteur: 5.0 m
+Centroïde: (-8.6, 17.8)
+Photos: 4
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 5.48 m  (-5.9,19.4)→(-11.4,19.4)  azimut=180°
+  2. 3.72 m  (-10.1,18.0)→(-7.0,15.9)  azimut=-33°
+  3. 3.42 m  (-5.9,15.9)→(-5.9,19.4)  azimut=90°
+  4. 1.37 m  (-11.4,19.4)→(-11.4,18.0)  azimut=-90°
+  5. 1.29 m  (-11.4,18.0)→(-10.1,18.0)  azimut=0°
+  6. 1.10 m  (-7.0,15.9)→(-5.9,15.9)  azimut=0°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 134
+Lignes horizontales: 34
+Lignes angulées: 72
+Angle dominant: 84.9°
+Type de mur: vertical

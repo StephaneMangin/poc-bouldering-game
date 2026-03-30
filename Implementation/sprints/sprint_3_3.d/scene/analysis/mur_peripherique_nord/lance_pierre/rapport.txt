@@ -1,0 +1,23 @@
+# Lance-Pierre
+Structure: Mur périphérique Nord
+Aire: 0.8 m²
+Hauteur: 5.0 m
+Centroïde: (-5.9, 12.7)
+Photos: 4
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 1.59 m  (-6.7,12.3)→(-5.1,12.3)  azimut=0°
+  2. 1.26 m  (-5.9,13.3)→(-6.7,12.3)  azimut=-131°
+  3. 1.22 m  (-5.1,12.3)→(-5.9,13.3)  azimut=129°
+  4. 0.00 m  (-5.9,13.3)→(-5.9,13.3)  azimut=0°
+  5. 0.00 m  (-6.7,12.3)→(-6.7,12.3)  azimut=0°
+  6. 0.00 m  (-5.1,12.3)→(-5.1,12.3)  azimut=0°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 156
+Lignes horizontales: 22
+Lignes angulées: 60
+Angle dominant: 85.0°
+Type de mur: vertical

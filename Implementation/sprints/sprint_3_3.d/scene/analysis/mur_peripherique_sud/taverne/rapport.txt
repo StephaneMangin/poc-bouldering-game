@@ -1,0 +1,23 @@
+# Taverne
+Structure: Mur périphérique Sud
+Aire: 16.0 m²
+Hauteur: 5.0 m
+Centroïde: (11.4, -13.3)
+Photos: 5
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 6.38 m  (9.4,-15.6)→(15.8,-15.6)  azimut=0°
+  2. 4.13 m  (14.0,-12.8)→(9.8,-12.7)  azimut=178°
+  3. 3.81 m  (9.4,-11.8)→(9.4,-15.6)  azimut=-90°
+  4. 3.34 m  (15.8,-15.6)→(14.0,-12.8)  azimut=123°
+  5. 1.38 m  (9.8,-12.7)→(9.8,-11.3)  azimut=91°
+  6. 0.62 m  (9.8,-11.3)→(9.4,-11.8)  azimut=-131°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 177
+Lignes horizontales: 33
+Lignes angulées: 165
+Angle dominant: 76.5°
+Type de mur: léger dévers

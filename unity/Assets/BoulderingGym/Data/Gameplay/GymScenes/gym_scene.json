@@ -1,0 +1,758 @@
+{
+  "meta": {
+    "name": "Block'Out Rennes",
+    "address": "Eco-Pôle Sud-Est, 1 rue de Bray, 35510 Cesson-Sévigné",
+    "version": "2.4.0",
+    "sources": ["image_1/result.json", "image_2/result.json", "images/*.jpg (batch 40+12 photos)", "blockout.fr/rennes", "floor_plan_traced.svg", "isometric_wall_map.jpg"],
+    "coordinate_system": {
+      "origin": "center_of_central_island_at_floor",
+      "x": "east (positive)",
+      "y": "up (positive)",
+      "z": "south_toward_camera (positive)"
+    },
+    "units": "meters"
+  },
+
+  "gym": {
+    "total_area_m2": 1400,
+    "climbing_surface_m2": 650,
+    "profile_count": 21,
+    "max_wall_height_m": 4.5,
+    "grade_system": "fontainebleau",
+    "grade_range": "4A_to_7B+",
+    "grade_color_map": {
+      "4A": "orange", "4C": "orange",
+      "5A": "blue", "5B": "blue",
+      "5C": "green",
+      "6A": "pink", "6B": "pink",
+      "6C": "white", "7A": "white",
+      "7A+": "black", "7B": "black", "7B+": "black"
+    },
+    "grade_labels": {
+      "4A": "Accessible", "5A": "Difficile", "6A": "Très difficile",
+      "6C": "Extrêmement difficile", "7A+": "Méga difficile", "7B+": "Impossible"
+    },
+    "dimensions": { "length": 40.0, "width": 35.0, "height_ceiling": 7.0 },
+    "floor_material": "crash_mats_gray",
+    "ceiling_material": "metal_cladding_corrugated"
+  },
+
+  "colors": {
+    "teal":   { "r": 0.00, "g": 0.70, "b": 0.75, "a": 1.0 },
+    "orange": { "r": 0.90, "g": 0.35, "b": 0.10, "a": 1.0 },
+    "gray":   { "r": 0.72, "g": 0.72, "b": 0.70, "a": 1.0 },
+    "gray_dark": { "r": 0.25, "g": 0.25, "b": 0.27, "a": 1.0 },
+    "gray_floor": { "r": 0.45, "g": 0.45, "b": 0.42, "a": 1.0 },
+    "ceiling": { "r": 0.20, "g": 0.20, "b": 0.22, "a": 1.0 },
+    "crash_pad": { "r": 0.88, "g": 0.88, "b": 0.85, "a": 1.0 },
+    "wood":   { "r": 0.72, "g": 0.58, "b": 0.38, "a": 1.0 },
+    "metal_frame": { "r": 0.30, "g": 0.30, "b": 0.32, "a": 1.0 },
+    "yellow_beam": { "r": 0.85, "g": 0.75, "b": 0.15, "a": 1.0 },
+    "yellow_volume": { "r": 0.90, "g": 0.82, "b": 0.12, "a": 1.0 },
+    "red_wall":  { "r": 0.78, "g": 0.15, "b": 0.12, "a": 1.0 },
+    "pink":   { "r": 0.90, "g": 0.25, "b": 0.45, "a": 1.0 },
+    "racing_stripe_orange": { "r": 0.88, "g": 0.30, "b": 0.08, "a": 1.0 },
+    "black_volume": { "r": 0.12, "g": 0.12, "b": 0.12, "a": 1.0 },
+    "plywood": { "r": 0.76, "g": 0.60, "b": 0.40, "a": 1.0 }
+  },
+
+  "structures": {
+    "central_island": {
+      "type": "freestanding_island",
+      "position": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "height_m": 4.5,
+      "perimeter_m": 40.0,
+
+      "surface_xz": {
+        "note": "Contour extérieur des faces grimpables — polygone fermé (12 vertices), sens horaire depuis la pointe nord. Périmètre lissé ~29m ; le total panneaux (40m) reflète le zigzag des sous-facettes.",
+        "vertices": [
+          [-0.5, -3.3], [-2.4, -3.4], [-4.0, 0.0], [-3.2, 1.6],
+          [-1.2, 1.9], [1.9, 5.9], [2.5, 4.6], [3.2, 3.1],
+          [3.7, 2.0], [5.1, -1.8], [2.2, -1.4], [1.9, -3.0]
+        ]
+      },
+
+      "sub_panel_pattern": {
+        "note": "Chaque face est composée de sous-panneaux en zigzag polyédrique, séparés par des bandes orange verticales (racing stripes ~25cm). Crée des micro-arêtes tous les 0.5-1m.",
+        "racing_stripe_width_m": 0.25,
+        "stripe_color": "racing_stripe_orange",
+        "sub_panel_angle_delta_deg": [5, 15],
+        "creates": "micro_aretes_and_diedres"
+      },
+
+      "named_sectors": [
+        { "name": "Galaxie", "setters": ["Vincent", "Olivier"], "panels": ["A", "B"],
+          "note": "Gros volumes gris angulaires, inserts bois (contreplaqué), jaune sur arête" },
+        { "name": "Rampes de Lancement", "setter": "Olivier", "panels": ["C", "D"],
+          "note": "Forme en W/M — deux lobes déversants encadrant un dièdre central" },
+        { "name": "Gravité", "setters": ["Olivier", "Quentin"], "panels": ["E", "F"],
+          "note": "Grande pyramide jaune ~100cm à l'apex, fort dévers, mouvements de bloc" },
+        { "name": "Réacteur", "setters": ["Olivier", "Quentin"], "panels": ["F", "G"],
+          "note": "Gros volumes jaunes rectangulaires, base évasée prononcée, bandes chevron orange" },
+        { "name": "Réservoir", "setter": "Olivier", "panels": ["H", "A"],
+          "note": "Prises roses/magenta dominantes, tableau info/whiteboard au pied, face basse" },
+        { "name": "Grand Bleu", "panels": ["A", "B"],
+          "note": "Visible carte isométrique — zone basse/ouest de l'îlot" },
+        { "name": "Point and Click", "panels": ["C", "D"],
+          "note": "Visible carte isométrique — face principale" },
+        { "name": "Tortue", "panels": ["E", "F"],
+          "note": "Visible carte isométrique — zone déversante centrale" },
+        { "name": "Spinnaker Nord", "panels": ["G", "H"],
+          "note": "Visible carte isométrique — face sud de l'îlot" }
+      ],
+
+      "vertical_profile": {
+        "base_skirt": {
+          "y_range": [0.0, 0.8],
+          "overhang_deg": -7,
+          "note": "Évasé vers l'extérieur (pied plus large que corps). Forme d'ensemble = rein/haricot vu de dessus"
+        },
+        "main_body": {
+          "y_range": [0.8, 3.8],
+          "overhang_deg_varies": true,
+          "note": "Dévers selon la face (10-25°)"
+        },
+        "lip": {
+          "y_range": [3.8, 4.2],
+          "overhang_deg": 12,
+          "protrusion_cm": 15,
+          "note": "Mini-toit / rebord incliné vers l'intérieur"
+        },
+        "top_surface": {
+          "y_range": [4.2, 4.5],
+          "shape": "concave_saddle",
+          "high_m": 4.5,
+          "low_m": 4.1,
+          "saddle_axis": "north_south"
+        }
+      },
+
+      "panels": [
+        {
+          "id": "A", "width_m": 5.0, "height_m": 4.5,
+          "orientation_deg": 315,
+          "overhang_body_deg": 15, "overhang_lip_deg": 12,
+          "color": "teal",
+          "surface_features": [
+            { "type": "volume_protruding", "color": "teal", "protrusion_cm": 10,
+              "bounds": { "x_min": 0.5, "x_max": 2.5, "y_min": 2.0, "y_max": 3.0 } },
+            { "id": "AV1", "type": "volume_angular", "color": "gray", "protrusion_cm": 25,
+              "shape": "triangular_prism", "note": "Prisme angulaire gris à la jonction — volume structural permanent",
+              "bounds": { "x_min": 2.0, "x_max": 3.0, "y_min": 1.5, "y_max": 3.0 } }
+          ]
+        },
+        {
+          "id": "B", "width_m": 4.0, "height_m": 4.5,
+          "orientation_deg": 340,
+          "overhang_body_deg": 15, "overhang_lip_deg": 10,
+          "color": "orange",
+          "arete_with": ["A", "C"],
+          "surface_features": []
+        },
+        {
+          "id": "C", "width_m": 7.5, "height_m": 4.5,
+          "orientation_deg": 0,
+          "overhang_body_deg": 10, "overhang_lip_deg": 10,
+          "color": "teal",
+          "note": "Face principale — la plus large",
+          "surface_features": [
+            { "id": "V1", "type": "volume_concave", "color": "teal", "depth_cm": 8,
+              "bounds": { "x_min": 0.5, "x_max": 2.0, "y_min": 3.0, "y_max": 3.8 } },
+            { "id": "V2", "type": "volume_flat", "color": "teal",
+              "bounds": { "x_min": 2.5, "x_max": 4.0, "y_min": 3.0, "y_max": 3.8 } },
+            { "id": "V3", "type": "volume_protruding", "color": "orange", "protrusion_cm": 12,
+              "bounds": { "x_min": 3.0, "x_max": 4.0, "y_min": 1.0, "y_max": 2.2 } },
+            { "id": "V4", "type": "volume_concave", "color": "teal", "depth_cm": 6,
+              "bounds": { "x_min": 0.5, "x_max": 3.0, "y_min": 1.0, "y_max": 2.2 } },
+            { "id": "V5", "type": "volume_protruding", "color": "orange", "protrusion_cm": 10,
+              "shape": "triangle",
+              "bounds": { "x_min": 0.5, "x_max": 4.0, "y_min": 0.0, "y_max": 0.8 } },
+            { "id": "stripe_H", "type": "horizontal_band", "color": "orange",
+              "y_center_m": 2.5, "thickness_m": 0.3 }
+          ]
+        },
+        {
+          "id": "D", "width_m": 4.0, "height_m": 4.5,
+          "orientation_deg": 20,
+          "overhang_body_deg": 20, "overhang_lip_deg": 12,
+          "color": "orange",
+          "arete_with": ["C", "E"],
+          "surface_features": [
+            { "type": "volume_protruding", "color": "orange", "protrusion_cm": 8,
+              "bounds": { "x_min": 0.3, "x_max": 2.2, "y_min": 0.8, "y_max": 3.0 },
+              "note": "Flamme orange en saillie" },
+            { "id": "DV1", "type": "volume_angular", "color": "yellow_volume", "protrusion_cm": 20,
+              "shape": "triangular_wedge",
+              "note": "Pyramide jaune structurelle ~80cm — volume permanent",
+              "bounds": { "x_min": 0.8, "x_max": 1.6, "y_min": 0.3, "y_max": 0.9 } }
+          ]
+        },
+        {
+          "id": "E", "width_m": 5.0, "height_m": 4.5,
+          "orientation_deg": 60,
+          "overhang_body_deg": 25, "overhang_lip_deg": 15,
+          "color": "teal",
+          "note": "Face la plus déversante — secteur Gravité",
+          "surface_features": [
+            { "id": "EV1", "type": "volume_angular", "color": "yellow_volume", "protrusion_cm": 30,
+              "shape": "pyramid",
+              "note": "Grande pyramide jaune ~100cm — volume structurel proéminent visible img Gravité",
+              "bounds": { "x_min": 0.5, "x_max": 1.5, "y_min": 2.5, "y_max": 3.5 } },
+            { "id": "EV2", "type": "volume_angular", "color": "yellow_volume", "protrusion_cm": 15,
+              "shape": "triangular_wedge",
+              "bounds": { "x_min": 1.8, "x_max": 2.5, "y_min": 1.0, "y_max": 2.0 } }
+          ]
+        },
+        {
+          "id": "F", "width_m": 5.0, "height_m": 4.5,
+          "orientation_deg": 110,
+          "overhang_body_deg": 18, "overhang_lip_deg": 12,
+          "color": "teal",
+          "note": "Secteur Réacteur — gros volumes jaunes rectangulaires, donut rouges",
+          "surface_features": [
+            { "id": "FV1", "type": "volume_angular", "color": "yellow_volume", "protrusion_cm": 25,
+              "shape": "rectangular_block",
+              "bounds": { "x_min": 0.3, "x_max": 1.2, "y_min": 2.0, "y_max": 2.8 } },
+            { "id": "FV2", "type": "volume_angular", "color": "yellow_volume", "protrusion_cm": 20,
+              "shape": "rectangular_block",
+              "bounds": { "x_min": 1.5, "x_max": 2.2, "y_min": 1.5, "y_max": 2.3 } },
+            { "id": "FV3", "type": "volume_angular", "color": "black_volume", "protrusion_cm": 15,
+              "shape": "shark_fin",
+              "bounds": { "x_min": 1.0, "x_max": 2.0, "y_min": 0.5, "y_max": 1.5 } }
+          ]
+        },
+        {
+          "id": "G", "width_m": 5.0, "height_m": 4.5,
+          "orientation_deg": 160,
+          "overhang_body_deg": 20, "overhang_lip_deg": 15,
+          "color": "orange",
+          "note": "Secteur Réacteur (suite) — chevrons orange, base très évasée",
+          "surface_features": [
+            { "id": "GV1", "type": "volume_angular", "color": "yellow_volume", "protrusion_cm": 20,
+              "shape": "triangular_wedge",
+              "bounds": { "x_min": 0.5, "x_max": 1.5, "y_min": 2.0, "y_max": 3.0 } },
+            { "id": "GV2", "type": "volume_angular", "color": "black_volume", "protrusion_cm": 18,
+              "shape": "rectangular_block",
+              "bounds": { "x_min": 1.8, "x_max": 2.8, "y_min": 0.8, "y_max": 1.8 } }
+          ]
+        },
+        {
+          "id": "H", "width_m": 4.5, "height_m": 4.5,
+          "orientation_deg": 225,
+          "overhang_body_deg": 12, "overhang_lip_deg": 10,
+          "color": "teal",
+          "note": "Secteur Réservoir — prises roses, tableau info, quasi-vertical",
+          "surface_features": [
+            { "id": "HV1", "type": "volume_angular", "color": "gray", "protrusion_cm": 12,
+              "shape": "triangular_prism",
+              "bounds": { "x_min": 0.8, "x_max": 1.8, "y_min": 2.5, "y_max": 3.5 } }
+          ]
+        }
+      ]
+    },
+
+    "wall_north": {
+      "type": "peripheral_wall",
+      "height_m": 5.0,
+      "surface_xz": {
+        "note": "Face grimpable (surface intérieure), polyline ouverte ouest→est, 21 vertices. Inclut les transitions NW et NE. Le dièdre (N2) fait saillie de ~5m vers le sud (z≈-7).",
+        "vertices": [
+          [-17.9, -10.7], [-17.9, -12.8], [-15.7, -13.0], [-15.6, -12.7],
+          [-14.7, -11.9], [-9.8, -11.9], [-7.4, -11.9], [-6.1, -11.9],
+          [-4.9, -10.9], [-4.1, -7.8], [-1.9, -7.0],
+          [0.3, -8.0], [0.3, -10.6], [0.7, -10.7], [4.3, -11.6],
+          [6.0, -12.0], [6.5, -11.3], [10.6, -10.3],
+          [11.9, -8.0], [14.1, -4.9], [14.5, -3.1]
+        ],
+        "length_m": 45.8
+      },
+      "connects": {
+        "start": "wall_west",
+        "end": "wall_east"
+      },
+      "named_sectors": [
+        { "name": "Vague", "segment": "N0", "note": "Coin NW, section grise verticale" },
+        { "name": "Starbloc Gauche", "segment": "N0", "note": "Section gauche de la zone Starbloc" },
+        { "name": "Starbloc Droit", "segment": "N1", "note": "Section droite de la zone Starbloc" },
+        { "name": "Petit'Oie", "segment": "N1", "note": "Zone teal à volumes jaunes" },
+        { "name": "Bloc de Secours", "segment": "N1", "note": "Fin de la section N1" },
+        { "name": "Sablier", "segment": "N2", "note": "Transition vers le dièdre" },
+        { "name": "Brouille Art", "segment": "N2", "note": "Dans le dièdre" },
+        { "name": "Lance Pierre", "segment": "N2", "note": "Apex du dièdre (z≈-7)" },
+        { "name": "Dodécaèdre", "segment": "N3", "note": "Sortie du dièdre, section déversante" },
+        { "name": "Cyrano", "segment": "N3", "note": "Section déversante droite" },
+        { "name": "Entre Deux", "segment": "N3", "note": "Transition N3→N4" },
+        { "name": "Dolmen", "segment": "N4", "note": "Zone toit / cave" },
+        { "name": "Bloc à Pic", "segment": "N4", "note": "Toit — dévers maximal 40°" },
+        { "name": "Oublié", "segment": "N4", "note": "Fin du toit" },
+        { "name": "Quinquin", "segment": "N5", "note": "Section verticale NE" }
+      ],
+      "segments": [
+        { "id": "N0", "type": "vertical",   "overhang_deg": 5,  "width_m": 4.5, "color": "gray",
+          "note": "Vague / Starbloc Gauche — demi-cercle jaune" },
+        { "id": "N1", "type": "overhang",   "overhang_deg": 15, "width_m": 7.3, "color": "teal",
+          "note": "Starbloc Droit / Petit'Oie / Bloc de Secours — volumes jaunes triangulaires" },
+        { "id": "N2", "type": "dihedral",   "overhang_deg": 5,  "width_m": 5.6, "color": "orange",
+          "dihedral_angle_deg": 110,
+          "note": "Sablier / Brouille Art / Lance Pierre — dièdre en V, bande orange" },
+        { "id": "N3", "type": "overhang",   "overhang_deg": 20, "width_m": 7.3, "color": "teal",
+          "note": "Dodécaèdre / Cyrano / Entre Deux — section déversante droite" },
+        { "id": "N4", "type": "cave_roof",  "overhang_deg": 40, "width_m": 5.6, "color": "teal",
+          "note": "Dolmen / Bloc à Pic / Oublié — toit / cave, dévers maximal" },
+        { "id": "N5", "type": "vertical",   "overhang_deg": 5,  "width_m": 5.7, "color": "gray",
+          "note": "Quinquin — retour vertical coin NE" }
+      ],
+      "surface_features": [
+        { "id": "NV_halfcircle", "type": "volume_protruding", "color": "yellow_volume", "protrusion_cm": 20,
+          "shape": "half_circle", "note": "Demi-cercle jaune D-shape ~60cm — Machinerie",
+          "segment": "N0", "bounds": { "x_min": 0.5, "x_max": 1.5, "y_min": 1.0, "y_max": 2.0 } },
+        { "id": "NV_tri1", "type": "volume_protruding", "color": "yellow_volume", "protrusion_cm": 15,
+          "shape": "triangular_wedge", "segment": "N1",
+          "bounds": { "x_min": 1.0, "x_max": 2.5, "y_min": 1.5, "y_max": 3.0 } },
+        { "id": "NV_tri2", "type": "volume_protruding", "color": "yellow_volume", "protrusion_cm": 18,
+          "shape": "pyramid", "segment": "N2",
+          "bounds": { "x_min": 0.5, "x_max": 2.0, "y_min": 1.0, "y_max": 2.5 } },
+        { "id": "NV_black1", "type": "volume_protruding", "color": "black_volume", "protrusion_cm": 12,
+          "shape": "rectangular_block", "segment": "N3",
+          "bounds": { "x_min": 1.5, "x_max": 3.0, "y_min": 2.0, "y_max": 3.5 } }
+      ]
+    },
+
+    "wall_west": {
+      "type": "peripheral_wall",
+      "height_m": 5.0,
+      "surface_xz": {
+        "note": "Face grimpable, polyline ouverte sud→nord, 7 vertices. Décrochements : section sud (x≈-15.2), principale (x≈-17.8), profonde (x≈-18.3).",
+        "vertices": [
+          [-15.2, -2.9], [-15.2, -4.8], [-17.8, -4.8],
+          [-17.8, -7.6], [-18.3, -8.2], [-18.3, -10.2],
+          [-17.9, -10.7]
+        ],
+        "length_m": 10.7
+      },
+      "connects": {
+        "start": "free",
+        "end": "wall_north"
+      },
+      "named_sectors": [
+        { "name": "Cubicube", "segment": "W0", "note": "Section nord, raccord mur nord" },
+        { "name": "Tour de Piz", "segment": "W0", "note": "Section nord, transition W0→W1" },
+        { "name": "I-Luzion", "segment": "W1", "note": "Section centrale" },
+        { "name": "Cheminée", "segment": "W1", "note": "Section centrale, transition W1→W2" },
+        { "name": "Enclume", "segment": "W2", "note": "Section sud basse" },
+        { "name": "Dalle", "segment": "W2", "note": "Extrémité sud, quasi-vertical" }
+      ],
+      "segments": [
+        { "id": "W0", "type": "overhang", "overhang_deg": 18, "width_m": 5.0, "color": "teal",
+          "note": "Cubicube / Tour de Piz — teal dominant, raccord mur nord" },
+        { "id": "W1", "type": "overhang", "overhang_deg": 15, "width_m": 4.5, "color": "orange",
+          "note": "I-Luzion / Cheminée — triangles orange/gray" },
+        { "id": "W2", "type": "vertical", "overhang_deg": 5, "width_m": 4.5, "color": "gray",
+          "note": "Enclume / Dalle — plus vertical, panneaux gris" }
+      ]
+    },
+
+    "wall_east": {
+      "type": "peripheral_wall",
+      "height_m": 4.5,
+      "surface_xz": {
+        "note": "Face grimpable, polyline ouverte nord→sud, 9 vertices. Décrochements : section N (x≈14-16), centrale (x≈17-18), ressaut (x=16.7→17.6), section S (x≈18).",
+        "vertices": [
+          [14.5, -3.1], [16.5, -3.0], [17.0, -0.5], [18.1, -0.5],
+          [18.1, 2.9], [18.1, 4.7], [16.7, 4.7],
+          [17.6, 11.5], [18.0, 17.8]
+        ],
+        "length_m": 25.4
+      },
+      "connects": {
+        "start": "wall_north",
+        "end": "wall_south"
+      },
+      "named_sectors": [
+        { "name": "Taverne", "segment": "E0", "note": "Section nord, coin NE" },
+        { "name": "Aileron", "segment": "E1", "note": "Section centrale verticale" },
+        { "name": "Inception", "segment": "E2", "note": "Section sud" },
+        { "name": "The Last", "segment": "E3_campus", "note": "Zone campus / training board, extrémité sud" }
+      ],
+      "segments": [
+        { "id": "E0", "type": "overhang", "overhang_deg": 12, "width_m": 5.5, "color": "teal",
+          "note": "Taverne — teal, raccord mur nord" },
+        { "id": "E1", "type": "vertical", "overhang_deg": 0, "width_m": 5.5, "color": "gray",
+          "note": "Aileron — panneaux gris avec sous-facettes polyédriques" },
+        { "id": "E2", "type": "vertical", "overhang_deg": 5, "width_m": 5.0, "color": "orange",
+          "note": "Inception — triangles orange" },
+        { "id": "E3_campus", "type": "training_board", "overhang_deg": 0, "width_m": 4.0,
+          "height_m": 3.5, "color": "wood",
+          "campus_rungs": { "count": 10, "spacing_cm": 20, "width_cm": 5 },
+          "note": "The Last — campus board" }
+      ]
+    },
+
+    "wall_south": {
+      "type": "peripheral_wall",
+      "height_m": 4.0,
+      "surface_xz": {
+        "note": "Face grimpable, polyline ouverte est→ouest, 7 vertices. Mur sous la mezzanine. Inclut la transition SE.",
+        "vertices": [
+          [18.0, 17.8], [13.4, 16.2], [11.1, 16.8],
+          [7.8, 17.8], [4.1, 17.0], [2.3, 17.1], [2.3, 15.5]
+        ],
+        "length_m": 17.8
+      },
+      "connects": {
+        "start": "wall_east",
+        "end": "free"
+      },
+      "note": "Mur sous la mezzanine — hauteur réduite. Secteurs non visibles sur la carte isométrique (angle de vue).",
+      "named_sectors": [],
+      "segments": [
+        { "id": "S1", "type": "vertical", "overhang_deg": 5, "width_m": 8.5, "color": "teal" },
+        { "id": "S2", "type": "slab", "overhang_deg": -8, "width_m": 7.0, "color": "gray" },
+        { "id": "S3", "type": "vertical", "overhang_deg": 5, "width_m": 8.5, "color": "orange" }
+      ]
+    }
+  },
+
+  "structural_elements": [
+    {
+      "id": "pillar_wood_1",
+      "type": "column",
+      "material": "glulam_timber",
+      "position": { "x": -6.0, "y": 0.0, "z": -2.0 },
+      "section_m": { "w": 0.30, "d": 0.30 },
+      "height_m": 7.0,
+      "color": "wood"
+    },
+    {
+      "id": "pillar_wood_2",
+      "type": "column",
+      "material": "glulam_timber",
+      "position": { "x": 6.0, "y": 0.0, "z": -2.0 },
+      "section_m": { "w": 0.30, "d": 0.30 },
+      "height_m": 7.0,
+      "color": "wood"
+    },
+    {
+      "id": "yellow_fin",
+      "type": "freestanding_fin",
+      "note": "Structure jaune autoportante lame/voile courbée — ~4.5m, grimpable, volumes triangulaires boulonnés sur la surface. S'effile vers le haut (taper).",
+      "position": { "x": 8.5, "y": 0.0, "z": 3.2 },
+      "dimensions": { "base_width": 1.5, "top_width": 0.3, "depth": 0.22, "height": 4.5 },
+      "taper": true,
+      "curve_radius_m": 6.0,
+      "color": "yellow_volume",
+      "grimpable": true,
+      "ground_footprint": {
+        "note": "Ensemble de 3 structures angulaires formant un X-wing autour de la fin jaune. Polygones extraits du plan.",
+        "xz_polygons": [
+          { "id": "x_wing_core", "xz": [[5.8, 3.9], [3.3, 3.1], [4.3, 0.8], [8.2, 1.7], [9.1, 3.6], [7.2, 4.4]] },
+          { "id": "x_wing_north", "xz": [[4.1, 6.6], [6.5, 7.3], [9.9, 6.8], [7.1, 4.4], [3.2, 3.2], [2.0, 6.0]] },
+          { "id": "x_wing_east", "xz": [[8.9, 5.9], [7.2, 4.4], [9.1, 3.6], [9.9, 4.3], [9.9, 6.7]] }
+        ]
+      },
+      "surface_volumes": [
+        { "type": "pyramid_yellow", "size": "small_30cm", "count": 3,
+          "note": "Petites pyramides jaunes boulonnées sur la face grimpable" }
+      ]
+    },
+    {
+      "id": "la_proue",
+      "type": "freestanding_wall",
+      "note": "Structure autoportante en V (La Proue) — mur angulaire grimpable, secteur sud-ouest. Forme triangulaire pointant vers le nord.",
+      "position": { "x": -5.5, "y": 0.0, "z": 9.5 },
+      "height_m": 4.5,
+      "color": "teal",
+      "grimpable": true,
+      "ground_footprint": {
+        "note": "Double polygone (face ext + face int) formant un V ouvert vers le sud-est",
+        "outer_xz": [[-4.3, 11.3], [-7.8, 8.0], [-8.3, 3.8], [-9.0, 8.4], [-4.5, 12.9], [0.1, 11.5]],
+        "inner_xz": [[-4.5, 10.1], [-6.7, 7.7], [-8.1, 3.8], [-7.8, 8.0], [-4.7, 11.2], [0.1, 11.1]]
+      }
+    },
+    {
+      "id": "truss_metal",
+      "type": "truss",
+      "material": "aluminium",
+      "position": { "x": 0.0, "y": 5.5, "z": -2.0 },
+      "section_m": { "w": 0.40, "d": 0.40 },
+      "length_m": 5.5,
+      "orientation": "vertical_tower",
+      "color": "metal_frame",
+      "note": "Tour truss aluminium — supporte bouée déco, s'élève entre les deux piliers"
+    },
+    {
+      "id": "beam_yellow_1",
+      "type": "beam",
+      "material": "steel_painted",
+      "position": { "x": 0.0, "y": 5.5, "z": -5.0 },
+      "section_m": { "w": 0.25, "h": 0.30 },
+      "length_m": 36.0,
+      "direction": "east_west",
+      "color": "yellow_beam"
+    },
+    {
+      "id": "beam_yellow_2",
+      "type": "beam",
+      "material": "steel_painted",
+      "position": { "x": 0.0, "y": 5.5, "z": 0.0 },
+      "section_m": { "w": 0.25, "h": 0.30 },
+      "length_m": 36.0,
+      "direction": "east_west",
+      "color": "yellow_beam"
+    },
+    {
+      "id": "beam_yellow_3",
+      "type": "beam",
+      "material": "steel_painted",
+      "position": { "x": 0.0, "y": 5.5, "z": 5.0 },
+      "section_m": { "w": 0.25, "h": 0.30 },
+      "length_m": 36.0,
+      "direction": "east_west",
+      "color": "yellow_beam"
+    },
+    {
+      "id": "mezzanine",
+      "type": "platform",
+      "position": { "x": 5.5, "y": 4.0, "z": 18.5 },
+      "dimensions": { "width": 24.0, "depth": 4.0, "thickness": 0.25 },
+      "floor_material": "wood_parquet",
+      "railing": { "material": "metal_black", "height_m": 1.1, "mesh_lower_panel": true },
+      "furniture": { "tables": "orange", "chairs": "black" },
+      "note": "Restaurant/bar côté sud — surplombe la zone grimpe depuis ~4m"
+    },
+    {
+      "id": "spiral_staircase",
+      "type": "staircase",
+      "shape": "helical",
+      "material": "metal_painted",
+      "color": "metal_frame",
+      "position": { "x": 5.5, "y": 0.0, "z": 16.5 },
+      "height_m": 4.0,
+      "diameter_m": 2.0,
+      "note": "Escalier colimaçon métal noir reliant RDC ↔ mezzanine, côté sud central"
+    }
+  ],
+
+  "environment": {
+    "floor": {
+      "dimensions": { "width": 42.0, "depth": 36.0, "thickness": 0.5 },
+      "position": { "x": 0.0, "y": -0.25, "z": 0.0 },
+      "color": "gray_floor"
+    },
+    "crash_pads": [
+      {
+        "id": "pad_island",
+        "position": { "x": 0.0, "y": 0.15, "z": 0.0 },
+        "dimensions": { "width": 14.0, "depth": 14.0, "thickness": 0.3 },
+        "color": "crash_pad"
+      },
+      {
+        "id": "pad_north",
+        "position": { "x": 0.0, "y": 0.15, "z": -9.5 },
+        "dimensions": { "width": 30.0, "depth": 5.0, "thickness": 0.3 },
+        "color": "crash_pad"
+      },
+      {
+        "id": "pad_east",
+        "position": { "x": 15.0, "y": 0.15, "z": 0.9 },
+        "dimensions": { "width": 5.0, "depth": 15.0, "thickness": 0.3 },
+        "color": "crash_pad"
+      },
+      {
+        "id": "pad_west",
+        "position": { "x": -14.5, "y": 0.15, "z": -6.8 },
+        "dimensions": { "width": 5.0, "depth": 9.0, "thickness": 0.3 },
+        "color": "crash_pad"
+      },
+      {
+        "id": "pad_south",
+        "position": { "x": 5.5, "y": 0.15, "z": 14.5 },
+        "dimensions": { "width": 14.0, "depth": 4.0, "thickness": 0.3 },
+        "color": "crash_pad",
+        "note": "Tapis sous la mezzanine"
+      }
+    ],
+    "ceiling": {
+      "position": { "x": 0.0, "y": 7.0, "z": 0.0 },
+      "dimensions": { "width": 42.0, "depth": 36.0, "thickness": 0.15 },
+      "color": "ceiling",
+      "material": "metal_cladding_corrugated"
+    },
+    "hvac_ducts": [
+      { "id": "duct_main_ew", "type": "cylindrical", "diameter_m": 0.45, "color": "white",
+        "direction": "east_west",
+        "position": { "x": 0.0, "y": 6.2, "z": -3.0 },
+        "length_m": 36.0,
+        "note": "Gaine VMC principale — traverse la salle est-ouest" },
+      { "id": "duct_secondary_ew", "type": "cylindrical", "diameter_m": 0.35, "color": "white",
+        "direction": "east_west",
+        "position": { "x": 0.0, "y": 6.2, "z": 3.0 },
+        "length_m": 32.0,
+        "note": "Gaine secondaire parallèle, plus petite" },
+      { "id": "duct_branch_ns", "type": "cylindrical", "diameter_m": 0.30, "color": "white",
+        "direction": "north_south",
+        "position": { "x": -8.0, "y": 6.5, "z": 0.0 },
+        "length_m": 18.0,
+        "note": "Branche perpendiculaire côté ouest" }
+    ],
+    "lighting": [
+      { "id": "sphere_lamp_1", "type": "sphere", "diameter_m": 0.80, "color": "white",
+        "position": { "x": -5.0, "y": 5.0, "z": 2.0 },
+        "note": "Grande lampe sphérique blanche suspendue" },
+      { "id": "sphere_lamp_2", "type": "sphere", "diameter_m": 0.80, "color": "white",
+        "position": { "x": 6.0, "y": 5.0, "z": 2.0 } },
+      { "id": "string_lights", "type": "string_lights", "color": "warm_white",
+        "bulb_count": 20, "span_m": 10.0,
+        "position": { "x": 0.0, "y": 4.5, "z": 13.0 },
+        "note": "Guirlande lumineuse blanc chaud suspendue au plafond côté sud/mezzanine" }
+    ],
+    "walls_envelope": [
+      {
+        "id": "envelope_north",
+        "position": { "x": 0.0, "y": 3.5, "z": -14.3 },
+        "dimensions": { "width": 40.0, "height": 7.0, "thickness": 0.3 },
+        "rotation_y_deg": 0,
+        "color": "gray_dark"
+      },
+      {
+        "id": "envelope_south",
+        "position": { "x": 0.0, "y": 3.5, "z": 20.7 },
+        "dimensions": { "width": 40.0, "height": 7.0, "thickness": 0.3 },
+        "rotation_y_deg": 180,
+        "color": "gray_dark"
+      },
+      {
+        "id": "envelope_east",
+        "position": { "x": 19.8, "y": 3.5, "z": 3.0 },
+        "dimensions": { "width": 35.0, "height": 7.0, "thickness": 0.3 },
+        "rotation_y_deg": -90,
+        "color": "gray_dark"
+      },
+      {
+        "id": "envelope_west",
+        "position": { "x": -20.2, "y": 3.5, "z": 3.0 },
+        "dimensions": { "width": 35.0, "height": 7.0, "thickness": 0.3 },
+        "rotation_y_deg": 90,
+        "color": "gray_dark"
+      }
+    ],
+    "decorations": [
+      { "id": "pirate_flag", "type": "flag", "color": "black",
+        "position": { "x": 0.0, "y": 4.8, "z": 0.0 },
+        "note": "Drapeau pirate tête-de-mort noir au sommet de l'îlot central" },
+      { "id": "breton_flag", "type": "flag", "color": "white_black",
+        "position": { "x": 16.0, "y": 4.5, "z": -8.0 },
+        "note": "Gwenn-ha-du (drapeau breton) — visible en haut à droite sur la carte isométrique, côté NE" },
+      { "id": "life_ring", "type": "decorative_prop", "shape": "torus",
+        "color": "orange", "diameter_m": 0.50,
+        "position": { "x": 0.0, "y": 5.8, "z": -1.5 },
+        "note": "Bouée de sauvetage orange décorative accrochée au truss" },
+      { "id": "blockout_podium", "type": "movable_prop", "shape": "truncated_pyramid",
+        "color": "crash_pad", "dimensions": { "base": 0.8, "top": 0.5, "height": 0.9 },
+        "logo": "Block'Out",
+        "note": "Podium/pyramid Block'Out gris — meuble mobile entre les murs" }
+    ],
+    "industrial_features": [
+      { "id": "roller_shutters", "type": "roller_shutter", "color": "gray",
+        "count": 3, "note": "Volets roulants industriels gris — visibles derrière murs nord et ouest" }
+    ]
+  },
+
+  "route_templates": {
+    "note": "Templates de routes inspirés des photos — pas une reproduction exacte. Bn = numéro de bloc dans le secteur (route ID), grade = Fontainebleau via couleur de prise. En compétition, les blocs sont numérotés B1, B2... avec des étiquettes noires (indépendant du grade).",
+    "panel_construction": {
+      "note": "Chaque panneau est composé de sous-facettes planes (triangles, trapèzes) jointées à angles variables. Grille T-nut régulière (~10cm) visible sur les panneaux gris pour fixation des prises.",
+      "tnut_grid_spacing_cm": 10
+    },
+    "hold_types": [
+      { "type": "jug",     "grip_type": "Jug",    "mesh": "Jug",    "base_size": [0.22, 0.10, 0.14] },
+      { "type": "crimp",   "grip_type": "Crimp",  "mesh": "Crimp",  "base_size": [0.18, 0.035, 0.05] },
+      { "type": "sloper",  "grip_type": "Sloper", "mesh": "Sloper", "base_size": [0.30, 0.10, 0.22] },
+      { "type": "pinch",   "grip_type": "Pinch",  "mesh": "Pinch",  "base_size": [0.06, 0.14, 0.05] },
+      { "type": "volume",  "grip_type": "Open",   "mesh": "Volume", "base_size": [0.50, 0.25, 0.25] },
+      { "type": "sphere",  "grip_type": "Sloper", "mesh": "Sloper", "base_size": [0.20, 0.20, 0.20] },
+      { "type": "brick",   "grip_type": "Crimp",  "mesh": "Crimp",  "base_size": [0.20, 0.08, 0.10] },
+      { "type": "donut",   "grip_type": "Jug",    "mesh": "Jug",    "base_size": [0.30, 0.12, 0.30],
+        "note": "Prise annulaire rouge/rose avec trou central ~10cm" },
+      { "type": "moon",    "grip_type": "Crimp",  "mesh": "Crimp",  "base_size": [0.15, 0.04, 0.08],
+        "note": "Croissant/lune gris — mono ou bi-doigt" }
+    ],
+    "structural_volumes": [
+      { "type": "pyramid_yellow", "permanent": true, "color": "yellow_volume",
+        "sizes": ["small_30cm", "medium_60cm", "large_100cm"],
+        "note": "Pyramides jaunes triangulaires — volume structurel permanent, grimpable" },
+      { "type": "block_black", "permanent": true, "color": "black_volume",
+        "sizes": ["medium_40cm", "large_80cm"],
+        "note": "Blocs géométriques noirs (cubes, rhomboïdes) — structurel" },
+      { "type": "prism_gray", "permanent": true, "color": "gray",
+        "note": "Prismes angulaires gris aux jonctions de panneaux" },
+      { "type": "wood_insert", "permanent": true, "color": "plywood",
+        "dimensions": [0.40, 0.50, 0.03],
+        "note": "Inserts contreplaqué ~40x50cm intégrés dans les panneaux (secteur Galaxie)" },
+      { "type": "half_circle_yellow", "permanent": true, "color": "yellow_volume",
+        "diameter_cm": 60,
+        "note": "Demi-cercle jaune D-shape (secteur Machinerie)" },
+      { "type": "half_disc_black", "permanent": false, "color": "black_volume",
+        "diameter_cm": 30,
+        "note": "Grand volume demi-lune/demi-disque noir (~30cm) — arrondi, grip sloper. Différent du petit moon crimp." }
+    ],
+    "routes": [
+      {
+        "id": "T1", "color": "orange", "grade": "4A",
+        "style": "volume_hauling", "panel_preference": ["C", "A"],
+        "hold_count": 6, "hold_types": ["volume", "jug", "volume", "jug", "volume", "jug"],
+        "vertical_span": [0.5, 4.0],
+        "note": "Gros volumes, mouvements amples — débutant"
+      },
+      {
+        "id": "T2", "color": "blue", "grade": "5A",
+        "style": "traversee", "panel_preference": ["C", "B", "A"],
+        "hold_count": 8, "hold_types": ["jug", "jug", "crimp", "jug", "crimp", "jug", "crimp", "jug"],
+        "vertical_span": [1.0, 3.5],
+        "note": "Traversée avec crimps — débutant confirmé"
+      },
+      {
+        "id": "T3", "color": "green", "grade": "5C",
+        "style": "montee_directe", "panel_preference": ["D", "E"],
+        "hold_count": 7, "hold_types": ["jug", "pinch", "crimp", "jug", "crimp", "sloper", "jug"],
+        "vertical_span": [0.8, 4.2],
+        "note": "Montée technique en dévers — intermédiaire"
+      },
+      {
+        "id": "T4", "color": "pink", "grade": "6A",
+        "style": "power_endurance", "panel_preference": ["E", "F"],
+        "hold_count": 6, "hold_types": ["jug", "crimp", "pinch", "crimp", "sloper", "jug"],
+        "vertical_span": [0.8, 4.0],
+        "note": "Dévers marqué, gainage — avancé"
+      },
+      {
+        "id": "T5", "color": "white", "grade": "6C",
+        "style": "crimpy_technical", "panel_preference": ["G", "H"],
+        "hold_count": 5, "hold_types": ["crimp", "crimp", "pinch", "crimp", "crimp"],
+        "vertical_span": [1.0, 4.2],
+        "note": "Réglettes petites, lecture technique — expert"
+      },
+      {
+        "id": "T6", "color": "black", "grade": "7A+",
+        "style": "roof_power", "panel_preference": ["N2"],
+        "hold_count": 5, "hold_types": ["jug", "jug", "pinch", "crimp", "jug"],
+        "vertical_span": [1.0, 4.5],
+        "note": "Cave/toit du mur nord — élite"
+      },
+      {
+        "id": "T7", "color": "orange", "grade": "4C",
+        "style": "slab_balance", "panel_preference": ["E1"],
+        "hold_count": 6, "hold_types": ["jug", "jug", "jug", "jug", "jug", "jug"],
+        "vertical_span": [0.5, 4.0],
+        "note": "Mur est vertical, gros bacs — initiation"
+      },
+      {
+        "id": "T8", "color": "blue", "grade": "5B",
+        "style": "arête", "panel_preference": ["C", "D"],
+        "hold_count": 7, "hold_types": ["jug", "jug", "crimp", "jug", "pinch", "jug", "jug"],
+        "vertical_span": [0.5, 4.2],
+        "note": "Utilise les arêtes entre panneaux — technique d'arête"
+      }
+    ]
+  }
+}

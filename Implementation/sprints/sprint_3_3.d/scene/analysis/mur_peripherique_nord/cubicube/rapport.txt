@@ -1,0 +1,21 @@
+# Cubicube
+Structure: Mur périphérique Nord
+Aire: 3.7 m²
+Hauteur: 5.0 m
+Centroïde: (-18.7, 18.7)
+Photos: 2
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 2.73 m  (-20.1,18.0)→(-17.3,18.0)  azimut=0°
+  2. 2.73 m  (-17.3,19.4)→(-20.1,19.4)  azimut=180°
+  3. 1.37 m  (-20.1,19.4)→(-20.1,18.0)  azimut=-90°
+  4. 1.37 m  (-17.3,18.0)→(-17.3,19.4)  azimut=90°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 69
+Lignes horizontales: 45
+Lignes angulées: 119
+Angle dominant: 63.0°
+Type de mur: léger dévers

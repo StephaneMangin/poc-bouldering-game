@@ -1,0 +1,24 @@
+# Cheminée
+Structure: Mur périphérique Nord
+Aire: 2.0 m²
+Hauteur: 5.0 m
+Centroïde: (-23.6, 14.3)
+Photos: 2
+
+## Géométrie du plan (footprint)
+Sommets: 7
+Arêtes (par longueur décroissante):
+  1. 2.95 m  (-24.1,15.7)→(-24.1,12.8)  azimut=-90°
+  2. 1.49 m  (-23.4,12.8)→(-23.4,14.2)  azimut=90°
+  3. 1.37 m  (-23.4,14.4)→(-23.4,15.7)  azimut=90°
+  4. 0.69 m  (-24.1,12.8)→(-23.4,12.8)  azimut=-1°
+  5. 0.69 m  (-23.4,15.7)→(-24.1,15.7)  azimut=-179°
+  6. 0.07 m  (-23.5,14.3)→(-23.4,14.4)  azimut=63°
+  7. 0.06 m  (-23.4,14.2)→(-23.5,14.3)  azimut=121°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 66
+Lignes horizontales: 51
+Lignes angulées: 129
+Angle dominant: 62.3°
+Type de mur: léger dévers

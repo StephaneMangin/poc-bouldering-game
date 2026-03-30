@@ -65,6 +65,15 @@ namespace Project.Core.Input
             return UnityEngine.Input.GetMouseButtonDown(0);
         }
 
+        /// <summary>
+        /// Screen-space cursor position. Centralized so callers don't reach into UnityEngine.Input directly
+        /// (single migration point when moving to the New Input System per ADR-005).
+        /// </summary>
+        public Vector3 ReadMousePosition()
+        {
+            return UnityEngine.Input.mousePosition;
+        }
+
         // ── Global actions ──
 
         public bool ConsumeReleaseAllPressed()

@@ -3,8 +3,10 @@ using Project.Core.Events;
 using Project.Core.Input;
 using Project.Features.Climbing.Domain;
 using Project.Features.Climbing.Presentation;
+using Project.Features.Physics.Presentation;
 using Project.Features.Player.Application;
 using Project.Features.Player.Domain;
+using Project.Features.Resources.Presentation;
 using UnityEngine;
 
 namespace Project.Features.Player.Presentation
@@ -30,12 +32,21 @@ namespace Project.Features.Player.Presentation
 
         public string LastActionStatus { get; private set; } = "Ready";
 
+        /// <summary>
+        /// Shared event bus published by the FSM states and consumed by sibling drivers
+        /// (ResourceSystemDriver, PhysicsModelDriver, …). Owned by this driver to centralize
+        /// the bus lifecycle on the Player root.
+        /// </summary>
+        public IEventBus EventBus { get; private set; }
+
         private void Awake()
         {
+            EventBus = new InMemoryEventBus();
+
             var context = new PlayerContext
             {
                 TuningConfig = tuningConfig,
-                EventBus = new InMemoryEventBus(),
+                EventBus = EventBus,
                 PlayerHands = playerHands,
                 WallNormalReference = wallNormalReference,
             };
@@ -51,6 +62,28 @@ namespace Project.Features.Player.Presentation
             if (holdTargeting == null)
             {
                 holdTargeting = GetComponent<HoldTargetingSystem>();
+            }
+
+            WireSiblingSubscribers();
+        }
+
+        /// <summary>
+        /// Hand the shared bus to sibling drivers that previously held their own (or none).
+        /// Run from Awake — every dependent reads <c>_eventBus</c> only from Update onward,
+        /// so the order of sibling Awakes does not matter.
+        /// </summary>
+        private void WireSiblingSubscribers()
+        {
+            var resourceDriver = GetComponent<ResourceSystemDriver>();
+            if (resourceDriver != null)
+            {
+                resourceDriver.Initialize(EventBus);
+            }
+
+            var physicsDriver = GetComponent<PhysicsModelDriver>();
+            if (physicsDriver != null)
+            {
+                physicsDriver.SetEventBus(EventBus);
             }
         }
 

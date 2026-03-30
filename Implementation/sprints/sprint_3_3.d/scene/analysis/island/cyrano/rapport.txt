@@ -1,0 +1,23 @@
+# Cyrano
+Structure: Island
+Aire: 10.5 m²
+Hauteur: 5.0 m
+Centroïde: (-1.4, 4.9)
+Photos: 6
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 5.31 m  (-4.6,5.6)→(-0.8,1.9)  azimut=-44°
+  2. 2.64 m  (-2.0,6.1)→(-4.6,5.6)  azimut=-169°
+  3. 2.45 m  (-0.8,1.9)→(0.2,4.2)  azimut=66°
+  4. 2.27 m  (0.3,5.7)→(-2.0,5.7)  azimut=179°
+  5. 1.53 m  (0.2,4.2)→(0.3,5.7)  azimut=87°
+  6. 0.42 m  (-2.0,5.7)→(-2.0,6.1)  azimut=91°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 281
+Lignes horizontales: 60
+Lignes angulées: 233
+Angle dominant: 78.2°
+Type de mur: léger dévers

@@ -1,0 +1,22 @@
+# Starbloc Droit
+Structure: Mur périphérique Nord
+Aire: 24.2 m²
+Hauteur: 5.0 m
+Centroïde: (5.5, 17.1)
+Photos: 8
+
+## Géométrie du plan (footprint)
+Sommets: 5
+Arêtes (par longueur décroissante):
+  1. 8.17 m  (10.2,19.4)→(2.1,19.4)  azimut=180°
+  2. 5.39 m  (6.7,15.3)→(10.2,19.4)  azimut=49°
+  3. 4.29 m  (2.0,15.7)→(6.3,15.7)  azimut=-0°
+  4. 3.65 m  (2.1,19.4)→(2.0,15.7)  azimut=-90°
+  5. 0.55 m  (6.3,15.7)→(6.7,15.3)  azimut=-49°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 242
+Lignes horizontales: 40
+Lignes angulées: 173
+Angle dominant: 80.5°
+Type de mur: vertical

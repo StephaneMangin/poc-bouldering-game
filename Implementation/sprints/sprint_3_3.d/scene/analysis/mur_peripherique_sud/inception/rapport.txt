@@ -1,0 +1,24 @@
+# Inception
+Structure: Mur périphérique Sud
+Aire: 18.6 m²
+Hauteur: 5.0 m
+Centroïde: (7.6, -12.9)
+Photos: 6
+
+## Géométrie du plan (footprint)
+Sommets: 7
+Arêtes (par longueur décroissante):
+  1. 5.58 m  (3.8,-15.6)→(9.4,-15.6)  azimut=0°
+  2. 4.46 m  (8.3,-12.2)→(3.8,-12.7)  azimut=-174°
+  3. 3.81 m  (9.4,-15.6)→(9.4,-11.8)  azimut=90°
+  4. 2.89 m  (3.8,-12.7)→(3.8,-15.6)  azimut=-90°
+  5. 1.08 m  (8.8,-11.3)→(8.3,-12.2)  azimut=-119°
+  6. 1.03 m  (9.8,-11.3)→(8.8,-11.3)  azimut=179°
+  7. 0.62 m  (9.4,-11.8)→(9.8,-11.3)  azimut=49°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 270
+Lignes horizontales: 47
+Lignes angulées: 201
+Angle dominant: 81.3°
+Type de mur: vertical

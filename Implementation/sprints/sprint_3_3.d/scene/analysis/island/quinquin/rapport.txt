@@ -1,0 +1,23 @@
+# Quinquin
+Structure: Island
+Aire: 15.7 m²
+Hauteur: 5.0 m
+Centroïde: (0.0, 0.0)
+Photos: 5
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 4.16 m  (3.2,0.6)→(-0.8,1.9)  azimut=162°
+  2. 2.98 m  (2.6,-2.3)→(3.2,0.6)  azimut=79°
+  3. 2.84 m  (-3.2,1.7)→(-2.0,-0.9)  azimut=-66°
+  4. 2.69 m  (0.2,-1.1)→(2.6,-2.3)  azimut=-27°
+  5. 2.44 m  (-0.8,1.9)→(-3.2,1.7)  azimut=-176°
+  6. 2.25 m  (-2.0,-0.9)→(0.2,-1.1)  azimut=-6°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 212
+Lignes horizontales: 38
+Lignes angulées: 96
+Angle dominant: 84.3°
+Type de mur: vertical

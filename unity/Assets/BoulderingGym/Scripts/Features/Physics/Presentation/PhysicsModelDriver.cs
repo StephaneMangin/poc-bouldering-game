@@ -60,6 +60,16 @@ namespace Project.Features.Physics.Presentation
             _model = new ClimbingPhysicsModel(config);
         }
 
+        /// <summary>
+        /// Late-binding entry point: wire the shared event bus without rebuilding the model
+        /// or re-resolving Inspector references (called by <c>PlayerStateMachineDriver</c>
+        /// to share its bus across sibling drivers).
+        /// </summary>
+        public void SetEventBus(IEventBus eventBus)
+        {
+            _eventBus = eventBus;
+        }
+
         private void Awake()
         {
             if (tuningConfig != null)

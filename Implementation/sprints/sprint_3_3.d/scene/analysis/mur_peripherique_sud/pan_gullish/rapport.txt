@@ -1,0 +1,21 @@
+# Pan Gullish
+Structure: Mur périphérique Sud
+Aire: 14.0 m²
+Hauteur: 5.0 m
+Centroïde: (14.9, -10.3)
+Photos: 3
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 9.04 m  (15.8,-15.5)→(15.8,-6.5)  azimut=90°
+  2. 6.32 m  (14.0,-6.5)→(14.0,-12.8)  azimut=-90°
+  3. 3.29 m  (14.0,-12.8)→(15.8,-15.5)  azimut=-56°
+  4. 1.82 m  (15.8,-6.5)→(14.0,-6.5)  azimut=180°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 194
+Lignes horizontales: 31
+Lignes angulées: 114
+Angle dominant: 86.0°
+Type de mur: vertical

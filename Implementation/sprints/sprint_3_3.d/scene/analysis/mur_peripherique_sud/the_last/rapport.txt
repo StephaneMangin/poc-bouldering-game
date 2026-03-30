@@ -1,0 +1,23 @@
+# The Last
+Structure: Mur périphérique Sud
+Aire: 9.8 m²
+Hauteur: 5.0 m
+Centroïde: (-0.2, -13.2)
+Photos: 1
+
+## Géométrie du plan (footprint)
+Sommets: 6
+Arêtes (par longueur décroissante):
+  1. 4.44 m  (-1.7,-11.1)→(-1.7,-15.6)  azimut=-90°
+  2. 2.96 m  (1.0,-15.6)→(1.0,-12.6)  azimut=90°
+  3. 2.65 m  (-1.7,-15.6)→(1.0,-15.6)  azimut=0°
+  4. 1.91 m  (0.1,-11.9)→(-1.7,-11.1)  azimut=155°
+  5. 0.76 m  (1.0,-12.6)→(0.2,-12.6)  azimut=178°
+  6. 0.68 m  (0.2,-12.6)→(0.1,-11.9)  azimut=104°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 54
+Lignes horizontales: 13
+Lignes angulées: 93
+Angle dominant: 64.1°
+Type de mur: léger dévers

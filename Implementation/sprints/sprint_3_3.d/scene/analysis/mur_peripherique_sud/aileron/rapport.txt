@@ -1,0 +1,21 @@
+# Aileron
+Structure: Mur périphérique Sud
+Aire: 8.3 m²
+Hauteur: 5.0 m
+Centroïde: (2.4, -14.1)
+Photos: 7
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 2.96 m  (1.0,-12.6)→(1.0,-15.6)  azimut=-90°
+  2. 2.89 m  (3.8,-15.6)→(3.8,-12.7)  azimut=90°
+  3. 2.85 m  (3.8,-12.7)→(1.0,-12.6)  azimut=179°
+  4. 2.83 m  (1.0,-15.6)→(3.8,-15.6)  azimut=0°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 234
+Lignes horizontales: 41
+Lignes angulées: 305
+Angle dominant: 66.0°
+Type de mur: léger dévers

@@ -1,0 +1,20 @@
+# Dodécaèdre
+Structure: Island
+Aire: 3.9 m²
+Hauteur: 5.0 m
+Centroïde: (-4.0, 6.7)
+Photos: 9
+
+## Géométrie du plan (footprint)
+Sommets: 3
+Arêtes (par longueur décroissante):
+  1. 4.23 m  (-2.0,6.1)→(-5.5,8.4)  azimut=147°
+  2. 2.97 m  (-5.5,8.4)→(-4.6,5.6)  azimut=-71°
+  3. 2.64 m  (-4.6,5.6)→(-2.0,6.1)  azimut=11°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 447
+Lignes horizontales: 104
+Lignes angulées: 330
+Angle dominant: 80.4°
+Type de mur: vertical

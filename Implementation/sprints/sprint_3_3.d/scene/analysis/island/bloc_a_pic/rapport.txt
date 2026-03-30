@@ -1,0 +1,21 @@
+# Bloc à Pic
+Structure: Island
+Aire: 8.0 m²
+Hauteur: 5.0 m
+Centroïde: (-3.5, 3.2)
+Photos: 3
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 5.30 m  (-0.8,1.9)→(-4.6,5.6)  azimut=136°
+  2. 3.06 m  (-5.5,3.7)→(-3.2,1.7)  azimut=-40°
+  3. 2.44 m  (-3.2,1.7)→(-0.8,1.9)  azimut=4°
+  4. 2.12 m  (-4.6,5.6)→(-5.5,3.7)  azimut=-117°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 97
+Lignes horizontales: 7
+Lignes angulées: 33
+Angle dominant: 84.2°
+Type de mur: vertical

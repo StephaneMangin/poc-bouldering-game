@@ -1,0 +1,21 @@
+# Starbloc Gauche
+Structure: Mur périphérique Nord
+Aire: 18.2 m²
+Hauteur: 5.0 m
+Centroïde: (-0.5, 17.5)
+Photos: 5
+
+## Géométrie du plan (footprint)
+Sommets: 4
+Arêtes (par longueur décroissante):
+  1. 5.00 m  (-3.0,15.7)→(2.0,15.7)  azimut=0°
+  2. 4.98 m  (2.0,19.4)→(-2.9,19.4)  azimut=180°
+  3. 3.65 m  (-2.9,19.4)→(-3.0,15.7)  azimut=-90°
+  4. 3.65 m  (2.0,15.7)→(2.0,19.4)  azimut=90°
+
+## Analyse des arêtes (photos)
+Lignes verticales: 131
+Lignes horizontales: 25
+Lignes angulées: 65
+Angle dominant: 84.4°
+Type de mur: vertical

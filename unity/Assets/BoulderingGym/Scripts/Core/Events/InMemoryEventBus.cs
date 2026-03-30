@@ -39,6 +39,10 @@ namespace Project.Core.Events
             }
         }
 
+        /// <summary>
+        /// Dispatch synchronously. Handlers MUST NOT Subscribe/Unsubscribe during dispatch
+        /// (no defensive snapshot — iteration is by index for zero per-publish allocation).
+        /// </summary>
         public void Publish(GameEvent gameEvent)
         {
             if (gameEvent == null)
@@ -51,10 +55,10 @@ namespace Project.Core.Events
                 return;
             }
 
-            var snapshot = list.ToArray();
-            foreach (var handler in snapshot)
+            // Iterate by index — no allocation, contract above forbids mutation during dispatch.
+            for (var i = 0; i < list.Count; i++)
             {
-                handler.Invoke(gameEvent);
+                list[i].Invoke(gameEvent);
             }
         }
     }
