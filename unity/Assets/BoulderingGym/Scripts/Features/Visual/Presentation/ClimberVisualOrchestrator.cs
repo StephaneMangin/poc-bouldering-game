@@ -15,8 +15,6 @@ namespace Project.Features.Visual.Presentation
         [SerializeField] private Transform visualRoot;
         [SerializeField] private HumanoidRigMapping rigMapping;
         [SerializeField] private Renderer visualRenderer;
-        [SerializeField] private Renderer leftHandMarker;
-        [SerializeField] private Renderer rightHandMarker;
         [SerializeField] private HoldRegistry holdRegistry;
         [SerializeField] private CameraFollowController cameraFollowController;
         [SerializeField] private GroundLocomotionController groundLocomotionController;
@@ -107,8 +105,6 @@ namespace Project.Features.Visual.Presentation
             if (rigMapping == null && visualRoot != null) { rigMapping = visualRoot.GetComponent<HumanoidRigMapping>(); }
             if (rigMapping != null && !rigMapping.ValidateRig(out _)) { rigMapping.AutoAssignFromRoot(visualRoot); }
             if (visualRenderer == null && visualRoot != null) { visualRenderer = FindPrimaryRenderer(visualRoot); }
-            if (leftHandMarker == null) { leftHandMarker = transform.Find("LeftHandAnchor/LeftHandMarker")?.GetComponent<Renderer>(); }
-            if (rightHandMarker == null) { rightHandMarker = transform.Find("RightHandAnchor/RightHandMarker")?.GetComponent<Renderer>(); }
             if (holdRegistry == null) { holdRegistry = FindFirstObjectByType<HoldRegistry>(); }
             if (cameraFollowController == null) { cameraFollowController = FindFirstObjectByType<CameraFollowController>(); }
         }
@@ -125,7 +121,7 @@ namespace Project.Features.Visual.Presentation
             _ikController.Initialize(driver, rigMapping, visualRoot, mannequinAnimator, holdRegistry);
 
             _feedbackController = GetOrAddComponent<ClimberFeedbackController>();
-            _feedbackController.Initialize(driver, visualRoot, visualRenderer, leftHandMarker, rightHandMarker);
+            _feedbackController.Initialize(driver, visualRoot, visualRenderer);
         }
 
         private T GetOrAddComponent<T>() where T : Component

@@ -26,7 +26,7 @@ namespace Project.Features.Player.Domain.States
                 PlayerTrigger.GrabRequested => PlayerStateId.GripStable,
                 PlayerTrigger.GrabSucceeded => PlayerStateId.GripStable,
                 PlayerTrigger.GrabFailed => PlayerStateId.GripStable,
-                PlayerTrigger.ReleaseRequested => context.PlayerHands != null && context.PlayerHands.HasAnySupport
+                PlayerTrigger.ReleaseRequested => context.PlayerHands != null && context.PlayerHands.HasCrossLimbSupport
                     ? PlayerStateId.GripStable
                     : PlayerStateId.Reach,
                 PlayerTrigger.LostSupport => PlayerStateId.Falling,

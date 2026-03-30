@@ -1,8 +1,8 @@
 using Project.Core.Utilities;
+using Project.Features.Climbing.Presentation;
 using Project.Features.Physics.Presentation;
 using Project.Features.Player.Domain;
 using Project.Features.Player.Presentation;
-using Project.Features.Climbing.Presentation;
 using UnityEngine;
 
 namespace Project.Features.Visual.Presentation
@@ -74,24 +74,24 @@ namespace Project.Features.Visual.Presentation
                 }
             }
 
-            // Fallback: average of hand anchors (backward compat)
+            // Fallback: average of held grip points (not anchors — anchors move when bones reset)
             var hands = driver != null ? driver.PlayerHands : null;
             var accumulated = Vector3.zero;
             var count = 0;
 
-            if (hands?.LeftHandAnchor != null)
-            {
-                accumulated += hands.LeftHandAnchor.position;
-                count++;
-            }
-
-            if (hands?.RightHandAnchor != null)
-            {
-                accumulated += hands.RightHandAnchor.position;
-                count++;
-            }
+            AccumulateHoldGrip(hands?.LeftCurrentHold, ref accumulated, ref count);
+            AccumulateHoldGrip(hands?.RightCurrentHold, ref accumulated, ref count);
+            AccumulateHoldGrip(hands?.LeftFootHold, ref accumulated, ref count);
+            AccumulateHoldGrip(hands?.RightFootHold, ref accumulated, ref count);
 
             return count == 0 ? transform.position + Vector3.up * 1.3f : accumulated / count;
+        }
+
+        private static void AccumulateHoldGrip(HoldComponent hold, ref Vector3 sum, ref int count)
+        {
+            if (hold == null) return;
+            sum += hold.gripPoint != null ? hold.gripPoint.position : hold.transform.position;
+            count++;
         }
     }
 }

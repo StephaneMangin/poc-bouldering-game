@@ -16,12 +16,17 @@ namespace Project.Features.Player.Presentation
         [SerializeField] private Transform wallNormalReference;
         [SerializeField] private HoldRegistry holdRegistry;
         [SerializeField] private InputReader inputReader;
+        [SerializeField] private HoldTargetingSystem holdTargeting;
 
-        private HoldComponent[] _holds;
+        private LimbSuggestionSystem _limbSuggestion;
 
         public PlayerStateMachine StateMachine { get; private set; }
 
         public PlayerHandsController PlayerHands => playerHands;
+
+        public LimbSuggestionSystem LimbSuggestion => _limbSuggestion;
+
+        public LimbId? SuggestedLimb { get; private set; }
 
         public string LastActionStatus { get; private set; } = "Ready";
 
@@ -36,10 +41,16 @@ namespace Project.Features.Player.Presentation
             };
 
             StateMachine = new PlayerStateMachine(context);
-            _holds = holdRegistry != null ? holdRegistry.GetAllHolds() : FindObjectsByType<HoldComponent>(FindObjectsSortMode.None);
+            _limbSuggestion = new LimbSuggestionSystem();
+
             if (inputReader == null)
             {
                 inputReader = GetComponent<InputReader>();
+            }
+
+            if (holdTargeting == null)
+            {
+                holdTargeting = GetComponent<HoldTargetingSystem>();
             }
         }
 
@@ -50,29 +61,24 @@ namespace Project.Features.Player.Presentation
                 return;
             }
 
-            if (inputReader.ConsumeLeftGrabPressed())
-            {
-                TryGrab(HandSide.Left);
-            }
+            var state = StateMachine.CurrentState.Id;
 
-            if (inputReader.ConsumeRightGrabPressed())
+            // Context-dependent input routing:
+            // IdleGround: limb keys only consumed when a hold is targeted (so WASD keys are free for movement)
+            // Reach/GripStable: limb keys always consumed (body follows holds, no WASD movement)
+            if (state == PlayerStateId.Reach || state == PlayerStateId.GripStable)
             {
-                TryGrab(HandSide.Right);
+                HandlePointAndPlaceInput();
+            }
+            else if (state == PlayerStateId.IdleGround
+                     && holdTargeting != null && holdTargeting.IsTargetValid)
+            {
+                HandlePointAndPlaceInput();
             }
 
             if (inputReader.ConsumeReleaseAllPressed())
             {
-                ReleaseBothHands();
-            }
-
-            if (inputReader.ConsumeReleaseLeftPressed())
-            {
-                ReleaseHand(HandSide.Left);
-            }
-
-            if (inputReader.ConsumeReleaseRightPressed())
-            {
-                ReleaseHand(HandSide.Right);
+                ReleaseAllLimbs();
             }
 
             if (inputReader.ConsumeFallPressed())
@@ -87,28 +93,81 @@ namespace Project.Features.Player.Presentation
             }
         }
 
-        private void TryGrab(HandSide handSide)
+        private void HandlePointAndPlaceInput()
         {
-            if (playerHands != null && playerHands.IsHolding(handSide))
+            var hasTarget = holdTargeting != null && holdTargeting.IsTargetValid;
+
+            SuggestedLimb = hasTarget
+                ? _limbSuggestion?.SuggestLimb(playerHands, holdTargeting.TargetedHold)
+                : null;
+
+            var activeLimb = inputReader.ConsumeActiveLimb();
+            if (activeLimb.HasValue)
             {
-                LastActionStatus = $"{handSide} hand is already holding a hold. Release it first.";
+                if (hasTarget)
+                {
+                    TryPlaceLimb(activeLimb.Value, holdTargeting.TargetedHold);
+                }
+                else if (playerHands != null && playerHands.IsLimbHolding(activeLimb.Value))
+                {
+                    ReleaseLimb(activeLimb.Value);
+                }
+
                 return;
             }
 
-            StateMachine.Fire(PlayerTrigger.GrabRequested);
-            var wallNormal = wallNormalReference != null ? wallNormalReference.forward : Vector3.forward;
-            if (playerHands != null && playerHands.TryGrab(handSide, _holds, wallNormal, out var hold))
+            if (inputReader.ConsumeQuickPlacePressed() && SuggestedLimb.HasValue && hasTarget)
             {
+                TryPlaceLimb(SuggestedLimb.Value, holdTargeting.TargetedHold);
+            }
+        }
+
+        private void TryPlaceLimb(LimbId limb, HoldComponent targetHold)
+        {
+            if (playerHands == null || targetHold == null)
+            {
+                return;
+            }
+
+            if (playerHands.IsLimbHolding(limb))
+            {
+                playerHands.ReleaseLimb(limb);
+            }
+
+            StateMachine.Fire(PlayerTrigger.GrabRequested);
+            if (playerHands.TryPlaceLimb(limb, targetHold))
+            {
+                _limbSuggestion?.RecordPlacement(limb);
                 StateMachine.Fire(PlayerTrigger.GrabSucceeded);
-                LastActionStatus = $"{handSide} hand grabbed {hold.name} | Layout-safe: ZQSD/WASD/arrows move, J left, E/L right, mouse L/R grab";
+                LastActionStatus = $"{limb} placed on {targetHold.name}";
                 return;
             }
 
             StateMachine.Fire(PlayerTrigger.GrabFailed);
-            LastActionStatus = $"{handSide} hand grab failed | Layout-safe: ZQSD/WASD/arrows move, J left, E/L right, mouse L/R grab";
+            LastActionStatus = $"{limb} cannot reach {targetHold.name}";
         }
 
-        private void ReleaseBothHands()
+        private void ReleaseLimb(LimbId limb)
+        {
+            if (playerHands == null)
+            {
+                return;
+            }
+
+            playerHands.ReleaseLimb(limb);
+
+            if (playerHands.HasAnySupport)
+            {
+                StateMachine.Fire(PlayerTrigger.ReleaseRequested);
+                LastActionStatus = $"Released {limb} | {playerHands.SupportCount} support(s)";
+                return;
+            }
+
+            StateMachine.Fire(PlayerTrigger.LostSupport);
+            LastActionStatus = $"Released {limb} | No supports -> falling";
+        }
+
+        private void ReleaseAllLimbs()
         {
             if (playerHands == null)
             {
@@ -118,7 +177,7 @@ namespace Project.Features.Player.Presentation
             var released = playerHands.ReleaseAll();
             if (!released)
             {
-                LastActionStatus = "No hands to release";
+                LastActionStatus = "Nothing to release";
                 return;
             }
 
@@ -130,31 +189,7 @@ namespace Project.Features.Player.Presentation
             }
 
             StateMachine.Fire(PlayerTrigger.LostSupport);
-            LastActionStatus = "Released all supports -> falling";
-        }
-
-        private void ReleaseHand(HandSide handSide)
-        {
-            if (playerHands == null)
-            {
-                return;
-            }
-
-            if (!playerHands.Release(handSide))
-            {
-                LastActionStatus = $"{handSide} hand had no hold";
-                return;
-            }
-
-            if (playerHands.HasAnySupport)
-            {
-                StateMachine.Fire(PlayerTrigger.ReleaseRequested);
-                LastActionStatus = $"Released {handSide} hand | Remaining supports: {playerHands.SupportCount}";
-                return;
-            }
-
-            StateMachine.Fire(PlayerTrigger.LostSupport);
-            LastActionStatus = $"Released {handSide} hand | No supports left -> falling";
+            LastActionStatus = "Released all -> falling";
         }
     }
 }

@@ -228,6 +228,17 @@ namespace Project.Tools.Editor
                 serializedObject.ApplyModifiedPropertiesWithoutUndo();
                 EditorUtility.SetDirty(target);
             }
+
+            public static void SetSerializedField(Object target, string fieldName, int value)
+            {
+                var serializedObject = new SerializedObject(target);
+                var property = serializedObject.FindProperty(fieldName);
+                if (property == null) return;
+
+                property.intValue = value;
+                serializedObject.ApplyModifiedPropertiesWithoutUndo();
+                EditorUtility.SetDirty(target);
+            }
         }
 
         // ═════════════════════════════════════════════════════════════════
@@ -354,10 +365,10 @@ namespace Project.Tools.Editor
                 var hips = Helpers.EnsureChild(player.transform, "Hips", new Vector3(0f, 1f, 0f));
                 var leftHandAnchor = Helpers.EnsureChild(player.transform, "LeftHandAnchor", new Vector3(-0.35f, 1.45f, 0.65f));
                 var rightHandAnchor = Helpers.EnsureChild(player.transform, "RightHandAnchor", new Vector3(0.35f, 1.45f, 0.65f));
+                var leftFootAnchor = Helpers.EnsureChild(player.transform, "LeftFootAnchor", new Vector3(-0.15f, 0.1f, 0.3f));
+                var rightFootAnchor = Helpers.EnsureChild(player.transform, "RightFootAnchor", new Vector3(0.15f, 0.1f, 0.3f));
                 var wallNormalReference = Helpers.EnsureChild(player.transform, "WallNormalReference", new Vector3(0f, 1.4f, 0f));
                 var bodyVisual = HumanoidModule.EnsureHumanoidMannequin(player.transform, variant, out var rigMapping);
-                EnsureHandMarker(leftHandAnchor, "LeftHandMarker", new Color(0.2f, 0.9f, 1f, 1f));
-                EnsureHandMarker(rightHandAnchor, "RightHandMarker", new Color(1f, 0.25f, 0.85f, 1f));
                 wallNormalReference.forward = Vector3.back;
 
                 // Remove legacy child ResetAnchor (must NOT be a child — it moves with the player)
@@ -390,6 +401,20 @@ namespace Project.Tools.Editor
                         rightHandAnchor.localRotation = Quaternion.identity;
                     }
 
+                    if (rigMapping.leftFoot != null)
+                    {
+                        leftFootAnchor.SetParent(rigMapping.leftFoot, false);
+                        leftFootAnchor.localPosition = Vector3.zero;
+                        leftFootAnchor.localRotation = Quaternion.identity;
+                    }
+
+                    if (rigMapping.rightFoot != null)
+                    {
+                        rightFootAnchor.SetParent(rigMapping.rightFoot, false);
+                        rightFootAnchor.localPosition = Vector3.zero;
+                        rightFootAnchor.localRotation = Quaternion.identity;
+                    }
+
                     if (rigMapping.ValidateRig(out var report))
                     {
                         Debug.Log("Humanoid rig mapping validated.", rigMapping);
@@ -407,8 +432,22 @@ namespace Project.Tools.Editor
 
                 Helpers.SetSerializedField(hands, "leftHandAnchor", leftHandAnchor);
                 Helpers.SetSerializedField(hands, "rightHandAnchor", rightHandAnchor);
+                Helpers.SetSerializedField(hands, "leftFootAnchor", leftFootAnchor);
+                Helpers.SetSerializedField(hands, "rightFootAnchor", rightFootAnchor);
                 Helpers.SetSerializedField(hands, "tuningConfig", tuningConfig);
+                Helpers.SetSerializedField(hands, "wallNormalReference", wallNormalReference);
                 Helpers.SetSerializedField(hands, "drawDebugGizmos", true);
+
+                // Point & Place: HoldTargetingSystem on player
+                var holdTargeting = player.GetComponent<HoldTargetingSystem>()
+                                    ?? player.AddComponent<HoldTargetingSystem>();
+                Helpers.SetSerializedField(holdTargeting, "tuningConfig", tuningConfig);
+
+                var holdsLayerIndex = LayerMask.NameToLayer("Holds");
+                if (holdsLayerIndex >= 0)
+                {
+                    Helpers.SetSerializedField(holdTargeting, "holdLayerMask", 1 << holdsLayerIndex);
+                }
 
                 var hipsMovement = hips.GetComponent<HipsMovementController>()
                                    ?? hips.gameObject.AddComponent<HipsMovementController>();
@@ -424,9 +463,11 @@ namespace Project.Tools.Editor
                 Helpers.SetSerializedField(driver, "wallNormalReference", wallNormalReference);
                 Helpers.SetSerializedField(driver, "inputReader", inputReader);
                 Helpers.SetSerializedField(driver, "holdRegistry", holdRegistry);
+                Helpers.SetSerializedField(driver, "holdTargeting", holdTargeting);
 
                 Helpers.SetSerializedField(hipsMovement, "driver", driver);
                 Helpers.SetSerializedField(hipsMovement, "wallNormalReference", wallNormalReference);
+                Helpers.SetSerializedField(hipsMovement, "pelvisBone", rigMapping.pelvis);
 
                 var hipsSphere = hips.GetComponent<SphereCollider>();
                 if (hipsSphere == null)
@@ -494,15 +535,11 @@ namespace Project.Tools.Editor
                 var bodyRenderer = rigMapping != null && rigMapping.torso != null
                     ? rigMapping.torso.GetComponent<Renderer>()
                     : FindPrimaryRenderer(bodyVisual);
-                var leftHandRenderer = leftHandAnchor.Find("LeftHandMarker")?.GetComponent<Renderer>();
-                var rightHandRenderer = rightHandAnchor.Find("RightHandMarker")?.GetComponent<Renderer>();
 
                 Helpers.SetSerializedField(visualOrchestrator, "driver", driver);
                 Helpers.SetSerializedField(visualOrchestrator, "mannequinAnimator", animator);
                 Helpers.SetSerializedField(visualOrchestrator, "visualRoot", bodyVisual);
                 Helpers.SetSerializedField(visualOrchestrator, "visualRenderer", bodyRenderer);
-                Helpers.SetSerializedField(visualOrchestrator, "leftHandMarker", leftHandRenderer);
-                Helpers.SetSerializedField(visualOrchestrator, "rightHandMarker", rightHandRenderer);
                 Helpers.SetSerializedField(visualOrchestrator, "holdRegistry", holdRegistry);
 
                 // GroundLocomotionController — programmatic movement via CharacterController
@@ -517,29 +554,6 @@ namespace Project.Tools.Editor
                 bodyVisual.localPosition = Vector3.zero;
 
                 return player;
-            }
-
-            private static void EnsureHandMarker(Transform anchor, string markerName, Color color)
-            {
-                if (anchor == null) return;
-
-                var marker = anchor.Find(markerName);
-                if (marker == null)
-                {
-                    var markerObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    markerObject.name = markerName;
-                    markerObject.transform.SetParent(anchor);
-                    markerObject.transform.localPosition = Vector3.zero;
-                    markerObject.transform.localScale = new Vector3(0.16f, 0.16f, 0.16f);
-                    Object.DestroyImmediate(markerObject.GetComponent<SphereCollider>());
-                    marker = markerObject.transform;
-                }
-
-                var renderer = marker.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    renderer.sharedMaterial.color = color;
-                }
             }
 
             private static Renderer FindPrimaryRenderer(Transform root)
@@ -1408,7 +1422,8 @@ namespace Project.Tools.Editor
                 for (var b = 1; b < renderers.Length; b++)
                     combinedBounds.Encapsulate(renderers[b].bounds);
                 collider.center = hold.transform.InverseTransformPoint(combinedBounds.center);
-                collider.size = hold.transform.InverseTransformVector(combinedBounds.size);
+                var localSize = hold.transform.InverseTransformVector(combinedBounds.size);
+                collider.size = new Vector3(Mathf.Abs(localSize.x), Mathf.Abs(localSize.y), Mathf.Abs(localSize.z));
 
                 var gripPoint = new GameObject("GripPoint");
                 gripPoint.transform.SetParent(hold.transform);
@@ -1425,6 +1440,20 @@ namespace Project.Tools.Editor
                     gripTextureWall = 1f,
                 };
                 EditorUtility.SetDirty(holdComponent);
+
+                EnsureHoldsLayer(hold);
+            }
+
+            private static void EnsureHoldsLayer(GameObject hold)
+            {
+                var layerIndex = LayerMask.NameToLayer("Holds");
+                if (layerIndex < 0) return;
+
+                hold.layer = layerIndex;
+                foreach (Transform child in hold.transform)
+                {
+                    child.gameObject.layer = layerIndex;
+                }
             }
 
             private static GameObject BuildHoldGeometry(HoldShape shape)
@@ -1637,6 +1666,11 @@ namespace Project.Tools.Editor
                                   ?? debugUi.AddComponent<ResourceHUD>();
                 var resourceDriverRef = Object.FindAnyObjectByType<ResourceSystemDriver>();
                 Helpers.SetSerializedField(resourceHud, "resourceDriver", resourceDriverRef);
+
+                // Sprint 4.0: LimbSelectionHUD (Point & Place)
+                var limbHud = debugUi.GetComponent<LimbSelectionHUD>()
+                              ?? debugUi.AddComponent<LimbSelectionHUD>();
+                Helpers.SetSerializedField(limbHud, "driver", driver);
             }
         }
 

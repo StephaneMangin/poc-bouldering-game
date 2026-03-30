@@ -29,10 +29,13 @@ namespace Project.Features.Climbing.Presentation
 
         private static readonly int ColorProperty = Shader.PropertyToID("_Color");
         private static readonly Color GrabbedColor = new(0.3f, 0.9f, 0.35f, 1f);
+        private static readonly Color HighlightColor = new(1f, 0.85f, 0.2f, 1f);
 
         private Renderer _renderer;
         private MaterialPropertyBlock _propBlock;
         private Color _baseColor = new(0.8f, 0.8f, 0.8f, 1f);
+        private bool _isGrabbed;
+        private bool _isHighlighted;
 
         private void Awake()
         {
@@ -54,6 +57,18 @@ namespace Project.Features.Climbing.Presentation
 
         public void SetFeedback(bool grabbed)
         {
+            _isGrabbed = grabbed;
+            ApplyColor();
+        }
+
+        public void SetHighlight(bool highlighted)
+        {
+            _isHighlighted = highlighted;
+            ApplyColor();
+        }
+
+        private void ApplyColor()
+        {
             if (_renderer == null)
             {
                 _renderer = GetComponent<Renderer>();
@@ -64,9 +79,10 @@ namespace Project.Features.Climbing.Presentation
                 return;
             }
 
+            var color = _isGrabbed ? GrabbedColor : _isHighlighted ? HighlightColor : _baseColor;
             _propBlock ??= new MaterialPropertyBlock();
             _renderer.GetPropertyBlock(_propBlock);
-            _propBlock.SetColor(ColorProperty, grabbed ? GrabbedColor : _baseColor);
+            _propBlock.SetColor(ColorProperty, color);
             _renderer.SetPropertyBlock(_propBlock);
         }
     }

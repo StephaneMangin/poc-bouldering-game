@@ -1,5 +1,28 @@
 # Game Loop
 
+## Core Functional Loop (invariant — must be satisfied at all times)
+
+This is the primary gameplay sequence. It must never regress.
+
+1. **Walk** — Player moves with WASD/ZQSD/arrows (IdleGround state)
+2. **Approach wall** — Player walks toward a climbing wall
+3. **Target a hold** — Mouse cursor highlights a reachable hold (yellow)
+4. **Place first limb** — Click or Q/E/A/D places a hand/foot on the hold → enters Climbing mode
+5. **Climb** — Alternate hand and foot placements:
+   - Select a hold with mouse → press limb key (Q=LH, E=RH, A=LF, D=RF w/ click=auto)
+   - Body rises/shifts as limbs are placed (pelvis follows contacts)
+   - Legs push body up, arms reach for higher holds
+   - If a hold is out of reach, move feet up first
+6. **Top out or fall** — Reach the top, or lose all supports → fall
+7. **Land** — Press Space to land → returns to IdleGround (Walking mode)
+8. **Repeat** — Walk to wall and climb again
+
+### Constraints
+- A limb can only reach a hold within its physical chain length from the body
+- The body position is computed from where limbs are placed (not independent)
+- At least 1 hand + 1 opposite foot (cross-limb) required for stable grip
+- Endurance, grip adherence, and local fatigue drain during climbing
+
 ## Objective
 Deliver short, readable, and replayable runs where every attempt teaches the player something.
 

@@ -74,6 +74,10 @@ namespace Project.Core.Domain
         [Range(60f, 95f)] public float fatigueCriticalThreshold = 80f;
         [Range(85f, 100f)] public float fatigueFailureThreshold = 95f;
 
+        [Header("Point & Place")]
+        [Min(0.1f)] public float footPlaceRange = 1.0f;
+        [Range(0.05f, 1f)] public float cursorMagnetRadius = 0.3f;
+
         [Header("Grip Type - Fatigue Multipliers")]
         [Range(0.3f, 1f)] public float gripTypeFatigueMultJug = 0.6f;
         [Range(0.4f, 1.2f)] public float gripTypeFatigueMultOpen = 0.8f;

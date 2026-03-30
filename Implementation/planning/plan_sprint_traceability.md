@@ -7,6 +7,11 @@ Verify that every requirement in the plan is covered by at least one sprint with
 | Requirement | Plan source | Sprint(s) | Expected deliverable | Validation KPI |
 |---|---|---|---|---|
 | Stable player FSM | `plan/04_technical/player_fsm.md` | S1.0, S5.0 | Debuggable states and transitions (13 states) | 0 blocking transition |
+| Point & Place control scheme | `plan/01_gameplay/controls.md` | S3.1 | Limb selection (Q/E/A/D) + mouse targeting + click placement | Full grab/release loop functional |
+| Constraint-aware IK pipeline | `plan/04_technical/architecture.md` | S3.1 | Anatomical bend constraints during IK solve (no post-hoc Euler) | Arms/legs within clinical angle range |
+| Body solver (pelvis from limb contacts) | `plan/04_technical/player_fsm.md` | S3.1 | ClimbingBodySolver + measured anatomy from rig | Pelvis tracks center of support |
+| Foot orientation on footholds | `plan/04_technical/architecture.md` | S3.1 | Rest-rotation compensation (sole-down, no magic numbers) | Sole contacts hold surface |
+| Extremity accuracy (fingertip/toe tip) | `plan/04_technical/architecture.md` | S3.1 | Chain-root offset direction for IK target | Fingertip within 2 cm of grip |
 | Readable fall physics + route visual organization | `plan/01_gameplay/game_loop.md`, `plan/03_levels/routes_mvp.md` | S1.1 (extension) | Physics-driven fall + lane-organized wall + basic mannequin readability pass | Testers identify route intent and fall state |
 | COG + weight distribution | `plan/02_systems/physics_model.md` | S2.0 | COG computation + weight ratios + debug overlay | COG visibly affects climbing effort |
 | PhysicMaterials | `plan/02_systems/physics_model.md` | S2.0 | 6 materials (wall, holds, crash pad, shoe) | Distinguishable friction behavior |

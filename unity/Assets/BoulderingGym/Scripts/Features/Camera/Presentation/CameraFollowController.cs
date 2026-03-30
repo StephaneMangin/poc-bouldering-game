@@ -69,6 +69,11 @@ namespace Project.Features.Camera.Presentation
 
         private void HandleMouseYaw()
         {
+            if (!Input.GetMouseButton(1))
+            {
+                return;
+            }
+
             var mouseX = Input.GetAxis("Mouse X");
             if (Mathf.Abs(mouseX) > 0.001f)
             {

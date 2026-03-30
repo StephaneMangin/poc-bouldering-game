@@ -99,7 +99,7 @@ namespace Project.UI
             y += 22f;
 
             GUI.Label(new Rect(panelX + 10f, y, panelW - 20f, 30f),
-                "ZQSD/WASD move | J/E grab | U/O release | R release all | C chalk | F fall",
+                "Arrows move | Q/E hands, A/D feet | LClick quick-place | R release all | F fall",
                 _helpStyle);
         }
     }

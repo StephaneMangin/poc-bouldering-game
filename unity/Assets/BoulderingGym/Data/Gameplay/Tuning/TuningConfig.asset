@@ -57,6 +57,8 @@ MonoBehaviour:
   fatigueWarningThreshold: 60
   fatigueCriticalThreshold: 80
   fatigueFailureThreshold: 95
+  footPlaceRange: 1
+  cursorMagnetRadius: 0.3
   gripTypeFatigueMultJug: 0.6
   gripTypeFatigueMultOpen: 0.8
   gripTypeFatigueMultPinch: 1
