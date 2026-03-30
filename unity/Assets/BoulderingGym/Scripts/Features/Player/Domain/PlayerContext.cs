@@ -1,6 +1,5 @@
 using Project.Core.Domain;
 using Project.Core.Events;
-using Project.Features.Climbing.Presentation;
 using UnityEngine;
 
 namespace Project.Features.Player.Domain
@@ -11,7 +10,7 @@ namespace Project.Features.Player.Domain
 
         public IEventBus EventBus;
 
-        public PlayerHandsController PlayerHands;
+        public IPlayerHands PlayerHands;
 
         public Transform WallNormalReference;
     }

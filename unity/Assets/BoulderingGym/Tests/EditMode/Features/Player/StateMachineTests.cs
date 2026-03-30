@@ -19,13 +19,16 @@ namespace Project.Tests.EditMode.Features.Player
     {
         private PlayerContext _context;
         private PlayerStateMachine _fsm;
+        private StubPlayerHands _stubHands;
 
         [SetUp]
         public void SetUp()
         {
+            _stubHands = new StubPlayerHands();
             _context = new PlayerContext
             {
                 EventBus = new StubEventBus(),
+                PlayerHands = _stubHands,
             };
             _fsm = new PlayerStateMachine(_context);
         }
@@ -65,6 +68,7 @@ namespace Project.Tests.EditMode.Features.Player
         public void Reach_GrabFailed_NoSupport_TransitionsToIdleGround()
         {
             _fsm.Fire(PlayerTrigger.GrabRequested);
+            _stubHands.HasAnySupport = false;
             Assert.IsTrue(_fsm.Fire(PlayerTrigger.GrabFailed));
             Assert.AreEqual(PlayerStateId.IdleGround, _fsm.CurrentState.Id);
         }
@@ -97,6 +101,7 @@ namespace Project.Tests.EditMode.Features.Player
         public void GripStable_ReleaseRequested_NoSupport_TransitionsToReach()
         {
             NavigateTo(PlayerStateId.GripStable);
+            _stubHands.HasCrossLimbSupport = false;
             Assert.IsTrue(_fsm.Fire(PlayerTrigger.ReleaseRequested));
             Assert.AreEqual(PlayerStateId.Reach, _fsm.CurrentState.Id);
         }
@@ -360,6 +365,13 @@ namespace Project.Tests.EditMode.Features.Player
             public void Subscribe(EventType eventType, Action<GameEvent> handler) { }
             public void Unsubscribe(EventType eventType, Action<GameEvent> handler) { }
             public void Publish(GameEvent gameEvent) => PublishedEvents.Add(gameEvent);
+        }
+
+        private sealed class StubPlayerHands : IPlayerHands
+        {
+            public bool HasAnySupport { get; set; } = true;
+            public bool HasCrossLimbSupport { get; set; } = true;
+            public void SetIkEnabled(bool enabled) { }
         }
     }
 }

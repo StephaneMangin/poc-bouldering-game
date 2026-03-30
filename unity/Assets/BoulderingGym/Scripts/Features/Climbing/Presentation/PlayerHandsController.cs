@@ -3,9 +3,11 @@ using Project.Core.Utilities;
 using Project.Features.Climbing.Domain;
 using UnityEngine;
 
+using Project.Features.Player.Domain;
+
 namespace Project.Features.Climbing.Presentation
 {
-    public sealed class PlayerHandsController : MonoBehaviour
+    public sealed class PlayerHandsController : MonoBehaviour, IPlayerHands
     {
         [Header("References")]
         [SerializeField] private Transform leftHandAnchor;

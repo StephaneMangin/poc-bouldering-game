@@ -26,6 +26,7 @@ namespace Project.Tests.EditMode.Features.Climbing
             var context = new PlayerContext
             {
                 EventBus = new StubEventBus(),
+                PlayerHands = new StubPlayerHands(),
             };
             _fsm = new PlayerStateMachine(context);
             _anatomy = ClimbingBodySolver.AnatomyParams.Default;
@@ -177,9 +178,9 @@ namespace Project.Tests.EditMode.Features.Climbing
             _fsm.Fire(PlayerTrigger.GrabSucceeded);
             Assert.AreEqual(PlayerStateId.GripStable, _fsm.CurrentState.Id);
 
-            // Place second hold (grab again from stable)
+            // Request another grab while stable — stays in GripStable
             _fsm.Fire(PlayerTrigger.GrabRequested);
-            Assert.AreEqual(PlayerStateId.Reach, _fsm.CurrentState.Id);
+            Assert.AreEqual(PlayerStateId.GripStable, _fsm.CurrentState.Id);
             _fsm.Fire(PlayerTrigger.GrabSucceeded);
             Assert.AreEqual(PlayerStateId.GripStable, _fsm.CurrentState.Id);
 
@@ -202,5 +203,12 @@ namespace Project.Tests.EditMode.Features.Climbing
         public void Publish(GameEvent gameEvent) { }
         public void Subscribe(Project.Core.Events.EventType eventType, Action<GameEvent> handler) { }
         public void Unsubscribe(Project.Core.Events.EventType eventType, Action<GameEvent> handler) { }
+    }
+
+    internal sealed class StubPlayerHands : IPlayerHands
+    {
+        public bool HasAnySupport { get; set; } = true;
+        public bool HasCrossLimbSupport { get; set; } = true;
+        public void SetIkEnabled(bool enabled) { }
     }
 }

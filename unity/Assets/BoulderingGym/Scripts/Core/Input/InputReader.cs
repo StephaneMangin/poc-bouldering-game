@@ -5,17 +5,23 @@ namespace Project.Core.Input
 {
     /// <summary>
     /// Unified input reader — Point &amp; Place control scheme.
+    /// Uses physical key positions (Use Physical Keys enabled by default since 2022.1).
+    /// KeyCode maps to QWERTY physical positions regardless of OS keyboard layout.
     ///
-    /// Movement:  WASD (QWERTY) / Arrow keys (ground locomotion)
-    /// Limbs:     Q = Left Hand, E = Right Hand, A = Left Foot, D = Right Foot
-    /// Quick-place: Left-click (places suggested limb on targeted hold)
-    /// Release all: R
-    /// Fall:      F
-    /// Land:      Space
-    /// Chalk:     C
-    /// Sprint:    Shift
+    /// AZERTY label → Physical position → KeyCode:
+    ///   Q → QWERTY A → KeyCode.A    |    A → QWERTY Q → KeyCode.Q
+    ///   Z → QWERTY W → KeyCode.W    |    E → QWERTY E → KeyCode.E
     ///
-    /// Note: A/D overlap between movement and limbs.
+    /// Movement (ZQSD):  Q=Left, D=Right, Z=Forward, S=Backward
+    /// Limbs:            A=LeftHand, E=RightHand, Q=LeftFoot, D=RightFoot
+    /// Quick-place:      Left-click
+    /// Release all:      R
+    /// Fall:             F
+    /// Land:             Space
+    /// Chalk:            C
+    /// Sprint:           Shift
+    ///
+    /// Note: Q/D overlap between movement and limbs.
     /// The driver handles context: movement in IdleGround, limbs in Reach/GripStable.
     /// </summary>
     public sealed class InputReader : MonoBehaviour
@@ -27,19 +33,21 @@ namespace Project.Core.Input
             var h = 0f;
             var v = 0f;
 
-            // Left: A + Arrow
-            if (UnityEngine.Input.GetKey(KeyCode.A) || UnityEngine.Input.GetKey(KeyCode.LeftArrow)) h -= 1f;
-            // Right: D + Arrow
-            if (UnityEngine.Input.GetKey(KeyCode.D) || UnityEngine.Input.GetKey(KeyCode.RightArrow)) h += 1f;
-            // Forward: W + Arrow
-            if (UnityEngine.Input.GetKey(KeyCode.W) || UnityEngine.Input.GetKey(KeyCode.UpArrow)) v += 1f;
-            // Backward: S + Arrow
-            if (UnityEngine.Input.GetKey(KeyCode.S) || UnityEngine.Input.GetKey(KeyCode.DownArrow)) v -= 1f;
+            // Left: Q
+            if (UnityEngine.Input.GetKey(KeyCode.A)) h -= 1f;
+            // Right: D
+            if (UnityEngine.Input.GetKey(KeyCode.D)) h += 1f;
+            // Forward: Z
+            if (UnityEngine.Input.GetKey(KeyCode.W)) v += 1f;
+            // Backward: S
+            if (UnityEngine.Input.GetKey(KeyCode.S)) v -= 1f;
 
             return new Vector2(h, v);
         }
 
-        // ── Limb selection (Q / E / A / D) ──
+        // ── Limb selection (AZERTY: A / E / Q / D) ──
+        // KeyCode = physical QWERTY position (Use Physical Keys enabled).
+        // AZERTY 'A' = physical Q → KeyCode.Q    AZERTY 'Q' = physical A → KeyCode.A
 
         public LimbId? ConsumeActiveLimb()
         {

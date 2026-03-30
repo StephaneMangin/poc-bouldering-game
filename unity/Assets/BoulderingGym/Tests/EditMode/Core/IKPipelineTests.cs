@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using Project.Core.Utilities;
-using Project.Features.Climbing.Domain;
+using Project.Features.BodyConstraints.Domain;
 using UnityEngine;
 
 namespace Project.Tests.EditMode.Core
@@ -44,8 +44,8 @@ namespace Project.Tests.EditMode.Core
             _forearm = forearmGO.transform;
             _hand = handGO.transform;
 
-            // Rest pose: arm hanging straight down from shoulder
-            _shoulder.position = new Vector3(0.18f, 2.08f, -0.35f);
+            // Rest pose: arm hanging down from shoulder, body close to wall (climbing stance)
+            _shoulder.position = new Vector3(0.18f, 2.08f, -0.15f);
             _forearm.position = _shoulder.position + Vector3.down * UpperArmLength;
             _hand.position = _forearm.position + Vector3.down * ForearmLength;
         }
@@ -147,7 +147,7 @@ namespace Project.Tests.EditMode.Core
         public void Solve_LeftArm_ElbowIsOutward()
         {
             // Set up left arm: shoulder on the left side
-            _shoulder.position = new Vector3(-0.18f, 2.08f, -0.35f);
+            _shoulder.position = new Vector3(-0.18f, 2.08f, -0.15f);
             _forearm.position = _shoulder.position + Vector3.down * UpperArmLength;
             _hand.position = _forearm.position + Vector3.down * ForearmLength;
 
@@ -271,7 +271,7 @@ namespace Project.Tests.EditMode.Core
         [Test]
         public void BendConstraint_ComputeDistanceRange_ElbowReturnsValidRange()
         {
-            var (minDist, maxDist) = BendConstraint.Elbow.ComputeDistanceRange(UpperArmLength, ForearmLength);
+            var (minDist, maxDist) = ElbowConstraint.ComputeDistanceRange(UpperArmLength, ForearmLength);
 
             Assert.Greater(minDist, 0f, "Min distance must be positive");
             Assert.Less(minDist, maxDist, "Min distance must be less than max distance");
@@ -285,7 +285,7 @@ namespace Project.Tests.EditMode.Core
         {
             var target = new Vector3(0.20f, 2.50f, -0.05f);
             var hint = _shoulder.position + new Vector3(0.35f, -0.10f, -0.15f);
-            var (minDist, maxDist) = BendConstraint.Elbow.ComputeDistanceRange(UpperArmLength, ForearmLength);
+            var (minDist, maxDist) = ElbowConstraint.ComputeDistanceRange(UpperArmLength, ForearmLength);
 
             TwoBoneIKSolver.Solve(_shoulder, _forearm, _hand, target, hint, minDist, maxDist);
 
@@ -302,7 +302,7 @@ namespace Project.Tests.EditMode.Core
             var dir = new Vector3(0.1f, 0.9f, 0.2f).normalized;
             var target = _shoulder.position + dir * (ChainLength * 0.99f);
             var hint = _shoulder.position + new Vector3(0.35f, -0.10f, -0.15f);
-            var (minDist, maxDist) = BendConstraint.Elbow.ComputeDistanceRange(UpperArmLength, ForearmLength);
+            var (minDist, maxDist) = ElbowConstraint.ComputeDistanceRange(UpperArmLength, ForearmLength);
 
             TwoBoneIKSolver.Solve(_shoulder, _forearm, _hand, target, hint, minDist, maxDist);
 
@@ -330,7 +330,7 @@ namespace Project.Tests.EditMode.Core
 
             var target = new Vector3(0.10f, 1.00f, 0.00f);
             var hint = hip.transform.position + new Vector3(0.14f, -0.30f, 0.25f);
-            var (minDist, maxDist) = BendConstraint.Knee.ComputeDistanceRange(UpperLegLength, LowerLegLength);
+            var (minDist, maxDist) = KneeConstraint.ComputeDistanceRange(UpperLegLength, LowerLegLength);
 
             TwoBoneIKSolver.Solve(hip.transform, knee.transform, foot.transform, target, hint, minDist, maxDist);
 
@@ -427,6 +427,260 @@ namespace Project.Tests.EditMode.Core
             Assert.Greater(angleBetween, 5f,
                 $"Pre-IK hand direction and chainRoot direction should differ significantly. " +
                 $"Angle: {angleBetween:F1}°, preIK={preIKDir}, root={chainRootDir}");
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        //  AnkleConstraint: foot forward stays within ankle ROM
+        // ═══════════════════════════════════════════════════════════════════
+
+        [Test]
+        public void AnkleConstraint_NeutralAngle_NoClamp()
+        {
+            // Shin pointing down, foot forward pointing horizontally = 90° = neutral
+            var shin = Vector3.down;
+            var footForward = Vector3.forward;
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+
+            // Should be unchanged — 90° is within [70°, 140°]
+            Assert.Less(Vector3.Angle(clamped, footForward), 0.5f,
+                "Neutral ankle (90°) should not be clamped");
+        }
+
+        [Test]
+        public void AnkleConstraint_MildPlantarflexion_NoClamp()
+        {
+            // Shin down, foot pointing forward+up = ~120° shin-foot = 30° plantarflexion
+            var shin = Vector3.down;
+            var footForward = new Vector3(0f, 0.5f, 0.866f).normalized;
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+            var angle = Vector3.Angle(shin, clamped);
+
+            // 120° is within [70°, 140°]
+            Assert.Less(Vector3.Angle(clamped, footForward), 1f,
+                $"30° plantarflexion should not be clamped. Angle: {angle:F1}°");
+        }
+
+        [Test]
+        public void AnkleConstraint_ExcessiveDorsiflexion_Clamped()
+        {
+            // Shin down, foot forward pointing downward toward shin = ~40° = too much dorsiflexion
+            // angle 40° < 70° min → must be clamped
+            var shin = Vector3.down;
+            var footForward = new Vector3(0f, -0.766f, 0.643f).normalized;
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+            var angle = Vector3.Angle(shin, clamped);
+
+            // Min angle is 70° (90° - 20° dorsiflexion)
+            Assert.GreaterOrEqual(angle, 70f - 0.5f,
+                $"Dorsiflexion clamped: shin-foot angle must be >= 70°. Got: {angle:F1}°");
+        }
+
+        [Test]
+        public void AnkleConstraint_ExcessivePlantarflexion_Clamped()
+        {
+            // Shin down, foot forward pointing steeply upward (opposite shin) = ~160° shin-foot angle
+            var shin = Vector3.down;
+            var footForward = new Vector3(0f, 0.94f, 0.34f).normalized; // steep upward = extreme plantar
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+            var angle = Vector3.Angle(shin, clamped);
+
+            // Max angle is 140° (90° + 50° plantarflexion)
+            Assert.LessOrEqual(angle, 140f + 0.5f,
+                $"Plantarflexion clamped: shin-foot angle must be <= 140°. Got: {angle:F1}°");
+        }
+
+        [Test]
+        public void AnkleConstraint_FootPointingBackward_ClampedToMaxPlantar()
+        {
+            // Extreme case: foot pointing opposite to shin (180°) — physically impossible
+            var shin = Vector3.down;
+            var footForward = Vector3.down; // same direction as shin = 0° angle → toes toward shin
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+            var angle = Vector3.Angle(shin, clamped);
+
+            // Should be clamped to minimum (70°)
+            Assert.GreaterOrEqual(angle, 70f - 1f,
+                $"Foot parallel to shin must be clamped. Angle: {angle:F1}°");
+        }
+
+        [Test]
+        public void AnkleConstraint_ReversedFoot_ClampPreventsFlip()
+        {
+            // Case that causes the "flipped foot" bug: grip is ABOVE the ankle,
+            // so foot forward would point upward along the shin → nearly 0° angle
+            var shin = Vector3.down;
+            var footForward = Vector3.up; // foot tries to point up = sole flipped
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+            var angle = Vector3.Angle(shin, clamped);
+
+            // Must be clamped — foot cannot point same direction as negative shin
+            // The angle between shin (down) and foot forward (up) is 180°.
+            // After clamp it should be within [70°, 140°]
+            Assert.GreaterOrEqual(angle, 70f - 1f, $"Reversed foot must be clamped away from shin direction. Angle: {angle:F1}°");
+            Assert.LessOrEqual(angle, 140f + 1f, $"Reversed foot must be clamped to max plantar. Angle: {angle:F1}°");
+        }
+
+        [TestCase(0f, -1f, 0f, TestName = "Shin straight down")]
+        [TestCase(-0.34f, -0.94f, 0f, TestName = "Shin angled 20° forward")]
+        [TestCase(0f, -0.87f, 0.5f, TestName = "Shin angled 30° toward wall")]
+        public void AnkleConstraint_VariousShinAngles_OutputWithinROM(float sx, float sy, float sz)
+        {
+            var shin = new Vector3(sx, sy, sz).normalized;
+            // Extreme foot forward: pointing opposite to shin
+            var footForward = -shin;
+
+            var clamped = AnkleConstraint.ClampFootForward(shin, footForward);
+            var angle = Vector3.Angle(shin, clamped);
+
+            Assert.GreaterOrEqual(angle, 70f - 1f,
+                $"Clamped angle must be >= 70° (min dorsiflexion). Got: {angle:F1}°");
+            Assert.LessOrEqual(angle, 140f + 1f,
+                $"Clamped angle must be <= 140° (max plantarflexion). Got: {angle:F1}°");
+        }
+
+        // ═══════════════════════════════════════════════════════════════════
+        //  Foot IK pipeline: toe tip lands on grip, not ankle bone
+        // ═══════════════════════════════════════════════════════════════════
+
+        [Test]
+        public void FootPipeline_ToeTipLandsOnGrip_NotAnkleBone()
+        {
+            // Setup leg chain
+            var legRoot = new GameObject("FootPipeline_ToeTip");
+            var hip = new GameObject("Hip");
+            var knee = new GameObject("Knee");
+            var foot = new GameObject("Foot");
+            var toeBase = new GameObject("ToeBase");
+            hip.transform.SetParent(legRoot.transform);
+            knee.transform.SetParent(hip.transform);
+            foot.transform.SetParent(knee.transform);
+            toeBase.transform.SetParent(foot.transform);
+
+            // Climbing pose: hip near wall
+            hip.transform.position = new Vector3(0.12f, 1.00f, -0.20f);
+            knee.transform.position = hip.transform.position + Vector3.down * UpperLegLength;
+            foot.transform.position = knee.transform.position + Vector3.down * LowerLegLength;
+            toeBase.transform.localPosition = new Vector3(0f, 0f, 0.12f); // 12cm forward of ankle
+
+            var gripPos = new Vector3(0.10f, 0.30f, 0.00f); // Foothold on wall
+            const float toeTipLen = 0.12f;
+
+            // Two-pass approach (mirrors SolveLeg logic):
+            // Pass 1: solve to grip directly
+            var hint = hip.transform.position + new Vector3(0.14f, -0.30f, 0.25f);
+            TwoBoneIKSolver.Solve(hip.transform, knee.transform, foot.transform, gripPos, hint);
+
+            // Compute constrained foot forward
+            var shinDir = (foot.transform.position - knee.transform.position).normalized;
+            var toGrip = (gripPos - foot.transform.position);
+            var estForward = toGrip.sqrMagnitude > 0.0001f ? toGrip.normalized : Vector3.forward;
+            estForward = AnkleConstraint.ClampFootForward(shinDir, estForward);
+
+            // Pass 2: corrected target
+            var correctedTarget = gripPos - estForward * toeTipLen;
+            TwoBoneIKSolver.Solve(hip.transform, knee.transform, foot.transform, correctedTarget, hint);
+
+            // After pass 2, toe tip should be near grip
+            var finalShinDir = (foot.transform.position - knee.transform.position).normalized;
+            var finalToGrip = (gripPos - foot.transform.position);
+            var finalForward = finalToGrip.sqrMagnitude > 0.0001f ? finalToGrip.normalized : Vector3.forward;
+            finalForward = AnkleConstraint.ClampFootForward(finalShinDir, finalForward);
+            var toeTipPos = foot.transform.position + finalForward * toeTipLen;
+
+            var tipError = Vector3.Distance(toeTipPos, gripPos);
+            Assert.Less(tipError, 0.03f,
+                $"Toe tip must land on grip within 3cm. Error: {tipError:F4}m " +
+                $"(toeTip={toeTipPos}, grip={gripPos})");
+
+            // Ankle bone must NOT be at grip — it should be offset back
+            var ankleToGrip = Vector3.Distance(foot.transform.position, gripPos);
+            Assert.Greater(ankleToGrip, toeTipLen * 0.5f,
+                $"Ankle bone should be offset from grip by ~{toeTipLen}m, was {ankleToGrip:F4}m");
+
+            Object.DestroyImmediate(legRoot);
+        }
+
+        [Test]
+        public void FootPipeline_AnkleConstraint_PreventsFootFlip()
+        {
+            // Setup: grip is ABOVE the hip → foot would need to point upward
+            var legRoot = new GameObject("FootPipeline_NoFlip");
+            var hip = new GameObject("Hip");
+            var knee = new GameObject("Knee");
+            var foot = new GameObject("Foot");
+            hip.transform.SetParent(legRoot.transform);
+            knee.transform.SetParent(hip.transform);
+            foot.transform.SetParent(knee.transform);
+
+            hip.transform.position = new Vector3(0.12f, 1.00f, -0.20f);
+            knee.transform.position = hip.transform.position + Vector3.down * UpperLegLength;
+            foot.transform.position = knee.transform.position + Vector3.down * LowerLegLength;
+
+            // Grip above hip — extreme case that causes foot flip
+            var gripPos = new Vector3(0.10f, 1.10f, 0.00f);
+            var hint = hip.transform.position + new Vector3(0.14f, -0.30f, 0.25f);
+
+            TwoBoneIKSolver.Solve(hip.transform, knee.transform, foot.transform, gripPos, hint);
+
+            var shinDir = (foot.transform.position - knee.transform.position).normalized;
+            var toGrip = (gripPos - foot.transform.position);
+            var unconstrained = toGrip.sqrMagnitude > 0.0001f ? toGrip.normalized : Vector3.forward;
+            var constrained = AnkleConstraint.ClampFootForward(shinDir, unconstrained);
+
+            // The constrained forward must produce a valid ankle angle
+            var shinFootAngle = Vector3.Angle(shinDir, constrained);
+            Assert.GreaterOrEqual(shinFootAngle, 70f - 1f,
+                $"Shin-foot angle must respect dorsiflexion limit. Got: {shinFootAngle:F1}°");
+            Assert.LessOrEqual(shinFootAngle, 140f + 1f,
+                $"Shin-foot angle must respect plantarflexion limit. Got: {shinFootAngle:F1}°");
+
+            // The foot forward should NOT be pointing back along the shin (= flipped sole)
+            var dotWithShin = Vector3.Dot(constrained, shinDir);
+            Assert.Less(dotWithShin, 0.5f,
+                $"Foot forward must not be nearly parallel to shin (flipped). Dot: {dotWithShin:F3}");
+
+            Object.DestroyImmediate(legRoot);
+        }
+
+        [Test]
+        public void FootPipeline_NormalClimbingPose_FootAngleValid()
+        {
+            // Realistic climbing: hip at wall height, foothold below
+            var legRoot = new GameObject("FootPipeline_Normal");
+            var hip = new GameObject("Hip");
+            var knee = new GameObject("Knee");
+            var foot = new GameObject("Foot");
+            hip.transform.SetParent(legRoot.transform);
+            knee.transform.SetParent(hip.transform);
+            foot.transform.SetParent(knee.transform);
+
+            hip.transform.position = new Vector3(0.12f, 1.60f, -0.20f);
+            knee.transform.position = hip.transform.position + Vector3.down * UpperLegLength;
+            foot.transform.position = knee.transform.position + Vector3.down * LowerLegLength;
+
+            var gripPos = new Vector3(0.10f, 0.50f, 0.00f); // Foothold on wall below pelvis
+            var hint = hip.transform.position + new Vector3(0.14f, -0.30f, 0.25f);
+
+            TwoBoneIKSolver.Solve(hip.transform, knee.transform, foot.transform, gripPos, hint);
+
+            var shinDir = (foot.transform.position - knee.transform.position).normalized;
+            var toGrip = (gripPos - foot.transform.position);
+            var footFwd = toGrip.sqrMagnitude > 0.0001f ? toGrip.normalized : Vector3.forward;
+            var constrained = AnkleConstraint.ClampFootForward(shinDir, footFwd);
+
+            var shinFootAngle = Vector3.Angle(shinDir, constrained);
+            Assert.GreaterOrEqual(shinFootAngle, 70f - 1f,
+                $"Normal climbing: shin-foot angle {shinFootAngle:F1}° must be >= 70°");
+            Assert.LessOrEqual(shinFootAngle, 140f + 1f,
+                $"Normal climbing: shin-foot angle {shinFootAngle:F1}° must be <= 140°");
+
+            Object.DestroyImmediate(legRoot);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Project.Core.Utilities;
+using Project.Features.BodyConstraints.Domain;
 using Project.Features.Climbing.Domain;
 using Project.Features.Player.Domain;
 using Project.Features.Player.Presentation;
@@ -32,10 +33,6 @@ namespace Project.Features.Visual.Presentation
 
         private HoldComponent _resolvedLeftFootHold;
         private HoldComponent _resolvedRightFootHold;
-
-        // Bend constraints from clinical goniometry, enforced DURING IK solve
-        private BendConstraint _elbowConstraint = BendConstraint.Elbow;
-        private BendConstraint _kneeConstraint = BendConstraint.Knee;
 
         // Distance ranges precomputed from constraints + actual bone lengths
         private float _elbowMinDist;
@@ -88,11 +85,11 @@ namespace Project.Features.Visual.Presentation
             // Precompute constraint distance ranges from actual bone lengths
             var upperArm = Vector3.Distance(rigMapping.leftUpperArm.position, rigMapping.leftForearm.position);
             var forearm = Vector3.Distance(rigMapping.leftForearm.position, rigMapping.leftHand.position);
-            (_elbowMinDist, _elbowMaxDist) = _elbowConstraint.ComputeDistanceRange(upperArm, forearm);
+            (_elbowMinDist, _elbowMaxDist) = ElbowConstraint.ComputeDistanceRange(upperArm, forearm);
 
             var upperLeg = Vector3.Distance(rigMapping.leftUpperLeg.position, rigMapping.leftLowerLeg.position);
             var lowerLeg = Vector3.Distance(rigMapping.leftLowerLeg.position, rigMapping.leftFoot.position);
-            (_kneeMinDist, _kneeMaxDist) = _kneeConstraint.ComputeDistanceRange(upperLeg, lowerLeg);
+            (_kneeMinDist, _kneeMaxDist) = KneeConstraint.ComputeDistanceRange(upperLeg, lowerLeg);
 
             // Measure foot rest orientation: the direction foot→ToeBase is the anatomical "forward" of the foot
             _leftFootRestRotation = rigMapping.leftFoot.rotation;
@@ -171,12 +168,39 @@ namespace Project.Features.Visual.Presentation
         private void SolveLeg(Transform upperLeg, Transform lowerLeg, Transform foot,
             Vector3 target, Vector3 bendHint, Vector3? gripPosition = null, bool isLeft = true)
         {
-            TwoBoneIKSolver.Solve(upperLeg, lowerLeg, foot, target, bendHint,
-                _kneeMinDist, _kneeMaxDist);
-            if (foot == null)
+            if (foot == null || lowerLeg == null)
             {
                 return;
             }
+
+            // Two-pass approach when placing on a hold:
+            // Pass 1: solve IK to grip position to get approximate ankle position
+            // → compute constrained foot forward → derive toe-tip offset
+            // Pass 2: re-solve IK with corrected target so toe tip lands on grip
+            var ikTarget = target;
+            if (gripPosition.HasValue && toeTipLength > 0f)
+            {
+                // Pass 1: approximate solve
+                TwoBoneIKSolver.Solve(upperLeg, lowerLeg, foot, gripPosition.Value, bendHint,
+                    _kneeMinDist, _kneeMaxDist);
+
+                var shinDir1 = (foot.position - lowerLeg.position).normalized;
+                var toGrip1 = gripPosition.Value - foot.position;
+                var estForward = toGrip1.sqrMagnitude > 0.0001f
+                    ? toGrip1.normalized
+                    : visualRoot.forward;
+                estForward = AnkleConstraint.ClampFootForward(shinDir1, estForward);
+
+                // Correct target: offset so toe tip (not ankle bone) lands on grip
+                ikTarget = gripPosition.Value - estForward * toeTipLength;
+            }
+
+            // Final IK solve
+            TwoBoneIKSolver.Solve(upperLeg, lowerLeg, foot, ikTarget, bendHint,
+                _kneeMinDist, _kneeMaxDist);
+
+            // Shin direction: knee → ankle (post-IK)
+            var shinDir = (foot.position - lowerLeg.position).normalized;
 
             Vector3 desiredForward;
             Vector3 desiredUp;
@@ -187,9 +211,12 @@ namespace Project.Features.Visual.Presentation
                 desiredForward = toGrip.sqrMagnitude > 0.0001f
                     ? toGrip.normalized
                     : visualRoot.forward;
+
+                // Clamp foot forward within ankle ROM (dorsiflexion/plantarflexion)
+                desiredForward = AnkleConstraint.ClampFootForward(shinDir, desiredForward);
+
                 // Sole against the wall: "up" of the foot = wall normal (away from wall = -Z in our convention)
                 desiredUp = -visualRoot.forward;
-                // Ensure up is perpendicular to forward
                 desiredUp = Vector3.ProjectOnPlane(desiredUp, desiredForward).normalized;
                 if (desiredUp.sqrMagnitude < 0.0001f)
                 {
@@ -204,6 +231,9 @@ namespace Project.Features.Visual.Presentation
                 {
                     return;
                 }
+
+                // Ground standing: also clamp to ankle ROM
+                desiredForward = AnkleConstraint.ClampFootForward(shinDir, desiredForward);
             }
 
             // Build desired world rotation from the desired forward/up axes,
@@ -216,8 +246,6 @@ namespace Project.Features.Visual.Presentation
             var candidateRotation = restToDesired * restRot;
 
             // Now twist the foot so its "up" (sole normal) aligns with desiredUp
-            var currentUp = candidateRotation * (Quaternion.Inverse(restRot) * (restRot * Vector3.up));
-            // Simpler: just use the rest bone's local up rotated by our candidate
             var restUp = restRot * Vector3.up;
             var candidateUp = restToDesired * restUp;
             var upCorrection = Quaternion.FromToRotation(candidateUp, desiredUp);
@@ -266,11 +294,10 @@ namespace Project.Features.Visual.Presentation
                     if (isLeft) _resolvedLeftFootHold = explicitHold;
                     else _resolvedRightFootHold = explicitHold;
 
-                    var gripPos = explicitHold.gripPoint != null
+                    // Return raw grip position — SolveLeg handles toe-tip offset post-IK
+                    return explicitHold.gripPoint != null
                         ? explicitHold.gripPoint.position
                         : explicitHold.transform.position;
-                    var hip = isLeft ? rigMapping.leftUpperLeg : rigMapping.rightUpperLeg;
-                    return ApplyExtremityOffset(hip, gripPos, toeTipLength);
                 }
 
                 var autoHold = FindBestFoothold(isLeft);
@@ -279,9 +306,10 @@ namespace Project.Features.Visual.Presentation
                     if (isLeft) _resolvedLeftFootHold = autoHold;
                     else _resolvedRightFootHold = autoHold;
 
-                    var gp = autoHold.gripPoint != null ? autoHold.gripPoint.position : autoHold.transform.position;
-                    var hipAuto = isLeft ? rigMapping.leftUpperLeg : rigMapping.rightUpperLeg;
-                    return ApplyExtremityOffset(hipAuto, gp, toeTipLength);
+                    // Return raw grip position — SolveLeg handles toe-tip offset post-IK
+                    return autoHold.gripPoint != null
+                        ? autoHold.gripPoint.position
+                        : autoHold.transform.position;
                 }
             }
 

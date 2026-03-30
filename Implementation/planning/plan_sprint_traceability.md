@@ -12,6 +12,7 @@ Verify that every requirement in the plan is covered by at least one sprint with
 | Body solver (pelvis from limb contacts) | `plan/04_technical/player_fsm.md` | S3.1 | ClimbingBodySolver + measured anatomy from rig | Pelvis tracks center of support |
 | Foot orientation on footholds | `plan/04_technical/architecture.md` | S3.1 | Rest-rotation compensation (sole-down, no magic numbers) | Sole contacts hold surface |
 | Extremity accuracy (fingertip/toe tip) | `plan/04_technical/architecture.md` | S3.1 | Chain-root offset direction for IK target | Fingertip within 2 cm of grip |
+| FSM testability (domain decoupled from MonoBehaviour) | `plan/04_technical/player_fsm.md` | S3.2 | `IPlayerHands` interface + EditMode stubs | All EditMode FSM tests pass |
 | Readable fall physics + route visual organization | `plan/01_gameplay/game_loop.md`, `plan/03_levels/routes_mvp.md` | S1.1 (extension) | Physics-driven fall + lane-organized wall + basic mannequin readability pass | Testers identify route intent and fall state |
 | COG + weight distribution | `plan/02_systems/physics_model.md` | S2.0 | COG computation + weight ratios + debug overlay | COG visibly affects climbing effort |
 | PhysicMaterials | `plan/02_systems/physics_model.md` | S2.0 | 6 materials (wall, holds, crash pad, shoe) | Distinguishable friction behavior |

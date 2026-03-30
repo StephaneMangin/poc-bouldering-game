@@ -42,8 +42,8 @@ namespace Project.Core.Utilities
             }
 
             // Geometric limits: fully folded → fully extended
-            var geoMin = Mathf.Abs(upperLength - lowerLength) + 0.01f;
-            var geoMax = upperLength + lowerLength - 0.01f;
+            var geoMin = Mathf.Abs(upperLength - lowerLength) + 0.001f;
+            var geoMax = upperLength + lowerLength - 0.001f;
 
             // Tighten with anatomical constraints if provided
             var distMin = constraintMinDist > 0f ? Mathf.Max(geoMin, constraintMinDist) : geoMin;

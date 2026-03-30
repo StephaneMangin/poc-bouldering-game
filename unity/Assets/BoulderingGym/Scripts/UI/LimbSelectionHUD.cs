@@ -27,7 +27,7 @@ namespace Project.UI
             LimbId.LeftFoot, LimbId.RightFoot,
         };
 
-        private static readonly string[] Labels = { "Q:LH", "E:RH", "A:LF", "D:RF" };
+        private static readonly string[] Labels = { "A:LH", "E:RH", "Q:LF", "D:RF" };
 
         private void Awake()
         {

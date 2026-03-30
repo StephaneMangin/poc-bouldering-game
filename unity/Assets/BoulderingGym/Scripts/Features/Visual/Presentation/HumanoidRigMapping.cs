@@ -24,11 +24,13 @@ namespace Project.Features.Visual.Presentation
         public Transform leftUpperLeg;
         public Transform leftLowerLeg;
         public Transform leftFoot;
+        public Transform leftToeBase;
 
         [Header("Right Leg")]
         public Transform rightUpperLeg;
         public Transform rightLowerLeg;
         public Transform rightFoot;
+        public Transform rightToeBase;
 
         public void AutoAssignFromRoot(Transform root)
         {
@@ -54,10 +56,12 @@ namespace Project.Features.Visual.Presentation
             leftUpperLeg = FindBest(root, "leftupleg");
             leftLowerLeg = FindBest(root, "leftleg");
             leftFoot = FindBest(root, "leftfoot");
+            leftToeBase = FindBest(root, "lefttoebase");
 
             rightUpperLeg = FindBest(root, "rightupleg");
             rightLowerLeg = FindBest(root, "rightleg");
             rightFoot = FindBest(root, "rightfoot");
+            rightToeBase = FindBest(root, "righttoebase");
         }
 
         public bool ValidateRig(out string report)
