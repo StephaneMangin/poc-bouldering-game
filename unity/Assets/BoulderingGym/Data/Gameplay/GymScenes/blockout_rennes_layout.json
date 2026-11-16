@@ -1371,7 +1371,7 @@
   {
    "id": "island",
    "name": "Island",
-   "height": 4.2,
+   "height": 4.55,
    "vertices": [
     {
      "x": -3.416,
@@ -1476,16 +1476,16 @@
      ],
      "profile": [
       {
-       "height": 1.2,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 2.0,
+       "height": 1.71,
        "angle": 25
       },
       {
-       "height": 1.0,
-       "angle": -25
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -1534,16 +1534,16 @@
      ],
      "profile": [
       {
-       "height": 0.9,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 2.1,
-       "angle": 35
+       "height": 1.71,
+       "angle": 25
       },
       {
-       "height": 1.2,
-       "angle": -15
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -1588,16 +1588,16 @@
      ],
      "profile": [
       {
-       "height": 1.2,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 1.8,
+       "height": 1.71,
        "angle": 25
       },
       {
-       "height": 1.2,
-       "angle": -25
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -1640,16 +1640,16 @@
      ],
      "profile": [
       {
-       "height": 1.0,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 2.0,
-       "angle": 30
+       "height": 1.71,
+       "angle": 25
       },
       {
-       "height": 1.2,
-       "angle": -25
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -1688,16 +1688,27 @@
      ],
      "profile": [
       {
-       "height": 4.2,
+       "height": 1.85,
        "angle": 0
+      },
+      {
+       "height": 1.71,
+       "angle": 25
+      },
+      {
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
       "grey",
+      "teal",
+      "red",
+      "dark_teal",
       "orange",
-      "teal"
+      "light_teal"
      ],
-     "pattern": "diagonal",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "pyramid",
@@ -1731,16 +1742,16 @@
      ],
      "profile": [
       {
-       "height": 0.9,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 1.9,
-       "angle": 30
+       "height": 1.71,
+       "angle": 25
       },
       {
-       "height": 1.4,
-       "angle": -20
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -1785,16 +1796,16 @@
      ],
      "profile": [
       {
-       "height": 0.9,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 1.9,
-       "angle": 30
+       "height": 1.71,
+       "angle": 25
       },
       {
-       "height": 1.4,
-       "angle": -20
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -1831,16 +1842,16 @@
      ],
      "profile": [
       {
-       "height": 0.9,
+       "height": 1.85,
        "angle": 0
       },
       {
-       "height": 1.9,
-       "angle": 30
+       "height": 1.71,
+       "angle": 25
       },
       {
-       "height": 1.4,
-       "angle": -20
+       "height": 1.22,
+       "angle": -18
       }
      ],
      "panelColors": [
@@ -2103,7 +2114,7 @@
    "type": "mast",
    "x": -0.848,
    "z": 2.471,
-   "baseHeight": 4.2
+   "baseHeight": 4.55
   }
  ],
  "mezzanine": {

@@ -1,0 +1,136 @@
+{
+  "name": "climb_quinquin-3",
+  "scene": "BlockOutRennes",
+  "durationSeconds": 25.6,
+  "screenshotEveryNFrames": 8,
+  "mouseScreenX": 0.5,
+  "mouseScreenY": 0.5,
+  "steps": [
+    {
+      "atSeconds": 2,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:START00"
+    },
+    {
+      "atSeconds": 3.4,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:START00"
+    },
+    {
+      "atSeconds": 4.8,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H05"
+    },
+    {
+      "atSeconds": 6.2,
+      "durationSeconds": 0.2,
+      "key": "D",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H07"
+    },
+    {
+      "atSeconds": 7.6,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H01"
+    },
+    {
+      "atSeconds": 9,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:START00"
+    },
+    {
+      "atSeconds": 10.4,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H02"
+    },
+    {
+      "atSeconds": 11.8,
+      "durationSeconds": 0.2,
+      "key": "D",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H08"
+    },
+    {
+      "atSeconds": 13.2,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H08"
+    },
+    {
+      "atSeconds": 14.599999,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H03"
+    },
+    {
+      "atSeconds": 16,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H02"
+    },
+    {
+      "atSeconds": 17.4,
+      "durationSeconds": 0.2,
+      "key": "D",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:H02"
+    },
+    {
+      "atSeconds": 18.8,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:TOP04"
+    },
+    {
+      "atSeconds": 20.199999,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "quinquin-3:TOP04"
+    }
+  ]
+}

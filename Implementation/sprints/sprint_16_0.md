@@ -164,6 +164,16 @@ restart.
   deck x −25.85…−17.85 (8 m deep, the image_042 camera stands at its railing), z −14.55…8.40 (south
   wall to Dalle), floor 4.2 m; black posts and railing on the open sides, orange tables, bar
   counter under it, solid collider so the bar stays off the climbing floor. EditMode 116/116.
+- 2026-11-16: island hull profile measured from silhouettes: image_042 and image_062 look along
+  the island axis, so their right silhouette is the cross-section of the south faces. Rays from the
+  vanishing-point camera (042: 1238 px, 15° down) cut by the vertical plane through the silhouette's
+  floor point (angles do not depend on camera height or scale). 042: vertical base to 1.85 m,
+  overhang ~26° to 3.40 m, slab −10…−20° to the deck at 4.56 m (public listings: 4.5 m); 062 (no
+  floor in frame, angles only): base vertical, overhang ~23°, slab ~−24°. Applied to every hull
+  sector, Bloc à Pic included (was vertical): profile [[1.85, 0], [1.71, 25], [1.22, −18]], island
+  height 4.55 m, hull pattern on Bloc à Pic too. Re-baked: 154 problems (146 before), only island and
+  spinnaker problems changed. Scripted climbs topped: starbloc_gauche-6 15.4 s, quinquin-3 (red 6B,
+  new scenario) 14.0 s. Plan shape of the cockpit nose still flatter than on image_042.
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).

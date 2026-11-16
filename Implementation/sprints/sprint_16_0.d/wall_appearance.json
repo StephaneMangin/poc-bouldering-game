@@ -20,7 +20,7 @@
   "structures": {
     "mur_peripherique_nord": { "name": "North wall", "height": 4.5 },
     "mur_peripherique_sud": { "name": "South wall", "height": 4.5 },
-    "island": { "name": "Island", "height": 4.2 },
+    "island": { "name": "Island", "height": 4.55 },
     "spinnaker": { "name": "Spinnaker", "height": 4.0 }
   },
   "sectors": {
@@ -46,14 +46,14 @@
     "taverne": { "profile": [[1.2, 0], [3.3, 25]], "panelColors": ["orange", "grey", "teal"], "pattern": "bands", "volumes": [["pyramid", "yellow", 2], ["box", "black", 2]] },
     "pan_gullish": { "profile": [[4.5, 0]], "panelColors": ["white", "black"], "pattern": "gwennhadu", "volumes": [] },
     "la_grille": { "profile": [[4.5, 0]], "panelColors": ["teal", "wood"], "pattern": "lattice", "volumes": [] },
-    "tortue": { "profile": [[0.9, 0], [1.9, 30], [1.4, -20]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["triangle", "yellow", 2], ["dome", "black", 1]] },
-    "point_and_clic": { "profile": [[0.9, 0], [1.9, 30], [1.4, -20]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2]] },
-    "dodecaedre": { "profile": [[0.9, 0], [1.9, 30], [1.4, -20]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["triangle", "yellow", 2], ["dome", "black", 1]] },
-    "cyrano": { "profile": [[0.9, 0], [2.1, 35], [1.2, -15]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2], ["pyramid", "yellow", 1]] },
-    "bloc_a_pic": { "profile": [[4.2, 0]], "panelColors": ["grey", "orange", "teal"], "pattern": "diagonal", "volumes": [["pyramid", "blue", 1], ["pyramid", "green", 1]] },
-    "entre_deux": { "profile": [[1.2, 0], [1.8, 25], [1.2, -25]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2]] },
-    "quinquin": { "profile": [[1.2, 0], [2.0, 25], [1.0, -25]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2], ["box", "black", 1]] },
-    "oublie": { "profile": [[1.0, 0], [2.0, 30], [1.2, -25]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "red", 1]] },
+    "tortue": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["triangle", "yellow", 2], ["dome", "black", 1]] },
+    "point_and_clic": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2]] },
+    "dodecaedre": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["triangle", "yellow", 2], ["dome", "black", 1]] },
+    "cyrano": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2], ["pyramid", "yellow", 1]] },
+    "bloc_a_pic": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["pyramid", "blue", 1], ["pyramid", "green", 1]] },
+    "entre_deux": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2]] },
+    "quinquin": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "yellow", 2], ["box", "black", 1]] },
+    "oublie": { "profile": [[1.85, 0], [1.71, 25], [1.22, -18]], "panelColors": ["grey", "teal", "red", "dark_teal", "orange", "light_teal"], "pattern": "hull", "volumes": [["wedge", "red", 1]] },
     "spinaker_sud": { "profile": [[0.8, 15], [1.2, -5], [2.0, -25]], "panelColors": ["yellow"], "pattern": "plain", "volumes": [["triangle", "dark_yellow", 3], ["triangle", "black", 1]] },
     "spinaker_nord": { "profile": [[0.8, -15], [1.2, 5], [2.0, 25]], "panelColors": ["yellow"], "pattern": "plain", "volumes": [["triangle", "dark_yellow", 3], ["triangle", "black", 1]] }
   },
