@@ -24,6 +24,9 @@ namespace Project.Features.Gym.Presentation
         private static readonly Color MastWood = new(0.62f, 0.45f, 0.28f);
         private static readonly Color BuoyRed = new(0.85f, 0.10f, 0.10f);
         private static readonly Color FlagBlack = new(0.06f, 0.06f, 0.07f);
+        private static readonly Color DeckGrey = new(0.32f, 0.32f, 0.34f);
+        private static readonly Color RailBlack = new(0.08f, 0.08f, 0.09f);
+        private static readonly Color TableOrange = new(0.95f, 0.42f, 0.12f);
 
         private readonly MaterialLibrary _materials;
         private readonly PanelTextureFactory _panels;
@@ -81,7 +84,7 @@ namespace Project.Features.Gym.Presentation
             };
         }
 
-        /// <summary>Mats, cladding and roof; the art pass adds the steel frame, ducts, skylights and lamps.</summary>
+        /// <summary>Mats, cladding, roof and mezzanine; the art pass adds the steel frame, ducts, skylights, lamps and furniture.</summary>
         private void BuildHall(GymLayout layout, VisualPass pass, Transform parent)
         {
             var parts = EnvironmentDressing.Build(layout);
@@ -91,6 +94,8 @@ namespace Project.Features.Gym.Presentation
                 Create(parts[DressingMaterial.Floor], "Floor", _materials.Tinted(plain, FloorGrey), parent);
                 Create(parts[DressingMaterial.Cladding], "Cladding", _materials.Tinted(plain, ShellGrey), parent);
                 Create(parts[DressingMaterial.Ceiling], "Ceiling", _materials.Tinted(plain, ShellGrey), parent);
+                Create(parts[DressingMaterial.Mezzanine], "Mezzanine", _materials.Tinted(plain, ShellGrey), parent);
+                Create(parts[DressingMaterial.Railing], "Mezzanine posts and railing", _materials.Tinted(plain, ShellGrey), parent);
                 return;
             }
 
@@ -103,10 +108,13 @@ namespace Project.Features.Gym.Presentation
             Create(parts[DressingMaterial.Skylight], "Skylights", _materials.Tinted(_materials.Templates.marker, SkylightWhite), parent);
             Create(parts[DressingMaterial.Lamp], "Lamps", _materials.Tinted(_materials.Templates.marker, LampWarm), parent);
             Create(parts[DressingMaterial.LightStrip], "Light strips", _materials.Tinted(_materials.Templates.marker, SkylightWhite), parent);
-            Create(parts[DressingMaterial.Wood], "Mast", _materials.Tinted(plain, MastWood), parent);
+            Create(parts[DressingMaterial.Wood], "Mast and bar", _materials.Tinted(plain, MastWood), parent);
             Create(parts[DressingMaterial.BuoyRed], "Lifebuoy", _materials.Tinted(plain, BuoyRed), parent);
             Create(parts[DressingMaterial.BuoyWhite], "Lifebuoy bands", _materials.Tinted(plain, DuctWhite), parent);
             Create(parts[DressingMaterial.Flag], "Pirate flag", _materials.Tinted(plain, FlagBlack), parent);
+            Create(parts[DressingMaterial.Mezzanine], "Mezzanine", _materials.Tinted(plain, DeckGrey), parent);
+            Create(parts[DressingMaterial.Railing], "Mezzanine posts and railing", _materials.Tinted(plain, RailBlack), parent);
+            Create(parts[DressingMaterial.Furniture], "Restaurant tables", _materials.Tinted(plain, TableOrange), parent);
         }
 
         private static void Create(MeshData data, string name, Material material, Transform parent)
@@ -128,6 +136,20 @@ namespace Project.Features.Gym.Presentation
             {
                 AddWallCollider(parent, corners[i], corners[(i + 1) % corners.Length], layout.CeilingHeight);
             }
+
+            if (layout.Mezzanine != null)
+            {
+                AddMezzanineCollider(layout.Mezzanine, parent);
+            }
+        }
+
+        /// <summary>The bar under the mezzanine is outside the climbing floor: its whole volume is solid.</summary>
+        private static void AddMezzanineCollider(MezzanineArea area, Transform parent)
+        {
+            var collider = new GameObject("Mezzanine collider").AddComponent<BoxCollider>();
+            collider.transform.SetParent(parent, false);
+            collider.center = new Vector3((area.Min.x + area.Max.x) * 0.5f, area.Height * 0.5f, (area.Min.y + area.Max.y) * 0.5f);
+            collider.size = new Vector3(area.Max.x - area.Min.x, area.Height, area.Max.y - area.Min.y);
         }
 
         private static void AddWallCollider(Transform parent, Vector3 a, Vector3 b, float height)

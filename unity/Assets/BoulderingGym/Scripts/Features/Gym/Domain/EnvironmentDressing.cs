@@ -18,13 +18,16 @@ namespace Project.Features.Gym.Domain
         BuoyRed,
         BuoyWhite,
         Flag,
+        Mezzanine,
+        Railing,
+        Furniture,
     }
 
     /// <summary>
     /// Hall shell and dressing as seen on the photos, UVs in meters: grey mats crossed by dark tape seams,
     /// corrugated grey cladding with yellow columns and a yellow girt above the walls, solid yellow
-    /// roof beams, white fabric ventilation ducts, skylights and hanging globe lamps. Columns and
-    /// lamps keep clear of the climbing walls.
+    /// roof beams, white fabric ventilation ducts, skylights and hanging globe lamps, and the
+    /// restaurant mezzanine with the bar underneath. Columns and lamps keep clear of the climbing walls.
     /// </summary>
     public static class EnvironmentDressing
     {
@@ -49,6 +52,20 @@ namespace Project.Features.Gym.Domain
         private const float LampSpacing = 7f;
         private const float LampClearance = 2.5f;
         private const float CableRadius = 0.01f;
+        private const float DeckThickness = 0.3f;
+        private const float DeckPostSpacing = 5f;
+        private const float DeckPostSize = 0.2f;
+        private const float RailHeight = 1.1f;
+        private const float RailPostSpacing = 1.5f;
+        private const float RailSize = 0.05f;
+        private static readonly float[] RailLevels = { 0.35f, 0.7f, RailHeight - RailSize };
+        private const float TableSpacing = 3f;
+        private const float TableHeight = 0.75f;
+        private static readonly Vector2 TableTop = new(0.8f, 1.2f);
+        private const float TableFromRailing = 1.2f;
+        private const float BarHeight = 1.1f;
+        private const float BarDepth = 0.7f;
+        private const float BarLengthShare = 0.4f;
 
         public static Dictionary<DressingMaterial, MeshData> Build(GymLayout layout)
         {
@@ -67,6 +84,11 @@ namespace Project.Features.Gym.Domain
             if (layout.MastFoot.HasValue)
             {
                 AddMast(parts, layout.MastFoot.Value, layout.CeilingHeight);
+            }
+
+            if (layout.Mezzanine != null)
+            {
+                AddMezzanine(parts, layout.Mezzanine);
             }
 
             return parts;
@@ -195,6 +217,62 @@ namespace Project.Features.Gym.Domain
 
             var flagTop = ceiling - RafterDepth - 0.3f;
             MeshPrimitives.Box(parts[DressingMaterial.Flag], new Vector3(foot.x + MastRadius, flagTop - 0.8f, foot.z - 0.01f), new Vector3(foot.x + MastRadius + 1.2f, flagTop, foot.z + 0.01f));
+        }
+
+        /// <summary>
+        /// Restaurant deck along the west wall: slab on black posts, black railing on the sides open to
+        /// the climbing floor (east and north), tables along the railing and the bar counter underneath.
+        /// </summary>
+        private static void AddMezzanine(Dictionary<DressingMaterial, MeshData> parts, MezzanineArea area)
+        {
+            var top = area.Height;
+            MeshPrimitives.Box(parts[DressingMaterial.Mezzanine], new Vector3(area.Min.x, top - DeckThickness, area.Min.y), new Vector3(area.Max.x, top, area.Max.y));
+            var railing = parts[DressingMaterial.Railing];
+            for (var z = area.Min.y + DeckPostSpacing * 0.5f; z < area.Max.y; z += DeckPostSpacing)
+            {
+                var foot = new Vector3(area.Max.x - DeckPostSize, 0f, z);
+                MeshPrimitives.Box(railing, foot - new Vector3(DeckPostSize, 0f, DeckPostSize) * 0.5f, foot + new Vector3(DeckPostSize * 0.5f, top - DeckThickness, DeckPostSize * 0.5f));
+            }
+
+            // Railing kept one post width inside the deck, clear of the hall walls
+            var east = area.Max.x - RailSize;
+            var north = area.Max.y - RailSize;
+            AddRailing(railing, new Vector3(east, top, area.Min.y + RailSize), new Vector3(east, top, north));
+            AddRailing(railing, new Vector3(area.Min.x + RailSize, top, north), new Vector3(east, top, north));
+            AddTables(parts[DressingMaterial.Furniture], railing, area);
+            var barCenter = new Vector3((area.Min.x + area.Max.x) * 0.5f, 0f, (area.Min.y + area.Max.y) * 0.5f);
+            var barHalf = new Vector3(BarDepth, 0f, (area.Max.y - area.Min.y) * BarLengthShare) * 0.5f;
+            MeshPrimitives.Box(parts[DressingMaterial.Wood], barCenter - barHalf, barCenter + barHalf + Vector3.up * BarHeight);
+        }
+
+        /// <summary>Posts and horizontal bars between two deck points on one axis.</summary>
+        private static void AddRailing(MeshData railing, Vector3 from, Vector3 to)
+        {
+            var half = new Vector3(RailSize, 0f, RailSize) * 0.5f;
+            var gaps = Mathf.Max(1, Mathf.CeilToInt(Vector3.Distance(from, to) / RailPostSpacing));
+            for (var post = 0; post <= gaps; post++)
+            {
+                var foot = Vector3.Lerp(from, to, post / (float)gaps);
+                MeshPrimitives.Box(railing, foot - half, foot + half + Vector3.up * RailHeight);
+            }
+
+            foreach (var level in RailLevels)
+            {
+                var lift = Vector3.up * level;
+                MeshPrimitives.Box(railing, Vector3.Min(from, to) - half + lift, Vector3.Max(from, to) + half + lift + Vector3.up * RailSize);
+            }
+        }
+
+        private static void AddTables(MeshData furniture, MeshData legs, MezzanineArea area)
+        {
+            var x = area.Max.x - TableFromRailing;
+            for (var z = area.Min.y + TableSpacing * 0.5f; z < area.Max.y - TableSpacing * 0.5f; z += TableSpacing)
+            {
+                var center = new Vector3(x, area.Height + TableHeight, z);
+                var half = new Vector3(TableTop.x, 0f, TableTop.y) * 0.5f;
+                MeshPrimitives.Box(furniture, center - half - Vector3.up * 0.04f, center + half);
+                MeshPrimitives.Box(legs, new Vector3(x - RailSize, area.Height, z - RailSize), new Vector3(x + RailSize, area.Height + TableHeight, z + RailSize));
+            }
         }
 
         private static void AddSkylights(MeshData skylight, float x, float minZ, float maxZ, float top)

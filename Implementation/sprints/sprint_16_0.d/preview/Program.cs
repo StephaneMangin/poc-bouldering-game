@@ -130,6 +130,8 @@ public static class Program
             scene.Add("floor", "floor_plain", parts[DressingMaterial.Floor]);
             scene.Add("cladding", "shell_plain", parts[DressingMaterial.Cladding]);
             scene.Add("ceiling", "shell_plain", parts[DressingMaterial.Ceiling]);
+            scene.Add("mezzanine", "shell_plain", parts[DressingMaterial.Mezzanine]);
+            scene.Add("railing", "shell_plain", parts[DressingMaterial.Railing]);
             return;
         }
 
@@ -163,10 +165,16 @@ public static class Program
         scene.Material("buoy_white", DuctWhite, 0.5f);
         scene.Material("flag", new Color(0.06f, 0.06f, 0.07f), 0.9f);
         scene.Add("strips", "strip", parts[DressingMaterial.LightStrip]);
-        scene.Add("mast", "wood", parts[DressingMaterial.Wood]);
+        scene.Add("mast_and_bar", "wood", parts[DressingMaterial.Wood]);
         scene.Add("buoy", "buoy_red", parts[DressingMaterial.BuoyRed]);
         scene.Add("buoy_bands", "buoy_white", parts[DressingMaterial.BuoyWhite]);
         scene.Add("flag", "flag", parts[DressingMaterial.Flag]);
+        scene.Material("deck", new Color(0.32f, 0.32f, 0.34f), 0.8f);
+        scene.Material("railing", new Color(0.08f, 0.08f, 0.09f), 0.6f);
+        scene.Material("table", new Color(0.95f, 0.42f, 0.12f), 0.6f);
+        scene.Add("mezzanine", "deck", parts[DressingMaterial.Mezzanine]);
+        scene.Add("railing", "railing", parts[DressingMaterial.Railing]);
+        scene.Add("tables", "table", parts[DressingMaterial.Furniture]);
     }
 
     /// <summary>

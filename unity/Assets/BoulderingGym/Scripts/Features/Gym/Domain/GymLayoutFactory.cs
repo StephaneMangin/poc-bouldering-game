@@ -24,6 +24,7 @@ namespace Project.Features.Gym.Domain
                 SpawnYawDeg = definition.spawn.yawDeg,
                 Palette = BuildPalette(definition.palette),
                 MastFoot = MastFoot(definition.props),
+                Mezzanine = Mezzanine(definition.mezzanine),
             };
         }
 
@@ -38,6 +39,17 @@ namespace Project.Features.Gym.Domain
             }
 
             return null;
+        }
+
+        private static MezzanineArea Mezzanine(MezzanineDefinition definition)
+        {
+            // JsonUtility fills a missing object with zeros: no height means no mezzanine
+            if (definition == null || definition.height <= 0f)
+            {
+                return null;
+            }
+
+            return new MezzanineArea(new Vector2(definition.minX, definition.minZ), new Vector2(definition.maxX, definition.maxZ), definition.height);
         }
 
         private static Dictionary<string, Color> BuildPalette(ColorDefinition[] colors)

@@ -158,6 +158,12 @@ restart.
   Remaining work waits for the user: island/spinnaker angles (video or tape measures, stage 7b),
   mezzanine extent and cockpit paint (stage 8). The 10-minute resume task was removed while
   waiting; recreate it when a long autonomous stage starts again.
+- 2026-11-16: user: no measures possible on site, look for more photos online; the mezzanine runs
+  along the rest of the west wall, bar underneath. Online: blockout.fr/rennes has 6 close-up event
+  photos (no wide or profile view), theCrag blocked by Cloudflare. Mezzanine added from the plan:
+  deck x −25.85…−17.85 (8 m deep, the image_042 camera stands at its railing), z −14.55…8.40 (south
+  wall to Dalle), floor 4.2 m; black posts and railing on the open sides, orange tables, bar
+  counter under it, solid collider so the bar stays off the climbing floor. EditMode 116/116.
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).

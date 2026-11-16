@@ -16,6 +16,18 @@ namespace Project.Features.Gym.Domain
         public ColorDefinition[] palette;
         public StructureDefinition[] structures;
         public PropDefinition[] props;
+        public MezzanineDefinition mezzanine;
+    }
+
+    /// <summary>Raised deck along a hall wall (restaurant above, bar underneath), meters; no height means none.</summary>
+    [Serializable]
+    public sealed class MezzanineDefinition
+    {
+        public float minX;
+        public float maxX;
+        public float minZ;
+        public float maxZ;
+        public float height;
     }
 
     /// <summary>Decor standing in the hall, such as the island's mast ("mast").</summary>

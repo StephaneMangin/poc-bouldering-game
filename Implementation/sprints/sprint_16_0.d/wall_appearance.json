@@ -16,6 +16,7 @@
   "spawn": { "x": 2.0, "z": -6.5, "yawDeg": 0.0 },
   "ceilingHeight": 9.0,
   "props": [{ "type": "mast", "structure": "island" }],
+  "mezzanine": { "depth": 8.0, "height": 4.2 },
   "structures": {
     "mur_peripherique_nord": { "name": "North wall", "height": 4.5 },
     "mur_peripherique_sud": { "name": "South wall", "height": 4.5 },

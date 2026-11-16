@@ -34,6 +34,7 @@ OUTSIDE_PROBE = 0.3
 CARDINAL = {"north": (0.0, 1.0), "south": (0.0, -1.0), "east": (1.0, 0.0), "west": (-1.0, 0.0)}
 CARDINAL_MATCH = 0.7
 MIN_EDGE = 0.02
+WALL_CONTACT = 0.5
 
 
 def sector_key(label):
@@ -237,6 +238,15 @@ def mast_prop(prop, structures):
     return {"type": prop["type"], "x": round(cx / total, 3), "z": round(cz / total, 3), "baseHeight": structure["height"]}
 
 
+def mezzanine_definition(spec, structures, envelope):
+    """Restaurant deck along the west wall, from the south wall to the first climbing wall standing against it."""
+    min_x, max_x, min_z, max_z = envelope
+    against_wall = [v["z"] for s in structures for v in s["vertices"] if v["x"] < min_x + WALL_CONTACT]
+    north_end = min(against_wall) if against_wall else max_z
+    return {"minX": min_x, "maxX": round(min_x + spec["depth"], 3), "minZ": min_z, "maxZ": round(north_end, 3),
+            "height": spec["height"]}
+
+
 def sector_definition(label, loop, kinds, vertices, appearance):
     key = sector_key(label)
     look = appearance["sectors"][key]
@@ -307,6 +317,8 @@ def build():
         "structures": structures,
         "props": props,
     }
+    if "mezzanine" in appearance:
+        layout["mezzanine"] = mezzanine_definition(appearance["mezzanine"], structures, envelope)
     OUTPUT.write_text(json.dumps(layout, ensure_ascii=False, indent=1), encoding="utf-8")
     draw_debug(topologies, structures, envelope, spawn)
     print("\n".join(report))

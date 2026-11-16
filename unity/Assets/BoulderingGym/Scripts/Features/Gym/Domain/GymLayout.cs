@@ -125,6 +125,9 @@ namespace Project.Features.Gym.Domain
         /// <summary>Island mast foot (on the island top), if the hall has one.</summary>
         public Vector3? MastFoot { get; set; }
 
+        /// <summary>Raised deck along a hall wall, if the hall has one.</summary>
+        public MezzanineArea Mezzanine { get; set; }
+
         public Color ColorOf(string id) => Palette.TryGetValue(id, out var color) ? color : Color.magenta;
 
         public IEnumerable<GymSector> Sectors
