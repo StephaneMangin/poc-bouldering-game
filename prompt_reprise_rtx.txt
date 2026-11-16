@@ -1,14 +1,12 @@
-Reprise du sprint 16.0 de poc-bouldering-game sur mon PC Windows (RTX 5070 Ti). Une session Claude Code a mené le travail jusqu'ici sur mon portable Linux sans GPU. Tu n'as pas son historique : tout l'état est dans le dépôt.
+Reprise du sprint 16.0 de poc-bouldering-game sur mon PC Windows (RTX 5070 Ti). Une session Claude Code a mené le travail jusqu'ici sur mon portable Linux sans GPU. Tu n'as pas son historique : tout l'état est dans le dépôt, cloné depuis GitHub sur la branche feat/playable-gym. Ce fichier (prompt_reprise_rtx.txt) ne sert qu'à la transmission : supprime-le dans ton premier commit.
 
 But : un jeu Unity d'escalade de bloc jouable dans une reconstruction 3D fidèle de la salle Block'Out Rennes, avec un visuel aussi proche que possible de la vraie salle. Le jeu est jouable (Unity 6000.3.12f1 ; EditMode 116/116, PlayMode 1/1, build Linux sans erreur, deux blocs grimpés par script). Ce qui manque, c'est la géométrie. Le modèle actuel extrude le contour du plan avec un profil de mur par secteur : il ne peut représenter ni le bateau facetté, ni le cockpit arrondi, ni l'arche du spinnaker, ni le toit de Cyrano. Décision prise : reconstruction 3D multi-vues par modèles appris sur ce PC, puis maillages facettés par structure.
 
-Le dépôt vient du bundle (branche feat/playable-gym, commit 4bd9b5e). Le matériel image est décompressé à côté, dans ../blockout_rennes_material/. Son README.md décrit chaque dossier, sa fiabilité et les faits connus. photos/original contient les 73 photos, les mêmes que Implementation/sprints/sprint_3_3.d/images hors fichiers _clean.
-
 À lire d'abord :
 1. AGENTS.md.
-2. Implementation/sprints/sprint_16_0.md, le fichier d'état : Decisions, Work plan (ligne 7b) et les deux dernières entrées du Progress log, qui donnent le plan de reconstruction en six points.
-3. ../blockout_rennes_material/README.md. Les faits que je t'ai donnés y sont (Known facts) : ne les remets pas en cause sans une photo qui les contredit.
-4. Les outils existants dans Implementation/sprints/sprint_16_0.d/preview/ : triangulate.py, vanishing.py et photo_corners.json (368 coins de facettes que j'ai cliqués sur 9 photos, sans correspondance entre photos). Implementation/sprints/sprint_3_3.d/tagged_images/island/ regroupe les photos de l'île par secteur (anciens noms).
+2. Implementation/sprints/sprint_16_0.md, le fichier d'état : Decisions, Work plan (ligne 7b) et Progress log, dont les deux dernières entrées donnent le plan de reconstruction en six points. Les faits que je t'ai donnés y sont : ne les remets pas en cause sans une photo qui les contredit.
+3. Les photos, dans Implementation/sprints/sprint_3_3.d/images. Parmi les fichiers _clean, seuls ceux de image_001, 005, 006, 008 et 009 sont des tracés fiables de ma main ; les autres sont retouchés par IA et faux. Bateau : Réservoir image_009, Réacteur 005, 035 et 036, Cockpit 020, 022 et 029, Proue 030 ; image_042 et image_062 regardent dans l'axe de l'île. Implementation/sprints/sprint_3_3.d/tagged_images/island/ regroupe ses photos par secteur (anciens noms). Plan avec les cônes de caméra : Implementation/sprints/sprint_3_3.d/original_plan_with_camera_cone.jpeg (conversion en coordonnées du jeu dans le Progress log).
+4. Les outils existants dans Implementation/sprints/sprint_16_0.d/preview/ : triangulate.py, vanishing.py, traced_corners.py et photo_corners.json (368 coins de facettes que j'ai cliqués sur 9 photos, sans correspondance entre photos ; un clic peut tomber jusqu'à 5 px à droite du vrai coin).
 
 Tâche : le test de faisabilité sur le bateau (l'île).
 1. État des lieux sans rien installer : GPU (nvidia-smi), espace disque, Python, présence d'Unity 6000.3.12f1.
