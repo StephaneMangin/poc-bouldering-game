@@ -11,6 +11,7 @@ using UnityEngine;
 /// Offline companion of the game, using the same domain code:
 ///   bake   layout.json problems.json            generates the problems and volumes the game loads
 ///   export layout.json problems.json dir pass   writes the gym as OBJ (pass: whitebox, greybox, art)
+///   wire   layout.json out.json                 writes the gym edges (polylines) for photo overlays
 ///   route  layout.json problems.json id out.json [scale]  writes a playtest scenario climbing problem id
 ///          with the climber scale the game plays (logged at start as "played as")
 /// </summary>
@@ -31,6 +32,12 @@ public static class Program
     {
         var layout = GymLayoutFactory.Build(JsonSerializer.Deserialize<LayoutDefinition>(File.ReadAllText(args[1]), Json));
         var circuits = Circuit.CreateAll(CircuitParameters.Defaults());
+        if (args[0] == "wire")
+        {
+            File.WriteAllText(args[2], JsonSerializer.Serialize(Wireframe(layout)));
+            return 0;
+        }
+
         if (args[0] == "bake")
         {
             var generated = GymContent.Plan(layout, circuits, ClimberAnatomy.Default.Scaled(0.94f), ClimberAnatomy.Default.Scaled(1.04f));
@@ -201,6 +208,34 @@ public static class Program
         File.WriteAllText(path, JsonSerializer.Serialize(scenario, new JsonSerializerOptions { WriteIndented = true }));
         Console.WriteLine($"{problem.Id} ({problem.Circuit.ColorId} {problem.Grade}): {route.Count} moves -> {path}");
         return 0;
+    }
+
+    /// <summary>
+    /// Edges of the gym in game coordinates, grouped by structure: the outline ring at every profile level
+    /// and the corner lines from the floor to the top; plus the hall box and the mast.
+    /// </summary>
+    private static object Wireframe(GymLayout layout)
+    {
+        var structures = layout.Structures.Select(structure =>
+        {
+            var outline = structure.Outline;
+            var rings = Enumerable.Range(0, outline.Levels.Count).Select(k => outline.Corners
+                .SelectMany(c => c.IsSplit ? new[] { c.Incoming[k], c.Outgoing[k] } : new[] { c.Incoming[k] })
+                .Select(Point).ToList()).ToList();
+            var corners = outline.Corners.SelectMany(c => c.IsSplit ? new[] { c.Incoming, c.Outgoing } : new[] { c.Incoming })
+                .Select(column => column.Select(Point).ToList()).ToList();
+            return new { id = structure.Id, rings, corners };
+        }).ToList();
+        var min = layout.EnvelopeMin;
+        var max = layout.EnvelopeMax;
+        var hall = new[] { new Vector3(min.x, 0f, min.y), new Vector3(max.x, 0f, min.y), new Vector3(max.x, 0f, max.y), new Vector3(min.x, 0f, max.y) };
+        return new
+        {
+            structures,
+            hallFloor = hall.Select(Point).ToList(),
+            hallCeiling = hall.Select(p => Point(p + Vector3.up * layout.CeilingHeight)).ToList(),
+            mast = layout.MastFoot.HasValue ? new[] { Point(layout.MastFoot.Value), Point(new Vector3(layout.MastFoot.Value.x, layout.CeilingHeight, layout.MastFoot.Value.z)) } : null,
+        };
     }
 
     /// <summary>Hall bounds and the start spot of each problem, in game (Unity) coordinates.</summary>

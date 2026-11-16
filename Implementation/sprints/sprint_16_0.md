@@ -72,7 +72,7 @@ restart.
 | 5 | Game flow: HUD, menus, problem browser, persistence | done |
 | 6 | Editor: scene setup, problem bake, Linux build entry points; preview tool (OBJ + Blender) | done |
 | 7 | Unity verification: tests, UAT scenarios, build | done (248 EditMode tests, scripted top-out, build) |
-| 7b | Whitebox photo calibration: camera poses from photos (PnP), overlays, profile fixes | in progress |
+| 7b | Whitebox photo calibration: labelled corners → cameras + 3D corners (bundle adjustment), overlays, geometry fixes | in progress (waiting for user labels) |
 | 8 | Art pass: panel patterns, lighting, ceiling/beams/ducts, mats; photo-match again | todo |
 | 9 | Cleanup prototype + docs | todo |
 
@@ -111,6 +111,13 @@ restart.
 - 2026-11-16: Unity license back. Scene BlockOutRennes created by `Project/Game/Set Up Scene and
   Assets`; 248 EditMode tests green; scripted climb of `starbloc_gauche-6` tops in 15.3 s
   (scenario generated from the validator route); Linux build 87 MB runs without error.
+- 2026-11-16: user: island length looks right (plan kept). Whitebox calibration switches to
+  multi-view triangulation: the user labels facet corners on photos with
+  `sprint_16_0.d/preview/labeler.html` (same name = same corner, "floor" flag, export
+  `preview/photo_labels.json`); cameras and corners solved together. Camera hints: the user's
+  sprint 3.3 plan with camera cones (`sprint_3_3.d/original_plan_with_camera_cone.jpeg`,
+  7000×5342 px: game x = (px − 4229.6) / 163.42, z = −(py − 2956) / 163.42). Inferred: the
+  mezzanine (restaurant) is on the west side (image_042, image_064 look east).
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).

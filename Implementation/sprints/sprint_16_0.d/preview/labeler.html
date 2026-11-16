@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo corners</title>
+<style>
+  :root { --bg: #16181b; --panel: #22252a; --text: #e8e8e8; --muted: #9aa0a6; --accent: #ffd400; --floor: #3ddc84; --point: #ff4fd8; --segment: #35d0ff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; height: 100vh; display: grid; grid-template-rows: auto 1fr; grid-template-columns: 1fr 230px; background: var(--bg); color: var(--text); font: 13px system-ui, sans-serif; }
+  header { grid-column: 1 / 3; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 6px 10px; background: var(--panel); }
+  header .help { color: var(--muted); flex: 1 1 420px; }
+  button, select { background: #33373d; color: var(--text); border: 1px solid #4a4f57; border-radius: 4px; padding: 4px 8px; font: inherit; cursor: pointer; }
+  main { position: relative; overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+  aside { overflow-y: auto; background: var(--panel); padding: 8px; }
+  aside h2 { font-size: 13px; margin: 4px 0 8px; }
+  aside li { cursor: pointer; padding: 2px 0; }
+  aside li.current { color: var(--accent); }
+  #status { color: var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <button id="prev" title="Previous photo (P)">&larr;</button>
+  <select id="photo" aria-label="Photo"></select>
+  <button id="next" title="Next photo (N)">&rarr;</button>
+  <button id="export">Export JSON</button>
+  <button id="importButton" type="button">Import JSON</button><input id="import" type="file" accept=".json,application/json" hidden>
+  <span id="status" role="status"></span>
+  <span class="help">Click: add corner &middot; drag: move &middot; Del: remove &middot; F: floor on/off &middot; S then another corner: segment (optional) &middot; C: original / cleaned photo &middot; wheel: zoom &middot; right drag: pan &middot; Esc: cancel</span>
+</header>
+<main><canvas id="view"></canvas></main>
+<aside>
+  <h2>Photos</h2>
+  <ul id="photos"></ul>
+</aside>
+<script>
+"use strict";
+const IMAGES = "../../sprint_3_3.d/images/";
+const PHOTOS = {
+  "image_042.jpg": "image_042_clean.jpg", "image_062.jpg": "image_062_clean.jpg", "image_070.jpg": "image_070_clean.jpg",
+  "image_002.webp": "image_002_clean.png", "image_035.jpg": "image_035_clean.jpg", "image_036.jpg": "image_036_clean.jpg",
+  "image_030.jpg": "image_030_clean.jpg", "image_020.jpg": "image_020_clean.jpeg", "image_022.jpg": "image_022_clean.jpeg",
+  "image_029.jpg": "image_029_clean.jpeg", "image_005.jpg": null, "image_009.jpg": null,
+};
+const NAMES = Object.keys(PHOTOS);
+const STORAGE_KEY = "photo-corners-v2";
+const PICK_RADIUS = 9;
+
+const canvas = document.getElementById("view");
+const context = canvas.getContext("2d");
+const images = {};
+let data = load();
+let photo = NAMES[0];
+let showClean = true;
+let view = { scale: 1, x: 0, y: 0 };
+let selected = null;
+let segmentFrom = null;
+let drag = null;
+
+function load() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && saved.photos) return saved;
+  } catch (error) { /* storage unavailable: start empty */ }
+  return { version: 2, photos: {} };
+}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (error) { setStatus("not kept in the browser: export to keep your work"); }
+  refreshPhotos();
+}
+
+function setStatus(text) { document.getElementById("status").textContent = text; }
+
+function image(file) {
+  if (!images[file]) {
+    const element = new Image();
+    element.onload = () => { if (file === photo) fit(); draw(); };
+    element.src = IMAGES + file;
+    images[file] = element;
+  }
+  return images[file];
+}
+
+/** The original photo sets the coordinates; the cleaned copy, when shown, is stretched over it. */
+function original() { return image(photo); }
+function shown() { return showClean && PHOTOS[photo] ? image(PHOTOS[photo]) : original(); }
+
+function entry() {
+  data.photos[photo] ??= { width: 0, height: 0, points: {}, floor: [], segments: [] };
+  const current = data.photos[photo];
+  current.width = original().naturalWidth;
+  current.height = original().naturalHeight;
+  return current;
+}
+
+function fit() {
+  const base = original();
+  if (!base.naturalWidth) return;
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+  view.scale = Math.min(canvas.width / base.naturalWidth, canvas.height / base.naturalHeight);
+  view.x = (canvas.width - base.naturalWidth * view.scale) / 2;
+  view.y = (canvas.height - base.naturalHeight * view.scale) / 2;
+}
+
+const toScreen = ([u, v]) => [view.x + u * view.scale, view.y + v * view.scale];
+const toImage = (x, y) => [Math.round(((x - view.x) / view.scale) * 10) / 10, Math.round(((y - view.y) / view.scale) * 10) / 10];
+const cssColor = (variable) => getComputedStyle(document.body).getPropertyValue(variable).trim();
+
+function draw() {
+  context.setTransform(1, 0, 0, 1, 0, 0);
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  const base = original();
+  const picture = shown();
+  if (!base.complete || !picture.complete) return;
+  context.drawImage(picture, view.x, view.y, base.naturalWidth * view.scale, base.naturalHeight * view.scale);
+  const current = entry();
+  context.lineWidth = 2;
+  context.strokeStyle = cssColor("--segment");
+  for (const [a, b] of current.segments) {
+    if (!current.points[a] || !current.points[b]) continue;
+    context.beginPath();
+    context.moveTo(...toScreen(current.points[a]));
+    context.lineTo(...toScreen(current.points[b]));
+    context.stroke();
+  }
+  for (const [id, uv] of Object.entries(current.points)) drawPoint(id, uv, current.floor.includes(id));
+}
+
+function drawPoint(id, uv, floor) {
+  const [x, y] = toScreen(uv);
+  const color = id === selected ? cssColor("--accent") : floor ? cssColor("--floor") : cssColor("--point");
+  context.strokeStyle = color;
+  context.lineWidth = 2;
+  context.beginPath();
+  context.arc(x, y, 5, 0, Math.PI * 2);
+  context.moveTo(x - 10, y); context.lineTo(x - 3, y);
+  context.moveTo(x + 3, y); context.lineTo(x + 10, y);
+  context.moveTo(x, y - 10); context.lineTo(x, y - 3);
+  context.moveTo(x, y + 3); context.lineTo(x, y + 10);
+  context.stroke();
+}
+
+function pointAt(x, y) {
+  let best = null;
+  let bestDistance = PICK_RADIUS;
+  for (const [id, uv] of Object.entries(entry().points)) {
+    const [px, py] = toScreen(uv);
+    const distance = Math.hypot(px - x, py - y);
+    if (distance < bestDistance) { best = id; bestDistance = distance; }
+  }
+  return best;
+}
+
+function addPoint(uv) {
+  const current = entry();
+  const used = Object.keys(current.points).map((id) => Number(id.slice(1)));
+  const id = `p${used.length ? Math.max(...used) + 1 : 1}`;
+  current.points[id] = uv;
+  selected = id;
+  save();
+  draw();
+}
+
+function removePoint(id) {
+  const current = entry();
+  delete current.points[id];
+  current.floor = current.floor.filter((other) => other !== id);
+  current.segments = current.segments.filter(([a, b]) => a !== id && b !== id);
+  selected = null;
+  save();
+  draw();
+}
+
+function toggleSegment(a, b) {
+  const current = entry();
+  const index = current.segments.findIndex(([p, q]) => (p === a && q === b) || (p === b && q === a));
+  if (index >= 0) current.segments.splice(index, 1); else current.segments.push([a, b]);
+  save();
+  draw();
+}
+
+function toggleFloor(id) {
+  const current = entry();
+  current.floor = current.floor.includes(id) ? current.floor.filter((other) => other !== id) : [...current.floor, id];
+  save();
+  draw();
+}
+
+function refreshPhotos() {
+  const list = document.getElementById("photos");
+  list.replaceChildren(...NAMES.map((name) => {
+    const item = document.createElement("li");
+    const count = Object.keys(data.photos[name]?.points ?? {}).length;
+    item.textContent = `${name} (${count})`;
+    item.className = name === photo ? "current" : "";
+    item.addEventListener("click", () => selectPhoto(name));
+    return item;
+  }));
+}
+
+function selectPhoto(name) {
+  photo = name;
+  document.getElementById("photo").value = name;
+  selected = null;
+  segmentFrom = null;
+  setStatus("");
+  if (original().complete && shown().complete) fit();
+  refreshPhotos();
+  draw();
+}
+
+function step(offset) { selectPhoto(NAMES[(NAMES.indexOf(photo) + offset + NAMES.length) % NAMES.length]); }
+
+canvas.addEventListener("contextmenu", (event) => event.preventDefault());
+canvas.addEventListener("mousedown", (event) => {
+  const hit = event.button === 0 ? pointAt(event.offsetX, event.offsetY) : null;
+  if (hit && segmentFrom && hit !== segmentFrom) { toggleSegment(segmentFrom, hit); segmentFrom = null; setStatus(""); return; }
+  drag = { button: event.button, x: event.offsetX, y: event.offsetY, moved: false, point: hit, viewX: view.x, viewY: view.y };
+  if (hit) { selected = hit; draw(); }
+});
+canvas.addEventListener("mousemove", (event) => {
+  if (!drag) return;
+  const dx = event.offsetX - drag.x;
+  const dy = event.offsetY - drag.y;
+  if (Math.hypot(dx, dy) > 3) drag.moved = true;
+  if (drag.point && drag.button === 0) { entry().points[drag.point] = toImage(event.offsetX, event.offsetY); draw(); return; }
+  if (drag.button !== 0 && drag.moved) { view.x = drag.viewX + dx; view.y = drag.viewY + dy; draw(); }
+});
+canvas.addEventListener("mouseup", (event) => {
+  const released = drag;
+  drag = null;
+  if (!released) return;
+  if (released.point) { save(); return; }
+  if (released.button === 0 && !released.moved) addPoint(toImage(event.offsetX, event.offsetY));
+});
+canvas.addEventListener("wheel", (event) => {
+  event.preventDefault();
+  const factor = event.deltaY < 0 ? 1.2 : 1 / 1.2;
+  view.x = event.offsetX - (event.offsetX - view.x) * factor;
+  view.y = event.offsetY - (event.offsetY - view.y) * factor;
+  view.scale *= factor;
+  draw();
+}, { passive: false });
+document.addEventListener("keydown", (event) => {
+  if (event.target instanceof HTMLSelectElement || event.target instanceof HTMLInputElement) return;
+  const key = event.key.toLowerCase();
+  if (key === "escape") { selected = null; segmentFrom = null; setStatus(""); draw(); }
+  if (key === "n") step(1);
+  if (key === "p") step(-1);
+  if (key === "c") { showClean = !showClean; setStatus(showClean && PHOTOS[photo] ? "cleaned photo" : "original photo"); draw(); }
+  if (!selected) return;
+  if (key === "delete" || key === "backspace") removePoint(selected);
+  if (key === "f") toggleFloor(selected);
+  if (key === "s") { segmentFrom = selected; setStatus("segment: click the other corner"); }
+});
+document.getElementById("prev").addEventListener("click", () => step(-1));
+document.getElementById("next").addEventListener("click", () => step(1));
+document.getElementById("photo").addEventListener("change", (event) => selectPhoto(event.target.value));
+document.getElementById("export").addEventListener("click", () => {
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([JSON.stringify(data, null, 1)], { type: "application/json" }));
+  link.download = "photo_corners.json";
+  link.click();
+  URL.revokeObjectURL(link.href);
+});
+document.getElementById("importButton").addEventListener("click", () => document.getElementById("import").click());
+document.getElementById("import").addEventListener("change", async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const imported = JSON.parse(await file.text());
+    if (!imported.photos) throw new Error("not a photo_corners.json file");
+    data = imported;
+    save();
+    selectPhoto(photo);
+    setStatus("imported");
+  } catch (error) {
+    setStatus(`import failed: ${error.message}`);
+  }
+});
+window.addEventListener("resize", () => { fit(); draw(); });
+document.getElementById("photo").replaceChildren(...NAMES.map((name) => Object.assign(document.createElement("option"), { value: name, textContent: name })));
+selectPhoto(NAMES[0]);
+</script>
+</body>
+</html>
