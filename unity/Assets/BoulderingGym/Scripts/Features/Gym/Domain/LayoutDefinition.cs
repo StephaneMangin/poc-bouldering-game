@@ -15,6 +15,17 @@ namespace Project.Features.Gym.Domain
         public SpawnDefinition spawn;
         public ColorDefinition[] palette;
         public StructureDefinition[] structures;
+        public PropDefinition[] props;
+    }
+
+    /// <summary>Decor standing in the hall, such as the island's mast ("mast").</summary>
+    [Serializable]
+    public sealed class PropDefinition
+    {
+        public string type;
+        public float x;
+        public float z;
+        public float baseHeight;
     }
 
     /// <summary>Named sRGB color (components 0..1): panel colors, and hold circuit colors prefixed "hold_".</summary>
@@ -88,11 +99,13 @@ namespace Project.Features.Gym.Domain
         public float angle;
     }
 
+    /// <summary>Volumes of a sector; size (width in meters) is optional, zero picks the shape's usual size.</summary>
     [Serializable]
     public sealed class VolumeDefinition
     {
         public string shape;
         public string color;
         public int count;
+        public float size;
     }
 }

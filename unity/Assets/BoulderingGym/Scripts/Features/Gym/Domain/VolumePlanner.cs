@@ -85,7 +85,7 @@ namespace Project.Features.Gym.Domain
 
         private static VolumePlacement TryPlace(WallFace face, VolumeRequest request, Random random, FaceOccupancy occupancy)
         {
-            var size = random.Range(SizeRange(request.Shape));
+            var size = request.Size > 0f ? request.Size : random.Range(SizeRange(request.Shape));
             var radius = size * FootprintFactor;
             for (var attempt = 0; attempt < PlacementTries; attempt++)
             {

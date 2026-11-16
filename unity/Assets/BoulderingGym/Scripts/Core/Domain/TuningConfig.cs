@@ -78,6 +78,28 @@ namespace Project.Core.Domain
         [Min(0.1f)] public float footPlaceRange = 1.0f;
         [Range(0.05f, 1f)] public float cursorMagnetRadius = 0.3f;
 
+        [Header("Climbing Resources Interplay")]
+        [Range(1f, 3f)] public float adherenceLowFatigueMult = 1.5f;
+        [Range(1f, 4f)] public float adherenceEmptyFatigueMult = 2.5f;
+        [Range(1f, 3f)] public float enduranceEmptyFatigueMult = 2.0f;
+        [Range(0f, 1f)] public float oneFootHandLoadShare = 0.4f;
+
+        [Header("Climber Motion")]
+        [Range(0.5f, 3f)] public float walkSpeed = 1.6f;
+        [Range(1f, 6f)] public float runSpeed = 3.2f;
+        [Range(0.05f, 1f)] public float limbMoveSeconds = 0.25f;
+        [Range(0.05f, 1f)] public float bodySettleSeconds = 0.35f;
+        [Range(0.2f, 2f)] public float landingSeconds = 0.8f;
+        [Range(0.5f, 4f)] public float maxStartDistance = 2.5f;
+
+        [Header("Camera")]
+        [Range(1f, 10f)] public float cameraGroundDistance = 4.2f;
+        [Range(1f, 10f)] public float cameraWallDistance = 3.4f;
+        [Range(0.5f, 3f)] public float cameraMinDistance = 1.2f;
+        [Range(3f, 15f)] public float cameraMaxDistance = 9f;
+        [Range(0.05f, 1f)] public float cameraOrbitDegreesPerPixel = 0.25f;
+        [Range(-0.5f, 1f)] public float cameraPivotLift = 0.15f;
+
         [Header("Grip Type - Fatigue Multipliers")]
         [Range(0.3f, 1f)] public float gripTypeFatigueMultJug = 0.6f;
         [Range(0.4f, 1.2f)] public float gripTypeFatigueMultOpen = 0.8f;

@@ -1,0 +1,136 @@
+{
+  "notes": "Camera viewpoints in game (Unity) coordinates: x east, y up, z north, meters. fov = vertical field of view in degrees. photo = reference image the view tries to match (sprint_3_3.d/images).",
+  "climber": {
+    "fbx": "../../../../unity/Assets/BoulderingGym/Art/Animations/Male Walk/idle.fbx",
+    "position": [
+      0.4,
+      0.0,
+      -3.2
+    ],
+    "facing": [
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "views": [
+    {
+      "name": "overview",
+      "position": [
+        -24.0,
+        24.0,
+        -27.0
+      ],
+      "target": [
+        -3.0,
+        0.0,
+        3.0
+      ],
+      "fov": 38,
+      "width": 1600,
+      "height": 900,
+      "hideRoof": true
+    },
+    {
+      "name": "hall_wide",
+      "position": [
+        9.0,
+        1.7,
+        -8.5
+      ],
+      "target": [
+        -2.0,
+        2.4,
+        6.0
+      ],
+      "fov": 62,
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "name": "island_reacteur",
+      "photo": "image_005.jpg",
+      "position": [
+        0.4,
+        1.0,
+        -6.6
+      ],
+      "target": [
+        0.0,
+        2.1,
+        -1.2
+      ],
+      "fov": 78,
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "name": "vagues",
+      "photo": "image_008.jpg",
+      "position": [
+        12.4,
+        1.2,
+        9.2
+      ],
+      "target": [
+        12.6,
+        3.0,
+        13.6
+      ],
+      "fov": 82,
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "name": "spinnaker",
+      "photo": "image_018.jpg",
+      "position": [
+        -14.6,
+        1.0,
+        -9.0
+      ],
+      "target": [
+        -11.3,
+        2.2,
+        -5.0
+      ],
+      "fov": 76,
+      "width": 1080,
+      "height": 1350
+    },
+    {
+      "name": "starbloc",
+      "photo": "image_001.jpg",
+      "position": [
+        2.0,
+        1.5,
+        6.0
+      ],
+      "target": [
+        2.0,
+        2.2,
+        14.7
+      ],
+      "fov": 58,
+      "width": 1280,
+      "height": 960
+    },
+    {
+      "name": "galaxie",
+      "photo": "image_015.jpg",
+      "position": [
+        2.6,
+        1.5,
+        -7.2
+      ],
+      "target": [
+        2.6,
+        2.2,
+        -11.8
+      ],
+      "fov": 76,
+      "width": 1080,
+      "height": 1350
+    }
+  ]
+}

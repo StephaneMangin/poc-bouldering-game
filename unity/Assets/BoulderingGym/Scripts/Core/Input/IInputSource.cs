@@ -15,6 +15,11 @@ namespace Project.Core.Input
 
         bool GetMouseButtonDown(int button);
 
+        bool GetMouseButton(int button);
+
         Vector3 MousePosition { get; }
+
+        /// <summary>Mouse wheel movement this frame, positive away from the user.</summary>
+        float ScrollDelta { get; }
     }
 }

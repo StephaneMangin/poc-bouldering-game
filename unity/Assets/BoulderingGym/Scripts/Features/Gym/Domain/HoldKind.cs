@@ -12,6 +12,9 @@ namespace Project.Features.Gym.Domain
         Pinch,
         Pocket,
         Foothold,
+
+        /// <summary>Big rounded hold of the easy circuits, as large as a small volume.</summary>
+        Macro,
     }
 
     /// <summary>Shape size (local x across, y up the wall, z out of the wall) and grip of each hold kind.</summary>
@@ -27,6 +30,7 @@ namespace Project.Features.Gym.Domain
                 HoldKind.Sloper => new Vector3(0.26f, 0.22f, 0.08f),
                 HoldKind.Pinch => new Vector3(0.07f, 0.18f, 0.09f),
                 HoldKind.Pocket => new Vector3(0.13f, 0.12f, 0.07f),
+                HoldKind.Macro => new Vector3(0.40f, 0.30f, 0.16f),
                 _ => new Vector3(0.07f, 0.05f, 0.035f),
             };
         }
@@ -41,6 +45,7 @@ namespace Project.Features.Gym.Domain
                 HoldKind.Sloper => GripType.Sloper,
                 HoldKind.Pinch => GripType.Pinch,
                 HoldKind.Pocket => GripType.Open,
+                HoldKind.Macro => GripType.Open,
                 _ => GripType.Crimp,
             };
         }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9099e9d8ebf1873eb12edc1effb2706, type: 3}
+  m_Name: GameAssets
+  m_EditorClassIdentifier: BoulderingGame.Runtime::Project.App.GameAssets
+  layout: {fileID: 4900000, guid: 22c6ef28880ac2786a56ccb19f525e5e, type: 3}
+  problems: {fileID: 4900000, guid: b1adb0492f001c6799ebc5e06889a52c, type: 3}
+  tuning: {fileID: 11400000, guid: d62176cda6b754462ab88c2f84d9c4c2, type: 2}
+  gymTuning: {fileID: 11400000, guid: 5d2259857e64aeb2392cdf1757dcd9b2, type: 2}
+  materials:
+    wall: {fileID: 2100000, guid: d7cdb6eff143589a09e409fa8831df84, type: 2}
+    plain: {fileID: 2100000, guid: e52e0e74cf095fa198d17f0a91e57ab5, type: 2}
+    hold: {fileID: 2100000, guid: 87ed9d1ccf491133ca60cb190b888855, type: 2}
+    marker: {fileID: 2100000, guid: 28c84f48b29803335bffdaea86f80b82, type: 2}
+    label: {fileID: 2100000, guid: cf03d9b21f1d51a89b37d35a2a233b71, type: 2}
+    labelFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  climbers:
+  - displayName: John
+    model: {fileID: 919132149155446097, guid: ff87bd16b4c9129b2b13e0843723d93d, type: 3}
+  - displayName: Elsa
+    model: {fileID: 919132149155446097, guid: 1ce426332f5aa7221b6257686e5e6dd3, type: 3}
+  locomotion: {fileID: 9100000, guid: 3b74500b11bdd421c84ffaca0563d8cc, type: 2}

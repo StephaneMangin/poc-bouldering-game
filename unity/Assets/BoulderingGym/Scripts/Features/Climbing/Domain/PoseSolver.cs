@@ -68,6 +68,10 @@ namespace Project.Features.Climbing.Domain
         private const float HangingArmBend = 0.85f;
         private const float StandingLegBend = 0.88f;
 
+        /// <summary>How much the legs decide the pelvis height when hands and feet both hold: arms bend more readily.</summary>
+        private const float LegsBias = 0.7f;
+        private const float StandingOnFloorBias = 0.95f;
+
         public static PoseSolution Solve(ContactSet contacts, ClimberAnatomy anatomy)
         {
             var primary = PrimarySurface(contacts);
@@ -111,7 +115,8 @@ namespace Project.Features.Climbing.Domain
             var footCenter = Center(contacts, false, out var footCount);
             var hangingY = handCenter.y - anatomy.TorsoLength - HangingArmBend * anatomy.ArmReach;
             var standingY = footCenter.y + StandingLegBend * anatomy.LegReach;
-            var y = handCount == 0 ? standingY : footCount == 0 ? hangingY : 0.5f * (hangingY + standingY);
+            var legsLead = contacts.TouchesFloor ? StandingOnFloorBias : LegsBias;
+            var y = handCount == 0 ? standingY : footCount == 0 ? hangingY : Mathf.Lerp(hangingY, standingY, legsLead);
 
             var weightSum = handCount * HandWeight + footCount * FootWeight;
             var horizontal = (handCenter * (handCount * HandWeight) + footCenter * (footCount * FootWeight)) / weightSum;

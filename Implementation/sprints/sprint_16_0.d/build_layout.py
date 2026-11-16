@@ -223,6 +223,20 @@ def apply_blank_sides(kinds, loop, vertices, blank_sides):
     return result
 
 
+def mast_prop(prop, structures):
+    """Mast standing at the area centroid of a structure, on its top."""
+    structure = next(s for s in structures if s["id"] == prop["structure"])
+    points = [(v["x"], v["z"]) for v in structure["vertices"]]
+    total, cx, cz = 0.0, 0.0, 0.0
+    for sector in structure["sectors"]:
+        loop = [points[i] for i in sector["loop"]]
+        area = signed_area(loop)
+        total += area
+        cx += area * sum(p[0] for p in loop) / len(loop)
+        cz += area * sum(p[1] for p in loop) / len(loop)
+    return {"type": prop["type"], "x": round(cx / total, 3), "z": round(cz / total, 3), "baseHeight": structure["height"]}
+
+
 def sector_definition(label, loop, kinds, vertices, appearance):
     key = sector_key(label)
     look = appearance["sectors"][key]
@@ -234,7 +248,8 @@ def sector_definition(label, loop, kinds, vertices, appearance):
         "profile": [{"height": h, "angle": a} for h, a in look["profile"]],
         "panelColors": look["panelColors"],
         "pattern": look["pattern"],
-        "volumes": [{"shape": s, "color": c, "count": n} for s, c, n in look["volumes"]],
+        "volumes": [{"shape": v[0], "color": v[1], "count": v[2], "size": v[3] if len(v) > 3 else 0.0}
+                    for v in look["volumes"]],
         "seed": zlib.crc32(key.encode()) & 0x7FFFFFFF,
     }
 
@@ -281,14 +296,16 @@ def build():
         })
 
     spawn = appearance["spawn"]
+    props = [mast_prop(prop, structures) for prop in appearance.get("props", [])]
     layout = {
         "name": "Block'Out Rennes",
         "version": "3.0",
         "envelope": {"minX": envelope[0], "maxX": envelope[1], "minZ": envelope[2], "maxZ": envelope[3],
-                     "height": source["meta"]["building_envelope"]["ceiling_height_m"]},
+                     "height": appearance["ceilingHeight"]},
         "spawn": spawn,
         "palette": [{"id": key, "r": rgb[0], "g": rgb[1], "b": rgb[2]} for key, rgb in appearance["palette"].items()],
         "structures": structures,
+        "props": props,
     }
     OUTPUT.write_text(json.dumps(layout, ensure_ascii=False, indent=1), encoding="utf-8")
     draw_debug(topologies, structures, envelope, spawn)

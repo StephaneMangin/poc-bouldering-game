@@ -110,6 +110,34 @@ Centralize all gameplay values to speed up balancing and prevent regressions.
 26. `body_rotation_speed_deg_per_s = 120` (60-180) — slew rate for hip/torso rotation. Sprint 4.0.
 27. `flag_lateral_offset_multiplier = 0.6` (0.3-0.8) — multiplier on lateral COG offset penalty when flagging. Sprint 4.0.
 
+## Climbing Session (Sprint 16.0)
+Values live in `TuningConfig` (gameplay) and `GymTuning` (problem generation).
+
+### Resources interplay
+1. `adherence_low_fatigue_mult = 1.5` (1.0-3.0) — arm fatigue gain while grip is under the micro-slip threshold.
+2. `adherence_empty_fatigue_mult = 2.5` (1.0-4.0) — arm fatigue gain with no grip left.
+3. `endurance_empty_fatigue_mult = 2.0` (1.0-3.0) — arm fatigue gain with empty endurance (linear from full).
+4. `one_foot_hand_load_share = 0.4` (0-1) — share of the leg-carried weight moved to the arms when one foot is off.
+
+### Climber motion
+1. `walk_speed = 1.6` m/s (0.5-3), `run_speed = 3.2` m/s (1-6).
+2. `limb_move_seconds = 0.25` (0.05-1) — hand or foot travel time between holds.
+3. `body_settle_seconds = 0.35` (0.05-1) — pelvis smoothing toward the solved pose.
+4. `landing_seconds = 0.8` (0.2-2) — time on the mats after a fall before walking again.
+5. `max_start_distance = 2.5` m (0.5-4) — how far from a wall a climb can start.
+
+### Camera
+1. `camera_ground_distance = 4.2` m, `camera_wall_distance = 3.4` m, `camera_min_distance = 1.2` m, `camera_max_distance = 9` m.
+2. `camera_orbit_degrees_per_pixel = 0.25`, `camera_pivot_lift = 0.15` m above the chest.
+
+### Problem generation (per circuit: orange, blue, red, white, black, lime)
+1. `move_step` (vertical spacing of hand holds, m): 0.38-0.52, 0.48-0.62, 0.58-0.72, 0.66-0.82, 0.74-0.92, 0.82-1.00.
+2. `lateral` (sideways offset of hand holds, m): 0.10-0.28, 0.15-0.38, 0.20-0.45, 0.25-0.52, 0.30-0.60, 0.35-0.65.
+3. `foot_density` (chance of a dedicated foothold per hand hold): 1.0, 0.9, 0.8, 0.7, 0.6, 0.5.
+4. `hold_scale`: 1.15, 1.0, 0.95, 0.9, 0.85, 0.8.
+5. Circuit weights by wall steepness (vertical / overhang / steep): orange 3/1.5/0.6, blue 3/2.5/1.5, red 2/3/2.5, white 1/2/2.5, black 0.5/1/2, lime 0.2/0.4/0.8.
+6. `smallest_climber_scale = 0.94`, `largest_climber_scale = 1.04` — every problem must be climbable by both; the played climber is clamped to that range.
+
 ## Audio
 1. `audio_breathing_switch_threshold = 30` — endurance below which breathing becomes labored.
 2. `audio_heartbeat_fatigue_threshold = 80` — arm fatigue above which heartbeat plays.

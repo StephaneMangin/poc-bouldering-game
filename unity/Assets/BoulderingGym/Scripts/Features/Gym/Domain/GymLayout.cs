@@ -21,11 +21,12 @@ namespace Project.Features.Gym.Domain
 
     public readonly struct VolumeRequest
     {
-        public VolumeRequest(VolumeShape shape, string colorId, int count)
+        public VolumeRequest(VolumeShape shape, string colorId, int count, float size)
         {
             Shape = shape;
             ColorId = colorId;
             Count = count;
+            Size = size;
         }
 
         public VolumeShape Shape { get; }
@@ -33,6 +34,9 @@ namespace Project.Features.Gym.Domain
         public string ColorId { get; }
 
         public int Count { get; }
+
+        /// <summary>Width in meters; zero picks the shape's usual size.</summary>
+        public float Size { get; }
     }
 
     /// <summary>Named climbing sector ("bloc"): one profile and color scheme for all its faces.</summary>
@@ -117,6 +121,9 @@ namespace Project.Features.Gym.Domain
         public float SpawnYawDeg { get; set; }
 
         public IReadOnlyDictionary<string, Color> Palette { get; set; } = new Dictionary<string, Color>();
+
+        /// <summary>Island mast foot (on the island top), if the hall has one.</summary>
+        public Vector3? MastFoot { get; set; }
 
         public Color ColorOf(string id) => Palette.TryGetValue(id, out var color) ? color : Color.magenta;
 

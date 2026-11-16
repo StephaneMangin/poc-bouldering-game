@@ -23,7 +23,21 @@ namespace Project.Features.Gym.Domain
                 SpawnPosition = new Vector3(definition.spawn.x, 0f, definition.spawn.z),
                 SpawnYawDeg = definition.spawn.yawDeg,
                 Palette = BuildPalette(definition.palette),
+                MastFoot = MastFoot(definition.props),
             };
+        }
+
+        private static Vector3? MastFoot(PropDefinition[] props)
+        {
+            foreach (var prop in props ?? new PropDefinition[0])
+            {
+                if (prop.type == "mast")
+                {
+                    return new Vector3(prop.x, prop.baseHeight, prop.z);
+                }
+            }
+
+            return null;
         }
 
         private static Dictionary<string, Color> BuildPalette(ColorDefinition[] colors)
@@ -164,7 +178,7 @@ namespace Project.Features.Gym.Domain
             for (var i = 0; i < volumes.Length; i++)
             {
                 var shape = Enum.TryParse<VolumeShape>(volumes[i].shape, true, out var parsed) ? parsed : VolumeShape.Triangle;
-                requests[i] = new VolumeRequest(shape, volumes[i].color, volumes[i].count);
+                requests[i] = new VolumeRequest(shape, volumes[i].color, volumes[i].count, volumes[i].size);
             }
 
             return requests;

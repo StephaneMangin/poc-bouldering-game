@@ -100,6 +100,10 @@ namespace UATRecords
             return _pendingMouseDown.Remove(button);
         }
 
+        public bool GetMouseButton(int button) => false;
+
+        public float ScrollDelta => 0f;
+
         public IReadOnlyCollection<KeyCode> HeldKeysSnapshot => _heldKeys;
 
         private void RecomputeHeldKeys(float fromT, float toT)

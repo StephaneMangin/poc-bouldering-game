@@ -6,7 +6,7 @@
   "maxX": 16.931,
   "minZ": -14.549,
   "maxZ": 18.079,
-  "height": 7.0
+  "height": 9.0
  },
  "spawn": {
   "x": 2.0,
@@ -55,6 +55,12 @@
    "r": 0.98,
    "g": 0.82,
    "b": 0.1
+  },
+  {
+   "id": "dark_yellow",
+   "r": 0.93,
+   "g": 0.66,
+   "b": 0.04
   },
   {
    "id": "green",
@@ -380,12 +386,14 @@
       {
        "shape": "dome",
        "color": "orange",
-       "count": 2
+       "count": 2,
+       "size": 1.5
       },
       {
        "shape": "dome",
        "color": "teal",
-       "count": 2
+       "count": 1,
+       "size": 1.2
       }
      ],
      "seed": 1839647719
@@ -425,14 +433,22 @@
      "pattern": "triangles",
      "volumes": [
       {
-       "shape": "wedge",
+       "shape": "triangle",
        "color": "yellow",
-       "count": 3
+       "count": 3,
+       "size": 0.0
+      },
+      {
+       "shape": "wedge",
+       "color": "red",
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "pyramid",
        "color": "yellow",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 68262626
@@ -472,12 +488,20 @@
       {
        "shape": "pyramid",
        "color": "yellow",
-       "count": 3
+       "count": 2,
+       "size": 0.0
+      },
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "dome",
        "color": "white",
-       "count": 2
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1414141976
@@ -517,12 +541,14 @@
       {
        "shape": "box",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "triangle",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 2061885365
@@ -568,12 +594,14 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
-       "shape": "box",
-       "color": "grey",
-       "count": 1
+       "shape": "triangle",
+       "color": "red",
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 979143103
@@ -643,7 +671,8 @@
       {
        "shape": "triangle",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 93047888
@@ -679,12 +708,14 @@
       {
        "shape": "triangle",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "dome",
        "color": "black",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1046920194
@@ -724,7 +755,8 @@
       {
        "shape": "triangle",
        "color": "yellow",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1891752700
@@ -819,7 +851,8 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 475477454
@@ -859,7 +892,8 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1724890550
@@ -895,7 +929,8 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 464585520
@@ -931,7 +966,8 @@
       {
        "shape": "triangle",
        "color": "yellow",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 989124185
@@ -965,7 +1001,8 @@
       {
        "shape": "dome",
        "color": "black",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1155349868
@@ -1104,12 +1141,14 @@
       {
        "shape": "pyramid",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "triangle",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 589907413
@@ -1136,9 +1175,8 @@
       }
      ],
      "panelColors": [
-      "wood",
       "teal",
-      "red"
+      "wood"
      ],
      "pattern": "lattice",
      "volumes": [],
@@ -1183,12 +1221,14 @@
       {
        "shape": "pyramid",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "box",
        "color": "black",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 760908327
@@ -1218,7 +1258,7 @@
       "white",
       "black"
      ],
-     "pattern": "ermine",
+     "pattern": "gwennhadu",
      "volumes": [],
      "seed": 194394131
     },
@@ -1261,12 +1301,14 @@
       {
        "shape": "wedge",
        "color": "black",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "box",
        "color": "wood",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 2089087694
@@ -1306,12 +1348,14 @@
       {
        "shape": "wedge",
        "color": "grey",
-       "count": 3
+       "count": 3,
+       "size": 0.0
       },
       {
        "shape": "pyramid",
        "color": "grey",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1349967049
@@ -1426,16 +1470,16 @@
      ],
      "profile": [
       {
-       "height": 1.5,
+       "height": 1.2,
        "angle": 0
       },
       {
        "height": 2.0,
-       "angle": 10
+       "angle": 25
       },
       {
-       "height": 0.7,
-       "angle": -30
+       "height": 1.0,
+       "angle": -25
       }
      ],
      "panelColors": [
@@ -1448,12 +1492,14 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 1
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "box",
        "color": "black",
-       "count": 2
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 771610534
@@ -1483,11 +1529,11 @@
        "angle": 0
       },
       {
-       "height": 2.0,
+       "height": 2.1,
        "angle": 35
       },
       {
-       "height": 1.3,
+       "height": 1.2,
        "angle": -15
       }
      ],
@@ -1501,12 +1547,14 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
        "shape": "pyramid",
        "color": "yellow",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1697688841
@@ -1528,12 +1576,12 @@
      ],
      "profile": [
       {
-       "height": 1.5,
+       "height": 1.2,
        "angle": 0
       },
       {
-       "height": 1.5,
-       "angle": 15
+       "height": 1.8,
+       "angle": 25
       },
       {
        "height": 1.2,
@@ -1550,7 +1598,8 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 129792205
@@ -1580,12 +1629,12 @@
        "angle": 0
       },
       {
-       "height": 1.5,
-       "angle": 25
+       "height": 2.0,
+       "angle": 30
       },
       {
-       "height": 1.7,
-       "angle": -20
+       "height": 1.2,
+       "angle": -25
       }
      ],
      "panelColors": [
@@ -1598,7 +1647,8 @@
       {
        "shape": "wedge",
        "color": "red",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 542587750
@@ -1634,12 +1684,14 @@
       {
        "shape": "pyramid",
        "color": "blue",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       },
       {
        "shape": "pyramid",
        "color": "green",
-       "count": 1
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1103845779
@@ -1665,12 +1717,12 @@
        "angle": 0
       },
       {
-       "height": 1.8,
+       "height": 1.9,
        "angle": 30
       },
       {
-       "height": 1.5,
-       "angle": -15
+       "height": 1.4,
+       "angle": -20
       }
      ],
      "panelColors": [
@@ -1681,14 +1733,16 @@
      "pattern": "bands",
      "volumes": [
       {
-       "shape": "wedge",
+       "shape": "triangle",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       },
       {
-       "shape": "pyramid",
-       "color": "yellow",
-       "count": 1
+       "shape": "dome",
+       "color": "black",
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1196277271
@@ -1714,11 +1768,11 @@
        "angle": 0
       },
       {
-       "height": 1.8,
-       "angle": 25
+       "height": 1.9,
+       "angle": 30
       },
       {
-       "height": 1.5,
+       "height": 1.4,
        "angle": -20
       }
      ],
@@ -1732,7 +1786,8 @@
       {
        "shape": "wedge",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
       }
      ],
      "seed": 292785509
@@ -1756,11 +1811,11 @@
        "angle": 0
       },
       {
-       "height": 1.8,
+       "height": 1.9,
        "angle": 30
       },
       {
-       "height": 1.5,
+       "height": 1.4,
        "angle": -20
       }
      ],
@@ -1772,9 +1827,16 @@
      "pattern": "triangles",
      "volumes": [
       {
-       "shape": "wedge",
+       "shape": "triangle",
        "color": "yellow",
-       "count": 2
+       "count": 2,
+       "size": 0.0
+      },
+      {
+       "shape": "dome",
+       "color": "black",
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 2092336749
@@ -1934,8 +1996,15 @@
      "volumes": [
       {
        "shape": "triangle",
+       "color": "dark_yellow",
+       "count": 3,
+       "size": 0.0
+      },
+      {
+       "shape": "triangle",
        "color": "black",
-       "count": 2
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 2095433319
@@ -1986,18 +2055,28 @@
      "volumes": [
       {
        "shape": "triangle",
-       "color": "black",
-       "count": 2
+       "color": "dark_yellow",
+       "count": 3,
+       "size": 0.0
       },
       {
-       "shape": "wedge",
-       "color": "wood",
-       "count": 1
+       "shape": "triangle",
+       "color": "black",
+       "count": 1,
+       "size": 0.0
       }
      ],
      "seed": 1689077698
     }
    ]
+  }
+ ],
+ "props": [
+  {
+   "type": "mast",
+   "x": -0.848,
+   "z": 2.471,
+   "baseHeight": 4.2
   }
  ]
 }

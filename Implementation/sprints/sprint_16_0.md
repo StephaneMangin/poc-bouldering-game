@@ -67,11 +67,12 @@ restart.
 | 0 | Baseline: WIP preserved in commit, offline compile check | done |
 | 1 | Domain: wall geometry, anatomy + pose solver, problem generator + validator | done (offline tests) |
 | 2 | Layout data: floor plan repaired + per-sector appearance from photos | done (user review of edge kinds ongoing) |
-| 3 | Whitebox: runtime gym builder (grey faces, caps, floor, building), spawn, character scale, camera | todo |
-| 4 | Greybox: holds + volumes meshes, climber controller + FSM + Animator IK, fall, session rules | todo |
-| 5 | Game flow: HUD, menus, problem browser, persistence | todo |
-| 6 | Editor: scene setup, photo-match capture, Linux build entry points | todo |
-| 7 | Unity verification (needs license): tests, UAT scenarios, photo-match sheet, build | blocked: Unity license expired, Hub login needed |
+| 3 | Whitebox: runtime gym builder (grey faces, caps, floor, building), spawn, character scale, camera | done |
+| 4 | Greybox: holds + volumes meshes, climber controller + FSM + Animator IK, fall, session rules | done |
+| 5 | Game flow: HUD, menus, problem browser, persistence | done |
+| 6 | Editor: scene setup, problem bake, Linux build entry points; preview tool (OBJ + Blender) | done |
+| 7 | Unity verification: tests, UAT scenarios, build | done (248 EditMode tests, scripted top-out, build) |
+| 7b | Whitebox photo calibration: camera poses from photos (PnP), overlays, profile fixes | in progress |
 | 8 | Art pass: panel patterns, lighting, ceiling/beams/ducts, mats; photo-match again | todo |
 | 9 | Cleanup prototype + docs | todo |
 
@@ -103,6 +104,13 @@ restart.
 - 2026-11-16: user feedback: Dalle climbable on the inside only (south side and east
   end marked blank); sprint 3.3 reconstruction "did not work well" → photo-matched
   captures required; follow whitebox/greybox/art passes.
+- 2026-11-16: user feedback on renders: ceiling too low (9 m now), island = the "boat" (mast,
+  lifebuoy, pirate flag), Breton flag on Pan Gullish, denser holds, wall grain (image_087);
+  "island_reacteur photo match does not match at all" → whitebox must match angles first,
+  and be playable. Plan outline is now the wall's outermost point (overhang feet set back).
+- 2026-11-16: Unity license back. Scene BlockOutRennes created by `Project/Game/Set Up Scene and
+  Assets`; 248 EditMode tests green; scripted climb of `starbloc_gauche-6` tops in 15.3 s
+  (scenario generated from the validator route); Linux build 87 MB runs without error.
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).

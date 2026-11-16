@@ -43,6 +43,16 @@ namespace Project.Features.Gym.Domain
 
         public bool AcceptsHands => HoldKindInfo.AcceptsHands(Kind);
 
+        /// <summary>Stable name, e.g. "quinquin-2:START00" or "quinquin-2:H04", used by scripted playtests.</summary>
+        public string Name
+        {
+            get
+            {
+                var role = Role == HoldRole.Intermediate ? "H" : Role.ToString().ToUpperInvariant();
+                return $"{Problem.Id}:{role}{Problem.IndexOf(this):00}";
+            }
+        }
+
         public Vector3 SurfacePoint => Face.SurfacePoint(S, Y);
 
         public Vector3 Normal => Face.NormalAt(Y);
@@ -88,6 +98,8 @@ namespace Project.Features.Gym.Domain
         public Circuit Circuit { get; }
 
         public IReadOnlyList<ProblemHold> Holds => _holds;
+
+        public int IndexOf(ProblemHold hold) => _holds.IndexOf(hold);
 
         public string DisplayName => $"{Sector.Name} #{Number}";
 

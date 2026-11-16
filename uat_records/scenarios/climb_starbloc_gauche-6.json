@@ -1,0 +1,145 @@
+{
+  "name": "climb_starbloc_gauche-6",
+  "scene": "BlockOutRennes",
+  "durationSeconds": 27,
+  "screenshotEveryNFrames": 8,
+  "mouseScreenX": 0.5,
+  "mouseScreenY": 0.5,
+  "steps": [
+    {
+      "atSeconds": 2,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:START00"
+    },
+    {
+      "atSeconds": 3.4,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:START00"
+    },
+    {
+      "atSeconds": 4.8,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H09"
+    },
+    {
+      "atSeconds": 6.2,
+      "durationSeconds": 0.2,
+      "key": "D",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:START00"
+    },
+    {
+      "atSeconds": 7.6,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H01"
+    },
+    {
+      "atSeconds": 9,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H02"
+    },
+    {
+      "atSeconds": 10.4,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H03"
+    },
+    {
+      "atSeconds": 11.8,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H02"
+    },
+    {
+      "atSeconds": 13.2,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H04"
+    },
+    {
+      "atSeconds": 14.599999,
+      "durationSeconds": 0.2,
+      "key": "D",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H03"
+    },
+    {
+      "atSeconds": 16,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H05"
+    },
+    {
+      "atSeconds": 17.4,
+      "durationSeconds": 0.2,
+      "key": "Q",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:TOP06"
+    },
+    {
+      "atSeconds": 18.8,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H05"
+    },
+    {
+      "atSeconds": 20.199999,
+      "durationSeconds": 0.2,
+      "key": "A",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:H05"
+    },
+    {
+      "atSeconds": 21.6,
+      "durationSeconds": 0.2,
+      "key": "E",
+      "mouseButton": -1,
+      "mouseScreenX": -1,
+      "mouseScreenY": -1,
+      "aimAtHold": "starbloc_gauche-6:TOP06"
+    }
+  ]
+}

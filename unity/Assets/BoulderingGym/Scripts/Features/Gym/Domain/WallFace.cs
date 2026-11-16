@@ -67,6 +67,12 @@ namespace Project.Features.Gym.Domain
             return BaseStart + Along * s + Vector3.up * y + Outward * Profile.OffsetAt(y);
         }
 
+        /// <summary>Point on the floor in front of the wall foot, at a distance from it.</summary>
+        public Vector3 FloorPointInFront(float s, float distance)
+        {
+            return SurfacePoint(s, 0f) + Outward * distance;
+        }
+
         public Vector3 NormalAt(float y)
         {
             var angle = Profile.AngleAt(y) * Mathf.Deg2Rad;

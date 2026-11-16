@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d922584d3863543aaa2245a0b1ed70, type: 3}
+  m_Name: GymTuning
+  m_EditorClassIdentifier: BoulderingGame.Runtime::Project.Features.Gym.Presentation.GymTuning
+  circuits:
+  - colorId: orange
+    moveStepMin: 0.38
+    moveStepMax: 0.52
+    lateralMin: 0.1
+    lateralMax: 0.28
+    handKinds: 00000000000000000700000001000000
+    footKinds: 0100000000000000
+    footDensity: 1
+    holdScale: 1.15
+    weightVertical: 3
+    weightOverhang: 1.5
+    weightSteep: 0.6
+  - colorId: blue
+    moveStepMin: 0.48
+    moveStepMax: 0.62
+    lateralMin: 0.15
+    lateralMax: 0.38
+    handKinds: 00000000010000000700000003000000
+    footKinds: 0100000006000000
+    footDensity: 0.9
+    holdScale: 1
+    weightVertical: 3
+    weightOverhang: 2.5
+    weightSteep: 1.5
+  - colorId: red
+    moveStepMin: 0.58
+    moveStepMax: 0.72
+    lateralMin: 0.2
+    lateralMax: 0.45
+    handKinds: 0100000002000000040000000300000000000000
+    footKinds: 0600000001000000
+    footDensity: 0.8
+    holdScale: 0.95
+    weightVertical: 2
+    weightOverhang: 3
+    weightSteep: 2.5
+  - colorId: white
+    moveStepMin: 0.66
+    moveStepMax: 0.82
+    lateralMin: 0.25
+    lateralMax: 0.52
+    handKinds: 02000000030000000400000005000000
+    footKinds: 06000000
+    footDensity: 0.7
+    holdScale: 0.9
+    weightVertical: 1
+    weightOverhang: 2
+    weightSteep: 2.5
+  - colorId: black
+    moveStepMin: 0.74
+    moveStepMax: 0.92
+    lateralMin: 0.3
+    lateralMax: 0.6
+    handKinds: 02000000030000000500000004000000
+    footKinds: 06000000
+    footDensity: 0.6
+    holdScale: 0.85
+    weightVertical: 0.5
+    weightOverhang: 1
+    weightSteep: 2
+  - colorId: lime
+    moveStepMin: 0.82
+    moveStepMax: 1
+    lateralMin: 0.35
+    lateralMax: 0.65
+    handKinds: 020000000500000003000000
+    footKinds: 06000000
+    footDensity: 0.5
+    holdScale: 0.8
+    weightVertical: 0.2
+    weightOverhang: 0.4
+    weightSteep: 0.8
+  smallestClimberScale: 0.94
+  largestClimberScale: 1.04

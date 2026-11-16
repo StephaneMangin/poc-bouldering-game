@@ -35,14 +35,14 @@ namespace Project.Features.Gym.Domain
             new CircuitParameters
             {
                 colorId = "orange", moveStepMin = 0.38f, moveStepMax = 0.52f, lateralMin = 0.10f, lateralMax = 0.28f,
-                handKinds = new[] { HoldKind.Jug, HoldKind.Jug, HoldKind.Jug, HoldKind.Edge },
+                handKinds = new[] { HoldKind.Jug, HoldKind.Jug, HoldKind.Macro, HoldKind.Edge },
                 footKinds = new[] { HoldKind.Edge, HoldKind.Jug }, footDensity = 1f, holdScale = 1.15f,
                 weightVertical = 3f, weightOverhang = 1.5f, weightSteep = 0.6f,
             },
             new CircuitParameters
             {
                 colorId = "blue", moveStepMin = 0.48f, moveStepMax = 0.62f, lateralMin = 0.15f, lateralMax = 0.38f,
-                handKinds = new[] { HoldKind.Jug, HoldKind.Edge, HoldKind.Edge, HoldKind.Sloper },
+                handKinds = new[] { HoldKind.Jug, HoldKind.Edge, HoldKind.Macro, HoldKind.Sloper },
                 footKinds = new[] { HoldKind.Edge, HoldKind.Foothold }, footDensity = 0.9f, holdScale = 1f,
                 weightVertical = 3f, weightOverhang = 2.5f, weightSteep = 1.5f,
             },

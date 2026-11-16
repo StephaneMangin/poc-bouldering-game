@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Project.Features.Climbing.Domain;
+using UnityEngine;
 using Random = System.Random;
 
 namespace Project.Features.Gym.Domain
@@ -55,7 +56,24 @@ namespace Project.Features.Gym.Domain
 
         public ProblemHold HoldById(int id) => _holdsById.TryGetValue(id, out var hold) ? hold : null;
 
+        /// <summary>Surface coordinates of the hand holds of a face, where chalk marks the wall.</summary>
+        public List<Vector2> HandHoldSpots(WallFace face)
+        {
+            var spots = new List<Vector2>();
+            foreach (var hold in _holdsById.Values)
+            {
+                if (hold.Face == face && hold.AcceptsHands)
+                {
+                    spots.Add(new Vector2(hold.S, hold.Y));
+                }
+            }
+
+            return spots;
+        }
+
         public BoulderProblem ProblemById(string id) => _problemsById.TryGetValue(id, out var problem) ? problem : null;
+
+        internal static GymContent FromSectors(IReadOnlyList<SectorContent> sectors) => new(sectors);
 
         public static GymContent Plan(GymLayout layout, IReadOnlyList<Circuit> circuits, params ClimberAnatomy[] validationAnatomies)
         {

@@ -16,8 +16,8 @@ namespace Project.Features.Gym.Domain
         private const float AttemptStepShrink = 0.06f;
         private const float EdgeMargin = 0.3f;
         private const float HoldClearance = 0.07f;
-        private const float LaneWidth = 1.1f;
-        private const int MaxProblemsPerFace = 6;
+        private const float LaneWidth = 0.45f;
+        private const int MaxProblemsPerFace = 14;
         private const float MinLaneWidth = 0.6f;
         private const float TopMargin = 0.35f;
         private const float OverhangAngle = 8f;

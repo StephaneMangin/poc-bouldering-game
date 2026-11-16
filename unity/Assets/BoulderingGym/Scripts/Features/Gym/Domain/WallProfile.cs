@@ -19,8 +19,10 @@ namespace Project.Features.Gym.Domain
     }
 
     /// <summary>
-    /// Piecewise-linear side profile of a wall, bottom to top. The offset is the horizontal
-    /// distance the surface leans toward the climber at a given height (negative on slabs).
+    /// Piecewise-linear side profile of a wall, bottom to top. The offset is the horizontal distance
+    /// of the surface from the wall's outermost point, toward the climber; it is never positive.
+    /// A floor plan drawn from above shows that outermost point, so an overhanging wall stands with
+    /// its foot set back inside the plan outline, and a slab with its foot on it.
     /// </summary>
     public sealed class WallProfile
     {
@@ -38,12 +40,19 @@ namespace Project.Features.Gym.Domain
             _levels = new float[segments.Count + 1];
             _offsets = new float[segments.Count + 1];
             _anglesDeg = new float[segments.Count];
+            var outermost = 0f;
             for (var i = 0; i < segments.Count; i++)
             {
                 var segment = segments[i];
                 _anglesDeg[i] = segment.AngleDeg;
                 _levels[i + 1] = _levels[i] + segment.Height;
                 _offsets[i + 1] = _offsets[i] + segment.Height * Mathf.Tan(segment.AngleDeg * Mathf.Deg2Rad);
+                outermost = Mathf.Max(outermost, _offsets[i + 1]);
+            }
+
+            for (var i = 0; i < _offsets.Length; i++)
+            {
+                _offsets[i] -= outermost;
             }
         }
 

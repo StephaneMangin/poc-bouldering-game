@@ -13,12 +13,22 @@ namespace Project.Tests.EditMode.Features.Gym
         }
 
         [Test]
-        public void OffsetAt_OverhangLeansTowardClimberAboveKicker()
+        public void OffsetAt_OverhangFootSitsBackFromTheTopEdge()
         {
             var profile = KickerThenOverhang();
 
-            Assert.AreEqual(0f, profile.OffsetAt(1f), 1e-4f);
-            Assert.AreEqual(3f * Mathf.Tan(20f * Mathf.Deg2Rad), profile.OffsetAt(4f), 1e-4f);
+            Assert.AreEqual(-3f * Mathf.Tan(20f * Mathf.Deg2Rad), profile.OffsetAt(0f), 1e-4f);
+            Assert.AreEqual(-3f * Mathf.Tan(20f * Mathf.Deg2Rad), profile.OffsetAt(1f), 1e-4f);
+            Assert.AreEqual(0f, profile.OffsetAt(4f), 1e-4f);
+        }
+
+        [Test]
+        public void OffsetAt_SlabFootStandsOnThePlanOutline()
+        {
+            var profile = new WallProfile(new[] { new WallSegment(4f, -15f) });
+
+            Assert.AreEqual(0f, profile.OffsetAt(0f), 1e-4f);
+            Assert.AreEqual(-4f * Mathf.Tan(15f * Mathf.Deg2Rad), profile.OffsetAt(4f), 1e-4f);
         }
 
         [Test]

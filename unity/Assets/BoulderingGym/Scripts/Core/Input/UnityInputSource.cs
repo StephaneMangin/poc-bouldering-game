@@ -11,6 +11,10 @@ namespace Project.Core.Input
 
         public bool GetMouseButtonDown(int button) => UnityEngine.Input.GetMouseButtonDown(button);
 
+        public bool GetMouseButton(int button) => UnityEngine.Input.GetMouseButton(button);
+
         public Vector3 MousePosition => UnityEngine.Input.mousePosition;
+
+        public float ScrollDelta => UnityEngine.Input.mouseScrollDelta.y;
     }
 }

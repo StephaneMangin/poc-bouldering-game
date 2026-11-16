@@ -34,7 +34,7 @@ namespace Project.Tests.EditMode.Features.Gym
         [Test]
         public void Plan_OverhangingIsland_SetsClimbableProblems()
         {
-            var content = Plan(Island(6f, 3f, Segment(1f, 0f), Segment(WallHeight - 1f, 25f)));
+            var content = Plan(Island(8f, 6f, Segment(1f, 0f), Segment(WallHeight - 1f, 25f)));
             var validator = new ClimbabilityValidator(ClimberAnatomy.Default);
 
             Assert.GreaterOrEqual(content.ProblemCount, 4);
@@ -59,8 +59,9 @@ namespace Project.Tests.EditMode.Features.Gym
         [Test]
         public void Plan_HoldsStayInsideTheirFace()
         {
-            var content = Plan(Island(6f, 3f, Segment(1f, 0f), Segment(WallHeight - 1f, 25f)));
+            var content = Plan(Island(8f, 6f, Segment(1f, 0f), Segment(WallHeight - 1f, 25f)));
 
+            Assert.Greater(content.HoldCount, 0);
             foreach (var hold in content.Problems.SelectMany(problem => problem.Holds))
             {
                 Assert.IsTrue(hold.Face.RangeAt(hold.Y).Contains(hold.S), $"hold {hold.Id} at s={hold.S}");

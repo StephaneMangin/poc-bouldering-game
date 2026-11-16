@@ -142,5 +142,28 @@ namespace Project.Core.Input
         {
             return _source.GetKey(KeyCode.G);
         }
+
+        // ── Gym session (Sprint 16.0) ──
+
+        /// <summary>Space: let go of the wall and drop to the mats.</summary>
+        public bool ConsumeDropPressed() => _source.GetKeyDown(KeyCode.Space);
+
+        /// <summary>Right mouse button held: the mouse orbits the camera.</summary>
+        public bool ReadOrbitHeld() => _source.GetMouseButton(1);
+
+        public float ReadZoom() => _source.ScrollDelta;
+
+        public bool ConsumePausePressed() => _source.GetKeyDown(KeyCode.Escape);
+
+        /// <summary>Tab: problem list of the gym.</summary>
+        public bool ConsumeBrowserPressed() => _source.GetKeyDown(KeyCode.Tab);
+
+        /// <summary>R: back to the start of the current problem.</summary>
+        public bool ConsumeRestartPressed() => _source.GetKeyDown(KeyCode.R);
+
+        public bool ConsumeHelpPressed() => _source.GetKeyDown(KeyCode.F1);
+
+        /// <summary>Enter: start climbing from the title screen.</summary>
+        public bool ConsumeConfirmPressed() => _source.GetKeyDown(KeyCode.Return);
     }
 }
