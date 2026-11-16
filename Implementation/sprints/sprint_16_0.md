@@ -187,6 +187,19 @@ restart.
   feasibility test on ~10 boat photos first, tomorrow. Handed over: all image material zipped
   for another LLM (`~/Téléchargements/blockout_rennes_material.zip`, README inside) and the
   repository as `~/Téléchargements/poc-bouldering-game.bundle` (commits are local only).
+- 2026-11-16: research report (sourced) on photo-to-3D for this input: no single technique is
+  proven for few views + flat painted facets + repeated patterns + unknown focals; hybrid advised.
+  Plan for the RTX PC: (1) PyTorch ≥ 2.7 with CUDA 12.8 wheels (RTX 5070 Ti = sm_120, check
+  `torch.cuda.get_arch_list()`), one environment per model; (2) per structure, boat first, 20–30
+  photos, "Nouveau Secteur" overlay inpainted without cropping, people blurred, photos grouped by
+  source (shared focal); (3) cameras from MapAnything (`facebook/map-anything-apache`, Apache 2.0),
+  VGGT-1B-Commercial second; Pi3X / MASt3R-SfM only as cross-checks (non-commercial weights, never
+  shipped); (4) bundle adjustment in pycolmap with RoMa v2 dense matches, focals per source;
+  (5) facet corners: reuse `preview/photo_corners.json`, match them across the posed views with
+  epipolar lines and the dense cloud, triangulate, fit planes (RANSAC) → overhang angles; align on
+  the plan (Umeyama) and the 4.5 m height; (6) evaluate on held-out corners (reprojection px),
+  plan residual, angle stability on two disjoint photo halves, no mirrored island. Gaussian
+  splatting / 2DGS not suited (and non-commercial). Then faceted meshes per structure.
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).
