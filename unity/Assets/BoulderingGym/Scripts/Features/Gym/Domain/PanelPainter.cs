@@ -162,27 +162,34 @@ namespace Project.Features.Gym.Domain
         }
 
         /// <summary>
-        /// Island ship hull: grey base sawn by large teal triangles, then wide chevron bands cycling
-        /// through the remaining sector colors (photo image_005).
+        /// Island ship hull (photos image_005, image_035, image_036): grey base sawn by large teal
+        /// triangles standing on their tip, then chevron bands of the next four sector colors, thin
+        /// red, dark teal, orange, and the last one up to the top of the wall.
         /// </summary>
         private static Func<float, float, int> Hull(Random random, FloatRange extent)
         {
-            var baseHeight = Range(random, 1.1f, 1.6f);
-            var toothWidth = Range(random, 1.8f, 2.8f);
+            var baseHeight = Range(random, 1.8f, 2.4f);
+            var toothWidth = Range(random, 2.2f, 3.2f);
             var toothPhase = Range(random, 0f, toothWidth);
             var chevronCenter = extent.Min + extent.Length * Range(random, 0.25f, 0.75f);
             var chevronSlope = Range(random, 0.15f, 0.35f) * (random.Next(2) == 0 ? 1f : -1f);
-            var bandHeight = Range(random, 0.55f, 0.85f);
+            var bandTops = new[] { Range(random, 0.25f, 0.35f), Range(random, 0.9f, 1.1f), Range(random, 1.35f, 1.55f) };
             return (u, v) =>
             {
-                if (v < baseHeight)
+                var aboveBase = v - baseHeight + Mathf.Abs(u - chevronCenter) * chevronSlope;
+                if (aboveBase < 0f)
                 {
                     var tooth = Mathf.Abs(Mathf.Repeat(u + toothPhase, toothWidth) / toothWidth * 2f - 1f);
-                    return v < baseHeight * (1f - tooth) ? 1 : 0;
+                    return tooth < v / (v - aboveBase) ? 1 : 0;
                 }
 
-                var chevron = v - baseHeight - Mathf.Abs(u - chevronCenter) * chevronSlope;
-                return 2 + Mathf.FloorToInt(chevron / bandHeight);
+                var band = 0;
+                while (band < bandTops.Length && aboveBase >= bandTops[band])
+                {
+                    band++;
+                }
+
+                return 2 + band;
             };
         }
 

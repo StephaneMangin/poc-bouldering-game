@@ -22,18 +22,22 @@ namespace Project.Features.Gym.Domain
 
     /// <summary>
     /// Hall shell and dressing as seen on the photos, UVs in meters: grey mats crossed by dark tape seams,
-    /// corrugated grey cladding with yellow columns, yellow roof beams, white fabric ventilation
-    /// ducts, skylights and hanging globe lamps. Columns and lamps keep clear of the climbing walls.
+    /// corrugated grey cladding with yellow columns and a yellow girt above the walls, solid yellow
+    /// roof beams, white fabric ventilation ducts, skylights and hanging globe lamps. Columns and
+    /// lamps keep clear of the climbing walls.
     /// </summary>
     public static class EnvironmentDressing
     {
         private const float Bay = 6f;
         private const float ColumnSize = 0.3f;
-        private const float ChordSize = 0.18f;
-        private const float TrussDepth = 1.2f;
-        private const float TrussPanel = 1.5f;
-        private const float WebRadius = 0.04f;
+        private const float RafterDepth = 0.9f;
+        private const float FlangeWidth = 0.25f;
+        private const float FlangeThickness = 0.03f;
+        private const float WebThickness = 0.015f;
+        private const float GirtHeight = 5f;
+        private const float GirtSize = 0.25f;
         private const float StripLength = 1.2f;
+        private const float StripSpacing = 3f;
         private const float DuctRadius = 0.5f;
         private const float DuctDrop = 2.1f;
         private const float MastRadius = 0.16f;
@@ -57,6 +61,7 @@ namespace Project.Features.Gym.Domain
             var walls = Footprints(layout);
             AddShell(parts, layout);
             AddColumns(parts[DressingMaterial.Steel], layout, walls);
+            AddGirts(parts[DressingMaterial.Steel], layout);
             AddRoof(parts, layout);
             AddLamps(parts, layout, walls);
             if (layout.MastFoot.HasValue)
@@ -127,7 +132,7 @@ namespace Project.Features.Gym.Domain
             var bay = 0;
             for (var x = min.x + Bay; x < max.x; x += Bay, bay++)
             {
-                AddTruss(parts, x, new FloatRange(min.y, max.y), top);
+                AddRafter(parts, x, new FloatRange(min.y, max.y), top);
                 if (bay % 2 == 0)
                 {
                     AddSkylights(parts[DressingMaterial.Skylight], x + Bay * 0.5f, min.y, max.y, top);
@@ -143,26 +148,35 @@ namespace Project.Features.Gym.Domain
             }
         }
 
-        /// <summary>Lattice truss spanning the hall along z: chords, zigzag web and light strips underneath.</summary>
-        private static void AddTruss(Dictionary<DressingMaterial, MeshData> parts, float x, FloatRange span, float top)
+        /// <summary>Solid I-beam spanning the hall along z, with light strips fixed to the roof mid-bay.</summary>
+        private static void AddRafter(Dictionary<DressingMaterial, MeshData> parts, float x, FloatRange span, float top)
         {
             var steel = parts[DressingMaterial.Steel];
-            var half = ChordSize * 0.5f;
-            var bottom = top - TrussDepth;
-            MeshPrimitives.Box(steel, new Vector3(x - half, top - ChordSize, span.Min), new Vector3(x + half, top, span.Max));
-            MeshPrimitives.Box(steel, new Vector3(x - half, bottom, span.Min), new Vector3(x + half, bottom + ChordSize, span.Max));
-            var up = true;
-            for (var z = span.Min; z + TrussPanel <= span.Max; z += TrussPanel, up = !up)
+            var flange = FlangeWidth * 0.5f;
+            var web = WebThickness * 0.5f;
+            var bottom = top - RafterDepth;
+            MeshPrimitives.Box(steel, new Vector3(x - flange, top - FlangeThickness, span.Min), new Vector3(x + flange, top, span.Max));
+            MeshPrimitives.Box(steel, new Vector3(x - web, bottom + FlangeThickness, span.Min), new Vector3(x + web, top - FlangeThickness, span.Max));
+            MeshPrimitives.Box(steel, new Vector3(x - flange, bottom, span.Min), new Vector3(x + flange, bottom + FlangeThickness, span.Max));
+            var stripX = x + Bay * 0.5f;
+            for (var z = span.Min + StripSpacing; z + StripLength <= span.Max; z += StripSpacing)
             {
-                var from = new Vector3(x, up ? bottom + ChordSize : top - ChordSize, z);
-                var to = new Vector3(x, up ? top - ChordSize : bottom + ChordSize, z + TrussPanel);
-                MeshPrimitives.Cylinder(steel, from, to, WebRadius);
-                if (!up)
-                {
-                    var stripCenter = new Vector3(x, bottom - 0.05f, z + TrussPanel * 0.5f);
-                    MeshPrimitives.Box(parts[DressingMaterial.LightStrip], stripCenter - new Vector3(0.06f, 0.03f, StripLength * 0.5f), stripCenter + new Vector3(0.06f, 0.03f, StripLength * 0.5f));
-                }
+                var stripCenter = new Vector3(stripX, top - 0.05f, z);
+                MeshPrimitives.Box(parts[DressingMaterial.LightStrip], stripCenter - new Vector3(0.06f, 0.03f, StripLength * 0.5f), stripCenter + new Vector3(0.06f, 0.03f, StripLength * 0.5f));
             }
+        }
+
+        /// <summary>Horizontal yellow beam along the four hall walls, above the climbing walls.</summary>
+        private static void AddGirts(MeshData steel, GymLayout layout)
+        {
+            var min = layout.EnvelopeMin;
+            var max = layout.EnvelopeMax;
+            var low = GirtHeight - GirtSize * 0.5f;
+            var high = GirtHeight + GirtSize * 0.5f;
+            MeshPrimitives.Box(steel, new Vector3(min.x, low, min.y), new Vector3(max.x, high, min.y + GirtSize));
+            MeshPrimitives.Box(steel, new Vector3(min.x, low, max.y - GirtSize), new Vector3(max.x, high, max.y));
+            MeshPrimitives.Box(steel, new Vector3(min.x, low, min.y), new Vector3(min.x + GirtSize, high, max.y));
+            MeshPrimitives.Box(steel, new Vector3(max.x - GirtSize, low, min.y), new Vector3(max.x, high, max.y));
         }
 
         /// <summary>The island is a ship: a wooden mast to the roof, a lifebuoy and a pirate flag.</summary>
@@ -179,7 +193,7 @@ namespace Project.Features.Gym.Domain
                 MeshPrimitives.Cylinder(parts[DressingMaterial.BuoyWhite], band - tangent, band + tangent, 0.1f);
             }
 
-            var flagTop = ceiling - TrussDepth - 0.3f;
+            var flagTop = ceiling - RafterDepth - 0.3f;
             MeshPrimitives.Box(parts[DressingMaterial.Flag], new Vector3(foot.x + MastRadius, flagTop - 0.8f, foot.z - 0.01f), new Vector3(foot.x + MastRadius + 1.2f, flagTop, foot.z + 0.01f));
         }
 

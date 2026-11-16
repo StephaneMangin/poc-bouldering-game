@@ -14,7 +14,7 @@ namespace Project.Features.Gym.Domain
         private static readonly Color Mat = new(0.74f, 0.75f, 0.74f);
         private static readonly Color Seam = new(0.36f, 0.36f, 0.37f);
         private static readonly Color Tape = new(0.95f, 0.45f, 0.15f);
-        private static readonly Color Cladding = new(0.55f, 0.57f, 0.58f);
+        private static readonly Color Cladding = new(0.64f, 0.66f, 0.68f);
         private static readonly Color Roof = new(0.47f, 0.49f, 0.50f);
 
         /// <summary>Whole floor in one texture (UV 0..1 over the hall): staggered mats and orange tape marks.</summary>
@@ -38,11 +38,11 @@ namespace Project.Features.Gym.Domain
             return new PanelCanvas(width, height, pixels) { MetersWide = size.x, MetersHigh = size.y };
         }
 
-        /// <summary>One meter of horizontal corrugation, tiled on the hall walls.</summary>
-        public static PanelCanvas CorrugatedCladding() => Corrugation(Cladding, 0.15f, true);
+        /// <summary>One meter of corrugation with vertical ribs, tiled on the hall walls.</summary>
+        public static PanelCanvas CorrugatedCladding() => Corrugation(Cladding, 0.15f);
 
         /// <summary>One meter of roof sheeting, tiled on the ceiling.</summary>
-        public static PanelCanvas RoofSheeting() => Corrugation(Roof, 0.2f, false);
+        public static PanelCanvas RoofSheeting() => Corrugation(Roof, 0.2f);
 
         private static Color32 FloorColor(float u, float z, Vector4[] tapes)
         {
@@ -83,7 +83,7 @@ namespace Project.Features.Gym.Domain
             return tapes;
         }
 
-        private static PanelCanvas Corrugation(Color baseColor, float period, bool alongWidth)
+        private static PanelCanvas Corrugation(Color baseColor, float period)
         {
             const int size = 128;
             var pixels = new Color32[size * size];
@@ -91,7 +91,7 @@ namespace Project.Features.Gym.Domain
             {
                 for (var x = 0; x < size; x++)
                 {
-                    var t = (alongWidth ? y : x) / (float)size;
+                    var t = x / (float)size;
                     var wave = 0.88f + 0.12f * Mathf.Sin(t / period * Mathf.PI * 2f);
                     pixels[y * size + x] = baseColor * wave;
                 }

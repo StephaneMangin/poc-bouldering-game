@@ -93,6 +93,12 @@
    "b": 0.35
   },
   {
+   "id": "light_teal",
+   "r": 0.55,
+   "g": 0.8,
+   "b": 0.78
+  },
+  {
    "id": "hold_orange",
    "r": 1.0,
    "g": 0.46,
@@ -1483,11 +1489,14 @@
       }
      ],
      "panelColors": [
-      "orange",
+      "grey",
       "teal",
-      "grey"
+      "red",
+      "dark_teal",
+      "orange",
+      "light_teal"
      ],
-     "pattern": "bands",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "wedge",
@@ -1538,11 +1547,14 @@
       }
      ],
      "panelColors": [
-      "orange",
+      "grey",
       "teal",
-      "grey"
+      "red",
+      "dark_teal",
+      "orange",
+      "light_teal"
      ],
-     "pattern": "triangles",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "wedge",
@@ -1589,11 +1601,14 @@
       }
      ],
      "panelColors": [
-      "orange",
+      "grey",
       "teal",
-      "grey"
+      "red",
+      "dark_teal",
+      "orange",
+      "light_teal"
      ],
-     "pattern": "bands",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "wedge",
@@ -1638,11 +1653,14 @@
       }
      ],
      "panelColors": [
+      "grey",
       "teal",
+      "red",
+      "dark_teal",
       "orange",
-      "grey"
+      "light_teal"
      ],
-     "pattern": "bands",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "wedge",
@@ -1726,11 +1744,14 @@
       }
      ],
      "panelColors": [
+      "grey",
       "teal",
+      "red",
+      "dark_teal",
       "orange",
-      "grey"
+      "light_teal"
      ],
-     "pattern": "bands",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "triangle",
@@ -1777,11 +1798,14 @@
       }
      ],
      "panelColors": [
+      "grey",
       "teal",
+      "red",
+      "dark_teal",
       "orange",
-      "grey"
+      "light_teal"
      ],
-     "pattern": "bands",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "wedge",
@@ -1820,11 +1844,14 @@
       }
      ],
      "panelColors": [
+      "grey",
       "teal",
+      "red",
+      "dark_teal",
       "orange",
-      "grey"
+      "light_teal"
      ],
-     "pattern": "triangles",
+     "pattern": "hull",
      "volumes": [
       {
        "shape": "triangle",
