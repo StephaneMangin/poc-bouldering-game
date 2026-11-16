@@ -28,7 +28,7 @@
   <button id="export">Export JSON</button>
   <button id="importButton" type="button">Import JSON</button><input id="import" type="file" accept=".json,application/json" hidden>
   <span id="status" role="status"></span>
-  <span class="help">Click: add corner &middot; drag: move &middot; Del: remove &middot; F: floor on/off &middot; S then another corner: segment (optional) &middot; C: original / cleaned photo &middot; wheel: zoom &middot; right drag: pan &middot; Esc: cancel</span>
+  <span class="help">Click: add corner &middot; drag: move &middot; Del: remove &middot; F: floor on/off &middot; S then another corner: segment (optional) &middot; wheel: zoom &middot; right drag: pan &middot; Esc: cancel</span>
 </header>
 <main><canvas id="view"></canvas></main>
 <aside>
@@ -38,13 +38,8 @@
 <script>
 "use strict";
 const IMAGES = "../../sprint_3_3.d/images/";
-const PHOTOS = {
-  "image_042.jpg": "image_042_clean.jpg", "image_062.jpg": "image_062_clean.jpg", "image_070.jpg": "image_070_clean.jpg",
-  "image_002.webp": "image_002_clean.png", "image_035.jpg": "image_035_clean.jpg", "image_036.jpg": "image_036_clean.jpg",
-  "image_030.jpg": "image_030_clean.jpg", "image_020.jpg": "image_020_clean.jpeg", "image_022.jpg": "image_022_clean.jpeg",
-  "image_029.jpg": "image_029_clean.jpeg", "image_005.jpg": null, "image_009.jpg": null,
-};
-const NAMES = Object.keys(PHOTOS);
+const NAMES = ["image_042.jpg", "image_062.jpg", "image_070.jpg", "image_002.webp", "image_035.jpg", "image_036.jpg",
+  "image_030.jpg", "image_020.jpg", "image_022.jpg", "image_029.jpg", "image_005.jpg", "image_009.jpg"];
 const STORAGE_KEY = "photo-corners-v2";
 const PICK_RADIUS = 9;
 
@@ -53,7 +48,6 @@ const context = canvas.getContext("2d");
 const images = {};
 let data = load();
 let photo = NAMES[0];
-let showClean = true;
 let view = { scale: 1, x: 0, y: 0 };
 let selected = null;
 let segmentFrom = null;
@@ -84,9 +78,7 @@ function image(file) {
   return images[file];
 }
 
-/** The original photo sets the coordinates; the cleaned copy, when shown, is stretched over it. */
 function original() { return image(photo); }
-function shown() { return showClean && PHOTOS[photo] ? image(PHOTOS[photo]) : original(); }
 
 function entry() {
   data.photos[photo] ??= { width: 0, height: 0, points: {}, floor: [], segments: [] };
@@ -114,9 +106,8 @@ function draw() {
   context.setTransform(1, 0, 0, 1, 0, 0);
   context.clearRect(0, 0, canvas.width, canvas.height);
   const base = original();
-  const picture = shown();
-  if (!base.complete || !picture.complete) return;
-  context.drawImage(picture, view.x, view.y, base.naturalWidth * view.scale, base.naturalHeight * view.scale);
+  if (!base.complete) return;
+  context.drawImage(base, view.x, view.y, base.naturalWidth * view.scale, base.naturalHeight * view.scale);
   const current = entry();
   context.lineWidth = 2;
   context.strokeStyle = cssColor("--segment");
@@ -208,26 +199,34 @@ function selectPhoto(name) {
   selected = null;
   segmentFrom = null;
   setStatus("");
-  if (original().complete && shown().complete) fit();
+  if (original().complete) fit();
   refreshPhotos();
   draw();
 }
 
 function step(offset) { selectPhoto(NAMES[(NAMES.indexOf(photo) + offset + NAMES.length) % NAMES.length]); }
 
+/** Mouse position in canvas pixels, right even when the page layout has stretched the canvas. */
+function pointer(event) {
+  const rect = canvas.getBoundingClientRect();
+  return [(event.clientX - rect.left) * canvas.width / rect.width, (event.clientY - rect.top) * canvas.height / rect.height];
+}
+
 canvas.addEventListener("contextmenu", (event) => event.preventDefault());
 canvas.addEventListener("mousedown", (event) => {
-  const hit = event.button === 0 ? pointAt(event.offsetX, event.offsetY) : null;
+  const [x, y] = pointer(event);
+  const hit = event.button === 0 ? pointAt(x, y) : null;
   if (hit && segmentFrom && hit !== segmentFrom) { toggleSegment(segmentFrom, hit); segmentFrom = null; setStatus(""); return; }
-  drag = { button: event.button, x: event.offsetX, y: event.offsetY, moved: false, point: hit, viewX: view.x, viewY: view.y };
+  drag = { button: event.button, x, y, moved: false, point: hit, viewX: view.x, viewY: view.y };
   if (hit) { selected = hit; draw(); }
 });
 canvas.addEventListener("mousemove", (event) => {
   if (!drag) return;
-  const dx = event.offsetX - drag.x;
-  const dy = event.offsetY - drag.y;
+  const [x, y] = pointer(event);
+  const dx = x - drag.x;
+  const dy = y - drag.y;
   if (Math.hypot(dx, dy) > 3) drag.moved = true;
-  if (drag.point && drag.button === 0) { entry().points[drag.point] = toImage(event.offsetX, event.offsetY); draw(); return; }
+  if (drag.point && drag.button === 0) { entry().points[drag.point] = toImage(x, y); draw(); return; }
   if (drag.button !== 0 && drag.moved) { view.x = drag.viewX + dx; view.y = drag.viewY + dy; draw(); }
 });
 canvas.addEventListener("mouseup", (event) => {
@@ -235,13 +234,14 @@ canvas.addEventListener("mouseup", (event) => {
   drag = null;
   if (!released) return;
   if (released.point) { save(); return; }
-  if (released.button === 0 && !released.moved) addPoint(toImage(event.offsetX, event.offsetY));
+  if (released.button === 0 && !released.moved) addPoint(toImage(...pointer(event)));
 });
 canvas.addEventListener("wheel", (event) => {
   event.preventDefault();
   const factor = event.deltaY < 0 ? 1.2 : 1 / 1.2;
-  view.x = event.offsetX - (event.offsetX - view.x) * factor;
-  view.y = event.offsetY - (event.offsetY - view.y) * factor;
+  const [x, y] = pointer(event);
+  view.x = x - (x - view.x) * factor;
+  view.y = y - (y - view.y) * factor;
   view.scale *= factor;
   draw();
 }, { passive: false });
@@ -251,7 +251,6 @@ document.addEventListener("keydown", (event) => {
   if (key === "escape") { selected = null; segmentFrom = null; setStatus(""); draw(); }
   if (key === "n") step(1);
   if (key === "p") step(-1);
-  if (key === "c") { showClean = !showClean; setStatus(showClean && PHOTOS[photo] ? "cleaned photo" : "original photo"); draw(); }
   if (!selected) return;
   if (key === "delete" || key === "backspace") removePoint(selected);
   if (key === "f") toggleFloor(selected);
@@ -282,7 +281,13 @@ document.getElementById("import").addEventListener("change", async (event) => {
     setStatus(`import failed: ${error.message}`);
   }
 });
-window.addEventListener("resize", () => { fit(); draw(); });
+// The canvas keeps one pixel per screen pixel whenever the layout changes its size
+new ResizeObserver(() => {
+  if (canvas.width === canvas.clientWidth && canvas.height === canvas.clientHeight) return;
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+  draw();
+}).observe(canvas);
 document.getElementById("photo").replaceChildren(...NAMES.map((name) => Object.assign(document.createElement("option"), { value: name, textContent: name })));
 selectPhoto(NAMES[0]);
 </script>

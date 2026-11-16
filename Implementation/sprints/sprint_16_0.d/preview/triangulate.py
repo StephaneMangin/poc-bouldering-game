@@ -24,10 +24,15 @@ import cv2
 import numpy as np
 
 FOCAL_RATIOS = np.linspace(0.45, 1.6, 47)
+PAIR_FOCAL_RATIOS = np.linspace(0.5, 1.7, 13)
+# Phone main camera, 4:5 crop: focal about 0.87 x the long side; log-normal spread covers 0.5x to 2x lenses
+FOCAL_PRIOR_RATIO = 0.87
+FOCAL_PRIOR_SIGMA = 0.35
 PIXEL_SIGMA = 2.0
 HUBER_PIXELS = 4.0
 OUTLIER_PIXELS = 8.0
 MIN_SHARED = 8
+UNTRIANGULATED_PIXELS = 50.0
 MIN_PNP = 6
 MIN_TRIANGULATION_DEG = 2.0
 LM_ITERATIONS = 60
@@ -143,13 +148,14 @@ def observed_uv(model, photo, points):
 
 
 def initialise_pair(model, a, b):
-    """Relative pose of the first pair, focal ratio picked by the reprojection error."""
+    """Relative pose of the first pair, focal ratios of both photos picked by the reprojection error."""
     points = shared(model, a, b)
     best = None
-    for ratio in FOCAL_RATIOS:
-        trial = pair_trial(model, a, b, points, ratio)
-        if trial is not None and (best is None or trial[0] < best[0]):
-            best = trial
+    for ratio_a in PAIR_FOCAL_RATIOS:
+        for ratio_b in PAIR_FOCAL_RATIOS:
+            trial = pair_trial(model, a, b, points, (ratio_a, ratio_b))
+            if trial is not None and (best is None or trial[0] < best[0]):
+                best = trial
     if best is None:
         raise ValueError("the first photo pair gives no valid relative pose")
     _, rvec, tvec, focal_a, focal_b = best
@@ -158,8 +164,8 @@ def initialise_pair(model, a, b):
     triangulate_all(model)
 
 
-def pair_trial(model, a, b, points, ratio):
-    focal_a, focal_b = ratio * model.sizes[a].max(), ratio * model.sizes[b].max()
+def pair_trial(model, a, b, points, ratios):
+    focal_a, focal_b = ratios[0] * model.sizes[a].max(), ratios[1] * model.sizes[b].max()
     normalised_a = (observed_uv(model, a, points) - model.sizes[a] / 2) / focal_a
     normalised_b = (observed_uv(model, b, points) - model.sizes[b] / 2) / focal_b
     essential, mask = cv2.findEssentialMat(normalised_a, normalised_b, np.eye(3), cv2.RANSAC, 0.999, 3.0 / focal_a)
@@ -171,9 +177,11 @@ def pair_trial(model, a, b, points, ratio):
     model.rvec[b], model.tvec[b], model.focal[b] = rvec_b, tvec_b, focal_b
     triangulate_all(model)
     selection, errors = reprojection_errors(model)
-    score = np.sqrt(np.mean(errors ** 2)) if len(selection) >= MIN_SHARED else None
+    # Corners the pose fails to triangulate count as large errors, so few-point fits cannot win
+    missing = 2 * len(points) - len(selection)
+    score = np.sqrt((np.sum(errors ** 2) + missing * UNTRIANGULATED_PIXELS ** 2) / (2 * len(points)))
     model.rvec[:], model.tvec[:], model.focal[:], model.points[:] = np.nan, np.nan, np.nan, np.nan
-    return None if score is None else (score, rvec_b, tvec_b, focal_a, focal_b)
+    return score, rvec_b, tvec_b, focal_a, focal_b
 
 
 def register(model, photo):
@@ -229,14 +237,18 @@ def bundle_adjust(model, fixed):
     vector, cameras, points = pack(model, fixed)
     selection = np.nonzero(model.usable())[0]
 
+    prior = np.log(FOCAL_PRIOR_RATIO * model.sizes[cameras].max(axis=1))
+
     def evaluate(candidate):
         rvec, tvec, focal, positions = unpack(model, candidate, cameras, points, fixed)
-        return residuals(model, selection, rvec, tvec, focal, positions)
+        pixel = residuals(model, selection, rvec, tvec, focal, positions)
+        return np.concatenate([pixel, (np.log(focal[cameras]) - prior) / FOCAL_PRIOR_SIGMA])
 
     damping = 1e-3
     current = evaluate(vector)
+    pixel_count = 2 * len(selection)
     for _ in range(LM_ITERATIONS):
-        weights = huber_weights(current)
+        weights = huber_weights(current, pixel_count)
         jacobian = numeric_jacobian(evaluate, vector, current)
         weighted = jacobian * weights[:, None]
         normal = weighted.T @ jacobian
@@ -246,7 +258,7 @@ def bundle_adjust(model, fixed):
             step = np.linalg.solve(normal + damping * np.diag(np.diag(normal) + 1e-9), -gradient)
             candidate = vector + step
             trial = evaluate(candidate)
-            if np.sum(huber_weights(trial) * trial ** 2) < np.sum(weights * current ** 2):
+            if np.sum(huber_weights(trial, pixel_count) * trial ** 2) < np.sum(weights * current ** 2):
                 vector, current, damping, improved = candidate, trial, max(damping / 3, 1e-7), True
                 break
             damping *= 4
@@ -255,9 +267,12 @@ def bundle_adjust(model, fixed):
     model.rvec, model.tvec, model.focal, model.points = unpack(model, vector, cameras, points, fixed)
 
 
-def huber_weights(values):
-    pixel = np.abs(values) * PIXEL_SIGMA
-    return np.where(pixel <= HUBER_PIXELS, 1.0, HUBER_PIXELS / np.maximum(pixel, 1e-9))
+def huber_weights(values, pixel_count):
+    """Huber weights on the pixel residuals (the first pixel_count values), 1 on the priors."""
+    weights = np.ones_like(values)
+    pixel = np.abs(values[:pixel_count]) * PIXEL_SIGMA
+    weights[:pixel_count] = np.where(pixel <= HUBER_PIXELS, 1.0, HUBER_PIXELS / np.maximum(pixel, 1e-9))
+    return weights
 
 
 def numeric_jacobian(evaluate, vector, current):
