@@ -153,6 +153,11 @@ restart.
   Scripted climb replayed after the cleanup: `starbloc_gauche-6` topped in 15.4 s (11 moves); the
   harness needs the game flag `-problem <id>` after `-executeMethod UATRecords.Editor.PlaytestCLI.Run`
   (playtest.sh does not pass it, the game would stay on the title screen).
+- 2026-11-16: "unknown/unknown" save folder only comes from batchmode runs; the game saves to
+  `~/.config/unity3d/DefaultCompany/Block'Out Rennes/climb_records.json` (not a bug).
+  Remaining work waits for the user: island/spinnaker angles (video or tape measures, stage 7b),
+  mezzanine extent and cockpit paint (stage 8). The 10-minute resume task was removed while
+  waiting; recreate it when a long autonomous stage starts again.
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).
