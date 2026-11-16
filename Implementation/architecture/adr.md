@@ -171,7 +171,7 @@ An ADR captures an important decision, its context, alternatives, and impact.
 
 ## ADR-009 - Two Bone IK (Animation Rigging) from Sprint 1.0
 1. Date: 2026-03-26
-2. Status: accepted
+2. Status: deprecated — superseded by ADR-015 (humanoid Animator IK); code removed in Sprint 16.0
 3. Context: the **Animation Rigging** package is installed. Hand placement on holds is a core visual read of the climbing mechanics. The Day 5 mini-playtest will be the first external validation; visual fidelity directly impacts tester comprehension and feedback quality.
 4. Decision: implement **Two Bone IK** via `TwoBoneIKConstraint` (Animation Rigging) from Sprint 1.0 Day 3. The IK target is set to the hold's `grip_point` transform when a grab succeeds and released when the hand is freed.
 5. Alternatives considered:
@@ -192,7 +192,7 @@ An ADR captures an important decision, its context, alternatives, and impact.
 
 ## ADR-010 - HoldComponent as MonoBehaviour with Serialized Metadata
 1. Date: 2026-03-26
-2. Status: accepted
+2. Status: deprecated — superseded by ADR-014 (holds are generated layout data drawn in batched meshes); code removed in Sprint 16.0
 3. Context: each Hold prefab needs gameplay metadata (`hold_quality`, `grip_texture_hold`). In later sprints, fragility, surface type, and visual type will be added. The data structure must be inspectable and extensible.
 4. Decision: use a `HoldComponent` MonoBehaviour with a serialized `HoldData` struct inline. No ScriptableObject per hold at MVP stage.
 5. Alternatives considered:
@@ -211,7 +211,7 @@ An ADR captures an important decision, its context, alternatives, and impact.
 
 ## ADR-011 - Hold Accessibility Detection via Per-Hand Raycast
 1. Date: 2026-03-27
-2. Status: accepted
+2. Status: deprecated — superseded by ADR-015 (reach decided by the pose solver); code removed in Sprint 16.0
 3. Context: the player can grab holds with the left or right hand independently. Reachability must reflect the actual arm origin — a grab initiated by the left hand has a different reach envelope than the right hand, especially when the player is already in an asymmetric posture.
 4. Decision: detect accessible holds by casting a **sphere per hand** (radius = `grab_range` from `TuningConfig`) from the respective hand's world position (tracked on the character rig). A hold is a valid grab target if it is within range **and** the angle between the hand→hold vector and the wall normal is within `grab_angle_max`.
 5. Alternatives considered:
@@ -230,7 +230,7 @@ An ADR captures an important decision, its context, alternatives, and impact.
 
 ## ADR-012 - Prototype Scene Layout: Two Segments (Flat + Overhang)
 1. Date: 2026-03-27
-2. Status: accepted
+2. Status: deprecated — superseded by ADR-014 (BlockOutRennes scene built from layout data); scene removed in Sprint 16.0
 3. Context: Sprint 1.0 builds the vertical prototype scene (`VerticalPrototype.unity`). The scene must validate FSM transitions, camera behaviour, grip detection, and control readability within a 5-day sprint.
 4. Decision: build the scene with **two contiguous wall segments**: a flat vertical panel (~4 m × 6 m) and an overhanging panel (~4 m × 4 m, ~15° overhang), totalling **10–12 manually placed holds**. The player starts at ground level and can attempt both segments in a single run.
 5. Alternatives considered:

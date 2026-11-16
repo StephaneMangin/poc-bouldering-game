@@ -49,30 +49,7 @@ namespace UATRecords
             _screenshots = new ScreenshotCapture(_artefactsDir, _scenario.screenshotEveryNFrames);
             _sink = new TelemetrySink(_artefactsDir, FindSceneEventBus());
             InstallScriptedInputOnAllReaders();
-            DumpHoldsDiagnostic();
             Debug.Log($"[UATRecords] Scenario '{_scenario.name}' started → {_artefactsDir}");
-        }
-
-        private void DumpHoldsDiagnostic()
-        {
-            var holds = FindObjectsByType<Project.Features.Climbing.Presentation.HoldComponent>(FindObjectsSortMode.None);
-            var cam = UnityEngine.Camera.main ?? FindFirstObjectByType<UnityEngine.Camera>();
-            var player = GameObject.Find("Player");
-            var playerPos = player != null ? player.transform.position : Vector3.zero;
-            var lines = new System.Text.StringBuilder();
-            lines.AppendLine("name,worldX,worldY,worldZ,distToPlayer,screenX,screenY,screenZ");
-            foreach (var h in holds)
-            {
-                var wp = h.gripPoint != null ? h.gripPoint.position : h.transform.position;
-                var dist = Vector3.Distance(wp, playerPos);
-                var sp = cam != null ? cam.WorldToScreenPoint(wp) : Vector3.zero;
-                var inv = CultureInfo.InvariantCulture;
-                lines.AppendLine(string.Format(inv,
-                    "{0};{1:F3};{2:F3};{3:F3};{4:F3};{5:F1};{6:F1};{7:F2}",
-                    h.name, wp.x, wp.y, wp.z, dist, sp.x, sp.y, sp.z));
-            }
-            File.WriteAllText(Path.Combine(_artefactsDir, "holds_dump.csv"), lines.ToString());
-            Debug.Log($"[UATRecords] Dumped {holds.Length} holds to holds_dump.csv (player at {playerPos}).");
         }
 
         private void Update()

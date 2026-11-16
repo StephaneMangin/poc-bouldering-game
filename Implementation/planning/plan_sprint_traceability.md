@@ -9,7 +9,7 @@ Verify that every requirement in the plan is covered by at least one sprint with
 | Stable player FSM | `plan/04_technical/player_fsm.md` | S1.0, S5.0 | Debuggable states and transitions (13 states) | 0 blocking transition |
 | Point & Place control scheme | `plan/01_gameplay/controls.md` | S3.1 | Limb selection (Q/E/A/D) + mouse targeting + click placement | Full grab/release loop functional |
 | Constraint-aware IK pipeline | `plan/04_technical/architecture.md` | S3.1 | Anatomical bend constraints during IK solve (no post-hoc Euler) | Arms/legs within clinical angle range |
-| Body solver (pelvis from limb contacts) | `plan/04_technical/player_fsm.md` | S3.1 | ClimbingBodySolver + measured anatomy from rig | Pelvis tracks center of support |
+| Body solver (pelvis from limb contacts) | `plan/04_technical/player_fsm.md` | S3.1, S16.0 | PoseSolver + measured anatomy from rig (S3.1 ClimbingBodySolver removed) | Pelvis tracks center of support |
 | Foot orientation on footholds | `plan/04_technical/architecture.md` | S3.1 | Rest-rotation compensation (sole-down, no magic numbers) | Sole contacts hold surface |
 | Extremity accuracy (fingertip/toe tip) | `plan/04_technical/architecture.md` | S3.1 | Chain-root offset direction for IK target | Fingertip within 2 cm of grip |
 | FSM testability (domain decoupled from MonoBehaviour) | `plan/04_technical/player_fsm.md` | S3.2 | `IPlayerHands` interface + EditMode stubs | All EditMode FSM tests pass |
@@ -39,6 +39,14 @@ Verify that every requirement in the plan is covered by at least one sprint with
 | External playtests | `plan/06_tests/plan_playtest.md` | S12.0 | Report + P0 fixes | Go KPIs near threshold |
 | Polish + gym environment | `plan/05_production/backlog_mvp.md` | S13.0 | Decorative elements + camera + perf | 60 FPS sustained |
 | MVP freeze | `plan/05_production/roadmap_10_weeks.md` | S14.0 | Stable demo build | No blocking crash |
+
+## Sprint 16.0 Note
+Sprint 16.0 removed the prototype code that its climbing core replaces: player FSM, constraint IK
+pipeline, body solver, hands controller, hold components, prototype scenes (ADR-015, ADR-014).
+The playable game delivers again the player FSM (`ClimberStateMachine`), Point & Place, the body
+solver (`PoseSolver`), fall, endurance, grip and local fatigue. The domain systems of S2.0 and
+S4.0 (physics model, grip types, foot techniques, flag) are kept with their tests but are not
+used by the playable game yet.
 
 ## Maintenance Rule
 1. Every new requirement adds a row to this matrix.

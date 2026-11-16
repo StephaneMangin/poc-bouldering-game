@@ -28,8 +28,9 @@ Root namespace is `Project`. Single runtime assembly today:
 
 ```
 Scripts/
-  Core/           Engine-agnostic primitives: StateMachine, Events, Domain, Input, Utilities
-  Features/       One folder per gameplay feature (Climbing, Locomotion, Camera, Physics, Player, Visual, BodyConstraints, Resources)
+  App/            Composition root: bootstrap, screens flow (ADR-016)
+  Core/           Engine-agnostic primitives: StateMachine, Events, Domain, Input
+  Features/       One folder per gameplay feature (Climbing, Gym, Session, Camera, Physics, Resources)
                   Each feature follows: Domain/ → Application/ → Presentation/ → (Tests/)
   Infrastructure/ Ports/adapters (persistence, telemetry, platform)
   UI/             HUD, menus, debrief

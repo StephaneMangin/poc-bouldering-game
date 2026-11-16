@@ -74,7 +74,7 @@ restart.
 | 7 | Unity verification: tests, UAT scenarios, build | done (248 EditMode tests, scripted top-out, build) |
 | 7b | Whitebox photo calibration: labelled corners → cameras + 3D corners (bundle adjustment), overlays, geometry fixes | blocked: photos insufficient, waiting for the user's video or measures |
 | 8 | Art pass: panel patterns, lighting, ceiling/beams/ducts, mats; photo-match again | in progress (hull bands, roof beams, girt, cladding done; mats, cockpit facets, mezzanine todo) |
-| 9 | Cleanup prototype + docs | todo |
+| 9 | Cleanup prototype + docs | done (superseded code, scenes, prefabs and tests removed; ADRs, traceability, AGENTS layout updated) |
 
 ## Top 3 risks
 
@@ -142,6 +142,17 @@ restart.
   antialiased). Linux build 87 MB, 0 errors; 25 s batch run of the player without error.
   Remaining gaps are geometry (stage 7b): island top too narrow, spinnaker is a tall tapering
   yellow sail with an orange strip to the roof (model: low wall).
+- 2026-11-16: cleanup: scripts unreachable from the App composition root and replaced by the new
+  climbing core removed (player FSM, constraint IK, body solver, hands controller, hold
+  components, old locomotion/camera/visual controllers, prototype HUDs and sprint 3.x editor
+  tools), with the VerticalPrototype and GymScene scenes, the hold prefabs, their tests and the
+  UAT hold dump. Kept although unused by the game: S2.0 physics model and S4.0 body mechanics
+  domain systems with their tests. New PlayMode smoke test loads BlockOutRennes. EditMode 115/115,
+  PlayMode 1/1. ADR-009..012 deprecated; ADR-008 (Cinemachine) is outdated too (the game uses
+  OrbitCamera, no Cinemachine package) but predates this cleanup: left to the user.
+  Scripted climb replayed after the cleanup: `starbloc_gauche-6` topped in 15.4 s (11 moves); the
+  harness needs the game flag `-problem <id>` after `-executeMethod UATRecords.Editor.PlaytestCLI.Run`
+  (playtest.sh does not pass it, the game would stay on the title screen).
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).
