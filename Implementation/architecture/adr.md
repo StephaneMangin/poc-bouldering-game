@@ -247,3 +247,34 @@ An ADR captures an important decision, its context, alternatives, and impact.
    1. Use Unity ProBuilder or simple scaled cubes for geometry — no art assets required.
    2. If the second segment is not ready by Day 2, gate it with a visible barrier and unblock it without losing Day 1 deliverables.
    3. Place camera blend trigger volume at the junction between the two segments.
+
+## ADR-013 — AI Playtest Harness (uat_records)
+
+1. Status: Accepted.
+2. Date: 2025-01.
+3. Context:
+   1. The project's primary tester is operational, not a developer — they cannot perform Inspector-based verification.
+   2. The agent must therefore drive and observe gameplay end-to-end (locomotion, state transitions, fatigue) without manual GUI interaction.
+   3. EditMode tests alone are insufficient: they validate logic but produce no visual evidence.
+4. Decision:
+   1. Build a standalone UPM package at `uat_records/unity/` (name `com.pocbouldering.uatrecords`), registered via `file:` reference in `unity/Packages/manifest.json`.
+   2. Game-side coupling is minimal: introduce `Project.Core.Input.IInputSource` plus `InputReader.OverrideSource(IInputSource)`. The game does not depend on the package.
+   3. Scenarios are JSON files parsed via `JsonUtility`; telemetry written as JSONL per frame; gameplay events captured via `IEventBus` subscription.
+   4. Screenshots captured with `ScreenCapture.CaptureScreenshot` every N frames; MP4 produced in post by `ffmpeg` from the PNG sequence.
+   5. Linux orchestrator (`uat_records/scripts/playtest.sh`) wraps Unity batchmode (`-executeMethod UATRecords.Editor.PlaytestCLI.Run`) with `xvfb-run` for headless rendering.
+5. Alternatives considered:
+   1. Unity Recorder package — rejected: extra dependency for a feature `ScreenCapture` covers.
+   2. Pure EditMode tests — rejected: no visual artefact, cannot exercise MonoBehaviour update loop or rendering.
+   3. Python-driven remote test framework — rejected: overkill for v0, defers value.
+6. Positive consequences:
+   1. The agent can submit a JSON scenario and inspect `telemetry.jsonl` + PNG frames without delegating to the human.
+   2. Package is self-contained: deleting `uat_records/` removes one manifest line and the game still compiles.
+   3. Zero new Unity dependency.
+7. Negative consequences:
+   1. Screenshot batchmode rendering requires xvfb on Linux — software-only, low FPS.
+   2. `JsonUtility` cannot serialise heterogeneous payloads — events use a hand-rolled JSON line.
+   3. Adds a CLI surface (`-scenario`, `-artefacts`) to maintain.
+8. Mitigation plan:
+   1. Document xvfb requirement in `uat_records/README.md`; fall back to JSONL-only mode if rendering fails.
+   2. If event payloads grow complex, switch `TelemetrySink.WriteEvent` to `Newtonsoft.Json` (already transitive via test framework).
+   3. CLI args wrapped by `playtest.sh` so callers only see one entry point.

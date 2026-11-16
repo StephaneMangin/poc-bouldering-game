@@ -86,5 +86,26 @@ namespace Project.Core.Domain
         [Range(1f, 2f)] public float gripTypeFatigueMultGaston = 1.4f;
         [Range(1f, 2.2f)] public float gripTypeFatigueMultUndercling = 1.5f;
         [Range(0.8f, 2f)] public float gripTypeFatigueMultSloper = 1.2f;
+
+        [Header("Grip Type - Drain Multipliers")]
+        [Range(0.3f, 1f)] public float gripTypeDrainMultJug = 0.7f;
+        [Range(0.4f, 1.2f)] public float gripTypeDrainMultOpen = 0.9f;
+        public float gripTypeDrainMultPinch = 1.0f;
+        [Range(0.8f, 1.6f)] public float gripTypeDrainMultCrimp = 1.1f;
+        [Range(0.8f, 1.6f)] public float gripTypeDrainMultGaston = 1.2f;
+        [Range(0.8f, 1.6f)] public float gripTypeDrainMultUndercling = 1.2f;
+        [Range(1f, 2f)] public float gripTypeDrainMultSloper = 1.5f;
+
+        [Header("Foot Techniques")]
+        [Range(0.3f, 0.8f)] public float footTechniqueEdgingWeightShare = 0.55f;
+        [Range(0.2f, 0.5f)] public float footTechniqueSmearingWeightShare = 0.35f;
+
+        [Header("Body Orientation")]
+        [Range(15f, 90f)] public float hipRotationMaxDeg = 60f;
+        [Range(15f, 60f)] public float torsoTwistMaxDeg = 45f;
+        [Range(30f, 360f)] public float bodyRotationSpeedDegPerS = 120f;
+
+        [Header("Flag")]
+        [Range(0f, 1f)] public float flagLateralOffsetMultiplier = 0.6f;
     }
 }

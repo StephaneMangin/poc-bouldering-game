@@ -173,11 +173,13 @@ namespace Project.Features.Player.Presentation
                 _limbSuggestion?.RecordPlacement(limb);
                 StateMachine.Fire(PlayerTrigger.GrabSucceeded);
                 LastActionStatus = $"{limb} placed on {targetHold.name}";
+                Debug.Log($"[ClimbDbg] PLACED {limb} on {targetHold.name} | state={StateMachine.CurrentState.Id} | supports={playerHands.SupportCount}");
                 return;
             }
 
             StateMachine.Fire(PlayerTrigger.GrabFailed);
             LastActionStatus = $"{limb} cannot reach {targetHold.name}";
+            Debug.Log($"[ClimbDbg] FAILED {limb} on {targetHold.name} at {targetHold.transform.position} | state={StateMachine.CurrentState.Id} | supports={playerHands.SupportCount}");
         }
 
         private void ReleaseLimb(LimbId limb)

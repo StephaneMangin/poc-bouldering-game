@@ -1,0 +1,15 @@
+{
+  "durationSeconds": 16,
+  "screenshotEveryNFrames": 2,
+  "defaultMouseScreenRatioX": 0.5,
+  "defaultMouseScreenRatioY": 0.5,
+  "steps": [
+    { "atSeconds": 1.5, "durationSeconds": 0.6, "key": "E", "aimAtHold": "Hold_Purple_01" },
+    { "atSeconds": 3.5, "durationSeconds": 0.6, "key": "Q", "aimAtHold": "Hold_Purple_01" },
+    { "atSeconds": 5.5, "durationSeconds": 0.6, "key": "D", "aimAtHold": "Hold_WhiteScatter_04" },
+    { "atSeconds": 7.5, "durationSeconds": 0.6, "key": "A", "aimAtHold": "Hold_WhiteScatter_04" },
+    { "atSeconds": 9.5, "durationSeconds": 0.6, "key": "E", "aimAtHold": "Hold_Purple_02" },
+    { "atSeconds": 11.5, "durationSeconds": 0.6, "key": "Q", "aimAtHold": "Hold_Purple_02" },
+    { "atSeconds": 13.5, "durationSeconds": 0.6, "key": "D", "aimAtHold": "Hold_Purple_01" }
+  ]
+}

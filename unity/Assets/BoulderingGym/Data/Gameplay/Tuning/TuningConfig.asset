@@ -66,3 +66,16 @@ MonoBehaviour:
   gripTypeFatigueMultGaston: 1.4
   gripTypeFatigueMultUndercling: 1.5
   gripTypeFatigueMultSloper: 1.2
+  gripTypeDrainMultJug: 0.7
+  gripTypeDrainMultOpen: 0.9
+  gripTypeDrainMultPinch: 1
+  gripTypeDrainMultCrimp: 1.1
+  gripTypeDrainMultGaston: 1.2
+  gripTypeDrainMultUndercling: 1.2
+  gripTypeDrainMultSloper: 1.5
+  footTechniqueEdgingWeightShare: 0.55
+  footTechniqueSmearingWeightShare: 0.35
+  hipRotationMaxDeg: 60
+  torsoTwistMaxDeg: 45
+  bodyRotationSpeedDegPerS: 120
+  flagLateralOffsetMultiplier: 0.6

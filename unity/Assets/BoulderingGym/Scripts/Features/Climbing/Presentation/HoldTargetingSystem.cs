@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Project.Features.Climbing.Presentation
 {
+    [DefaultExecutionOrder(-100)]
     public sealed class HoldTargetingSystem : MonoBehaviour
     {
         private const float RaycastMaxDistance = 100f;

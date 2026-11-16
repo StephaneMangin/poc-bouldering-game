@@ -34,6 +34,7 @@ namespace Project.Features.Locomotion.Presentation
 
         private float _verticalVelocity;
         private int _groundedFrames;
+        private bool _warnedMissingCamera;
 
         public bool IsWalking { get; private set; }
         public bool IsWalkingBackward { get; private set; }
@@ -99,15 +100,16 @@ namespace Project.Features.Locomotion.Presentation
             var hasInput = moveInput.sqrMagnitude > 0.01f;
             var horizontalMovement = Vector3.zero;
 
-            if (hasInput && cameraFollowController != null)
+            if (hasInput)
             {
-                var yawRotation = Quaternion.Euler(0f, cameraFollowController.OrbitYaw, 0f);
+                var yawDeg = GetMovementYawDeg();
+                var yawRotation = Quaternion.Euler(0f, yawDeg, 0f);
                 var direction = yawRotation * new Vector3(moveInput.x, 0f, moveInput.y);
                 direction.Normalize();
                 horizontalMovement = direction * (walkSpeed * Time.deltaTime);
 
-                // Rotate body toward camera forward (not movement direction)
-                // so backward walking plays correctly without spinning the character
+                // Rotate body toward yaw forward (camera or self) so backward
+                // walking plays correctly without spinning the character.
                 var facingDirection = yawRotation * Vector3.forward;
                 var targetRotation = Quaternion.LookRotation(facingDirection, Vector3.up);
                 transform.rotation = Quaternion.Slerp(
@@ -127,6 +129,31 @@ namespace Project.Features.Locomotion.Presentation
             {
                 driver.StateMachine.Fire(PlayerTrigger.Landed);
             }
+        }
+
+        /// <summary>
+        /// Returns the yaw used to interpret WASD input. Prefers the camera
+        /// orbit yaw so "forward" matches what the player sees; falls back to
+        /// the character's own yaw when no camera is wired (prevents the
+        /// "walks on the spot" regression when the scene lacks a camera).
+        /// </summary>
+        private float GetMovementYawDeg()
+        {
+            if (cameraFollowController != null)
+            {
+                return cameraFollowController.OrbitYaw;
+            }
+
+            if (!_warnedMissingCamera)
+            {
+                Debug.LogWarning(
+                    $"{nameof(GroundLocomotionController)} has no CameraFollowController; " +
+                    "falling back to transform yaw for ground locomotion. " +
+                    "Wire a camera to align movement with the player's view.",
+                    this);
+                _warnedMissingCamera = true;
+            }
+            return transform.eulerAngles.y;
         }
 
         /// <summary>

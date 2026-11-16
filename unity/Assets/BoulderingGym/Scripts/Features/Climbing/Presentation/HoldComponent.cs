@@ -15,7 +15,13 @@ namespace Project.Features.Climbing.Presentation
     public struct HoldData
     {
         public HoldQuality holdQuality;
+
+        [Tooltip("Default/legacy single grip type. Used as fallback when allowedGripTypes is empty.")]
         public GripType gripType;
+
+        [Tooltip("Grip types this hold accepts. BodyMechanicsSystem picks the cheapest one. Empty array → falls back to gripType.")]
+        public GripType[] allowedGripTypes;
+
         [Range(0.5f, 2.0f)] public float gripTextureHold;
         [Range(0.5f, 2.0f)] public float gripTextureWall;
     }

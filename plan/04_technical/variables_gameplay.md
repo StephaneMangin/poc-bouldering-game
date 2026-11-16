@@ -98,6 +98,17 @@ Centralize all gameplay values to speed up balancing and prevent regressions.
 14. `max_hip_rotation_deg = 60` (45-75)
 15. `max_torso_twist_deg = 45` (30-60)
 16. `body_tension_base = 0.5` (0.3-0.7) — base L1 tension, scales with level.
+17. `grip_type_drain_mult_jug = 0.7` (0.5-0.9) — grip stamina drain multiplier per hold type. Sprint 4.0.
+18. `grip_type_drain_mult_open = 0.9` (0.7-1.1)
+19. `grip_type_drain_mult_pinch = 1.0`
+20. `grip_type_drain_mult_crimp = 1.1` (1.0-1.3)
+21. `grip_type_drain_mult_gaston = 1.2` (1.0-1.4)
+22. `grip_type_drain_mult_undercling = 1.2` (1.0-1.4)
+23. `grip_type_drain_mult_sloper = 1.5` (1.2-1.8) — slopers bleed grip fastest.
+24. `foot_technique_edging_weight_share = 0.55` (0.45-0.65) — fraction of body weight a foot bears in edging. Sprint 4.0.
+25. `foot_technique_smearing_weight_share = 0.35` (0.25-0.45) — slab-only, lower share than edging.
+26. `body_rotation_speed_deg_per_s = 120` (60-180) — slew rate for hip/torso rotation. Sprint 4.0.
+27. `flag_lateral_offset_multiplier = 0.6` (0.3-0.8) — multiplier on lateral COG offset penalty when flagging. Sprint 4.0.
 
 ## Audio
 1. `audio_breathing_switch_threshold = 30` — endurance below which breathing becomes labored.

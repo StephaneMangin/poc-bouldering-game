@@ -1,4 +1,5 @@
 using Project.Core.Domain;
+using Project.Features.Climbing.Domain;
 using UnityEngine;
 
 namespace Project.Features.Resources.Domain
@@ -57,6 +58,21 @@ namespace Project.Features.Resources.Domain
         {
             _current = Max;
             _chalkCooldownRemaining = 0f;
+        }
+
+        public float GetGripTypeDrainMult(GripType type)
+        {
+            return type switch
+            {
+                GripType.Jug => _config.gripTypeDrainMultJug,
+                GripType.Open => _config.gripTypeDrainMultOpen,
+                GripType.Pinch => _config.gripTypeDrainMultPinch,
+                GripType.Crimp => _config.gripTypeDrainMultCrimp,
+                GripType.Gaston => _config.gripTypeDrainMultGaston,
+                GripType.Undercling => _config.gripTypeDrainMultUndercling,
+                GripType.Sloper => _config.gripTypeDrainMultSloper,
+                _ => 1f,
+            };
         }
     }
 }

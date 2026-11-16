@@ -30,6 +30,7 @@ namespace Project.Features.Resources.Presentation
         private EnduranceSystem _endurance;
         private GripSystem _grip;
         private LocalFatigueSystem _fatigue;
+        private BodyMechanicsSystem _bodyMechanics;
         private IEventBus _eventBus;
 
         private PlayerStateId? _prevState;
@@ -61,6 +62,7 @@ namespace Project.Features.Resources.Presentation
                 _endurance = new EnduranceSystem(tuningConfig);
                 _grip = new GripSystem(tuningConfig);
                 _fatigue = new LocalFatigueSystem(tuningConfig);
+                _bodyMechanics = new BodyMechanicsSystem(tuningConfig);
             }
         }
 
@@ -107,12 +109,14 @@ namespace Project.Features.Resources.Presentation
         private void UpdateClimbing(float dt, PhysicsSnapshot physics)
         {
             var gripTexture = GetAverageGripTexture();
-            _grip.UpdateDrain(dt, physics.Weight.TotalHandWeight, physics.Multipliers.GripDrainMult, gripTexture);
 
             var leftActive = playerHands != null && playerHands.IsHolding(HandSide.Left);
             var rightActive = playerHands != null && playerHands.IsHolding(HandSide.Right);
             var leftGripType = GetHeldGripType(HandSide.Left);
             var rightGripType = GetHeldGripType(HandSide.Right);
+
+            var gripTypeDrainMult = GetAverageGripTypeDrainMult(leftGripType, leftActive, rightGripType, rightActive);
+            _grip.UpdateDrain(dt, physics.Weight.TotalHandWeight, physics.Multipliers.GripDrainMult * gripTypeDrainMult, gripTexture);
 
             _fatigue.Update(dt,
                 leftGripType, physics.Weight.WeightOnLeftHand, leftActive,
@@ -263,7 +267,19 @@ namespace Project.Features.Resources.Presentation
         {
             if (playerHands == null) return GripType.Jug;
             var hold = side == HandSide.Left ? playerHands.LeftCurrentHold : playerHands.RightCurrentHold;
-            return hold != null ? hold.data.gripType : GripType.Jug;
+            if (hold == null) return GripType.Jug;
+            if (_bodyMechanics == null) return hold.data.gripType;
+            return _bodyMechanics.SelectBestGrip(hold.data.allowedGripTypes, hold.data.gripType);
+        }
+
+        private float GetAverageGripTypeDrainMult(GripType left, bool leftActive, GripType right, bool rightActive)
+        {
+            if (_grip == null) return 1f;
+            var sum = 0f;
+            var count = 0;
+            if (leftActive) { sum += _grip.GetGripTypeDrainMult(left); count++; }
+            if (rightActive) { sum += _grip.GetGripTypeDrainMult(right); count++; }
+            return count > 0 ? sum / count : 1f;
         }
 
         private ResourceSnapshot BuildSnapshot()

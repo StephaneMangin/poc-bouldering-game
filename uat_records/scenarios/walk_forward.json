@@ -1,0 +1,9 @@
+{
+    "name": "walk_forward",
+    "scene": "VerticalPrototype",
+    "durationSeconds": 6.0,
+    "screenshotEveryNFrames": 30,
+    "steps": [
+        { "atSeconds": 0.5, "durationSeconds": 4.0, "key": "W", "mouseButton": -1 }
+    ]
+}

@@ -81,6 +81,14 @@ namespace Project.Features.Locomotion.Presentation
             return ikController != null ? ikController.MeasuredAnatomy : ClimbingBodySolver.AnatomyParams.Default;
         }
 
+        private void LateUpdate()
+        {
+            if (movementTarget != null && Time.frameCount % 30 == 0)
+            {
+                Debug.Log($"[ClimbDbg] LateUpdate movementTarget.position={movementTarget.position}");
+            }
+        }
+
         private void Update()
         {
             if (tuningConfig == null || movementTarget == null)
@@ -151,8 +159,13 @@ namespace Project.Features.Locomotion.Presentation
             }
 
             var rootTarget = ClimbingBodySolver.ComputeRootPosition(solution.PelvisPosition, _pelvisBoneOffset);
+            var before = movementTarget.position;
             movementTarget.position = Vector3.MoveTowards(
                 movementTarget.position, rootTarget, climbBodySnapSpeed * Time.deltaTime);
+            if (Time.frameCount % 30 == 0)
+            {
+                Debug.Log($"[ClimbDbg] BodyFollow pelvis={solution.PelvisPosition} target={rootTarget} before={before} after={movementTarget.position} valid={solution.IsValid}");
+            }
         }
 
         private static ClimbingBodySolver.LimbContacts BuildLimbContacts(PlayerHandsController hands)

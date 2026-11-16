@@ -20,12 +20,26 @@ namespace Project.Core.Input
     /// Land:             Space
     /// Chalk:            C
     /// Sprint:           Shift
+    /// Hip rotation:     ← / →     (Sprint 4.0)
+    /// Torso twist:      PgUp / PgDn (Sprint 4.0)
+    /// Flag (free leg):  G          (Sprint 4.0)
     ///
     /// Note: Q/D overlap between movement and limbs.
     /// The driver handles context: movement in IdleGround, limbs in Reach/GripStable.
+    ///
+    /// Input source is injected via <see cref="OverrideSource"/> so the UAT playtest
+    /// harness can drive the game from a scenario file without touching production code.
     /// </summary>
     public sealed class InputReader : MonoBehaviour
     {
+        private IInputSource _source = new UnityInputSource();
+
+        /// <summary>Swap the underlying input source (used by tests + UAT scenario runner).</summary>
+        public void OverrideSource(IInputSource source)
+        {
+            _source = source ?? new UnityInputSource();
+        }
+
         // ── Movement (WASD + ZQSD + arrows) ──
 
         public Vector2 ReadMove()
@@ -34,13 +48,13 @@ namespace Project.Core.Input
             var v = 0f;
 
             // Left: Q
-            if (UnityEngine.Input.GetKey(KeyCode.A)) h -= 1f;
+            if (_source.GetKey(KeyCode.A)) h -= 1f;
             // Right: D
-            if (UnityEngine.Input.GetKey(KeyCode.D)) h += 1f;
+            if (_source.GetKey(KeyCode.D)) h += 1f;
             // Forward: Z
-            if (UnityEngine.Input.GetKey(KeyCode.W)) v += 1f;
+            if (_source.GetKey(KeyCode.W)) v += 1f;
             // Backward: S
-            if (UnityEngine.Input.GetKey(KeyCode.S)) v -= 1f;
+            if (_source.GetKey(KeyCode.S)) v -= 1f;
 
             return new Vector2(h, v);
         }
@@ -51,10 +65,10 @@ namespace Project.Core.Input
 
         public LimbId? ConsumeActiveLimb()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Q)) return LimbId.LeftHand;
-            if (UnityEngine.Input.GetKeyDown(KeyCode.E)) return LimbId.RightHand;
-            if (UnityEngine.Input.GetKeyDown(KeyCode.A)) return LimbId.LeftFoot;
-            if (UnityEngine.Input.GetKeyDown(KeyCode.D)) return LimbId.RightFoot;
+            if (_source.GetKeyDown(KeyCode.Q)) return LimbId.LeftHand;
+            if (_source.GetKeyDown(KeyCode.E)) return LimbId.RightHand;
+            if (_source.GetKeyDown(KeyCode.A)) return LimbId.LeftFoot;
+            if (_source.GetKeyDown(KeyCode.D)) return LimbId.RightFoot;
             return null;
         }
 
@@ -62,7 +76,7 @@ namespace Project.Core.Input
 
         public bool ConsumeQuickPlacePressed()
         {
-            return UnityEngine.Input.GetMouseButtonDown(0);
+            return _source.GetMouseButtonDown(0);
         }
 
         /// <summary>
@@ -71,35 +85,62 @@ namespace Project.Core.Input
         /// </summary>
         public Vector3 ReadMousePosition()
         {
-            return UnityEngine.Input.mousePosition;
+            return _source.MousePosition;
         }
 
         // ── Global actions ──
 
         public bool ConsumeReleaseAllPressed()
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.R);
+            return _source.GetKeyDown(KeyCode.R);
         }
 
         public bool ConsumeFallPressed()
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.F);
+            return _source.GetKeyDown(KeyCode.F);
         }
 
         public bool ConsumeLandPressed()
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.Space);
+            return _source.GetKeyDown(KeyCode.Space);
         }
 
         public bool ReadSprint()
         {
-            return UnityEngine.Input.GetKey(KeyCode.LeftShift)
-                || UnityEngine.Input.GetKey(KeyCode.RightShift);
+            return _source.GetKey(KeyCode.LeftShift)
+                || _source.GetKey(KeyCode.RightShift);
         }
 
         public bool ConsumeChalkPressed()
         {
-            return UnityEngine.Input.GetKeyDown(KeyCode.C);
+            return _source.GetKeyDown(KeyCode.C);
+        }
+
+        // ── Body orientation (Sprint 4.0) ──
+        // Arrows = hip rotation axis (Left = -1, Right = +1).
+        // Page Up / Page Down = torso twist axis.
+        // Q/D are taken by limb selection — using arrows avoids the conflict.
+
+        public float ReadHipRotationAxis()
+        {
+            var v = 0f;
+            if (_source.GetKey(KeyCode.LeftArrow)) v -= 1f;
+            if (_source.GetKey(KeyCode.RightArrow)) v += 1f;
+            return v;
+        }
+
+        public float ReadTorsoTwistAxis()
+        {
+            var v = 0f;
+            if (_source.GetKey(KeyCode.PageUp)) v += 1f;
+            if (_source.GetKey(KeyCode.PageDown)) v -= 1f;
+            return v;
+        }
+
+        /// <summary>True while the player asks for a flag (free leg extension for lateral balance).</summary>
+        public bool ReadFlagHeld()
+        {
+            return _source.GetKey(KeyCode.G);
         }
     }
 }

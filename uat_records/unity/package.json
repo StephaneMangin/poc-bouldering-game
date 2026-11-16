@@ -1,0 +1,11 @@
+{
+  "name": "com.pocbouldering.uatrecords",
+  "version": "0.1.0",
+  "displayName": "UAT Records - AI Playtest Harness",
+  "description": "Scenario-driven playtest harness: scripted input, telemetry sink, screenshot capture, batchmode CLI. Enables an AI/human operator to drive the game from a JSON scenario and inspect runtime behaviour from artefacts (JSONL + PNG + optional MP4).",
+  "unity": "2022.3",
+  "author": {
+    "name": "poc-bouldering-game"
+  },
+  "dependencies": {}
+}

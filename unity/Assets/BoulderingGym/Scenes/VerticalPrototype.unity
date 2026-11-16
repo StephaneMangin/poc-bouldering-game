@@ -786,7 +786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 47735381}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,7 +985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51846459}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 82917620}
   - component: {fileID: 82917622}
   - component: {fileID: 82917621}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Cyan_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1887,7 +1887,7 @@ GameObject:
   - component: {fileID: 95062544}
   - component: {fileID: 95062546}
   - component: {fileID: 95062545}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Cyan_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2340,7 +2340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 106114333}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2839,7 +2839,7 @@ GameObject:
   - component: {fileID: 142218349}
   - component: {fileID: 142218351}
   - component: {fileID: 142218350}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Green_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3361,7 +3361,7 @@ GameObject:
   - component: {fileID: 169747422}
   - component: {fileID: 169747424}
   - component: {fileID: 169747423}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Orange_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3947,7 +3947,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 190850547}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4417,7 +4417,7 @@ GameObject:
   - component: {fileID: 217174962}
   - component: {fileID: 217174964}
   - component: {fileID: 217174963}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Black_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4691,7 +4691,7 @@ GameObject:
   - component: {fileID: 221506517}
   - component: {fileID: 221506519}
   - component: {fileID: 221506518}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5025,7 +5025,7 @@ GameObject:
   - component: {fileID: 228978952}
   - component: {fileID: 228978954}
   - component: {fileID: 228978953}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Red_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5269,7 +5269,7 @@ GameObject:
   - component: {fileID: 243555315}
   - component: {fileID: 243555317}
   - component: {fileID: 243555316}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Red_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5693,7 +5693,7 @@ GameObject:
   - component: {fileID: 260832734}
   - component: {fileID: 260832736}
   - component: {fileID: 260832735}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Green_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6087,7 +6087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 286927549}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6809,7 +6809,7 @@ GameObject:
   - component: {fileID: 331148358}
   - component: {fileID: 331148360}
   - component: {fileID: 331148359}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Green_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6881,7 +6881,7 @@ GameObject:
   - component: {fileID: 334604915}
   - component: {fileID: 334604917}
   - component: {fileID: 334604916}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7688,7 +7688,7 @@ GameObject:
   - component: {fileID: 360068388}
   - component: {fileID: 360068390}
   - component: {fileID: 360068389}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Blue_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8123,7 +8123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 401154688}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8518,7 +8518,7 @@ GameObject:
   - component: {fileID: 419702309}
   - component: {fileID: 419702311}
   - component: {fileID: 419702310}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Red_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8678,7 +8678,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427997022}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Sloper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8803,7 +8803,7 @@ GameObject:
   - component: {fileID: 449946977}
   - component: {fileID: 449946979}
   - component: {fileID: 449946978}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Purple_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8875,7 +8875,7 @@ GameObject:
   - component: {fileID: 458959428}
   - component: {fileID: 458959430}
   - component: {fileID: 458959429}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Black_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8945,7 +8945,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 461047844}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9069,7 +9069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477831477}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9283,7 +9283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484831912}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9350,7 +9350,7 @@ GameObject:
   - component: {fileID: 492926054}
   - component: {fileID: 492926056}
   - component: {fileID: 492926055}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Orange_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9711,7 +9711,7 @@ GameObject:
   - component: {fileID: 501828793}
   - component: {fileID: 501828795}
   - component: {fileID: 501828794}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Purple_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9781,7 +9781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 503671466}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10296,7 +10296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 546054091}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10972,7 +10972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 568409482}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11088,7 +11088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 571307695}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11127,7 +11127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 592300312}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Sloper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11252,7 +11252,7 @@ GameObject:
   - component: {fileID: 598426799}
   - component: {fileID: 598426801}
   - component: {fileID: 598426800}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Green_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11647,7 +11647,7 @@ GameObject:
   - component: {fileID: 614926995}
   - component: {fileID: 614926997}
   - component: {fileID: 614926996}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Blue_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11891,7 +11891,7 @@ GameObject:
   - component: {fileID: 634130048}
   - component: {fileID: 634130050}
   - component: {fileID: 634130049}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Purple_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12636,7 +12636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 678082123}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Sloper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12759,7 +12759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 685386738}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13102,7 +13102,7 @@ GameObject:
   - component: {fileID: 720748064}
   - component: {fileID: 720748066}
   - component: {fileID: 720748065}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Yellow_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13174,7 +13174,7 @@ GameObject:
   - component: {fileID: 721071711}
   - component: {fileID: 721071713}
   - component: {fileID: 721071712}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Purple_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14133,7 +14133,7 @@ GameObject:
   - component: {fileID: 783119872}
   - component: {fileID: 783119874}
   - component: {fileID: 783119873}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14293,7 +14293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 798593721}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14419,7 +14419,7 @@ GameObject:
   - component: {fileID: 801768105}
   - component: {fileID: 801768107}
   - component: {fileID: 801768106}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14722,7 +14722,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 825269671}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15340,7 +15340,7 @@ GameObject:
   - component: {fileID: 840642666}
   - component: {fileID: 840642668}
   - component: {fileID: 840642667}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15814,7 +15814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 862502487}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Sloper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15847,7 +15847,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 864757646}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16085,7 +16085,7 @@ GameObject:
   - component: {fileID: 888069136}
   - component: {fileID: 888069138}
   - component: {fileID: 888069137}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Orange_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17106,7 +17106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 939575046}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17582,7 +17582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 968279439}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17728,7 +17728,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 974906118}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17929,7 +17929,7 @@ GameObject:
   - component: {fileID: 982935850}
   - component: {fileID: 982935852}
   - component: {fileID: 982935851}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Black_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18030,7 +18030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 986895413}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18064,7 +18064,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 987870787}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18280,7 +18280,7 @@ GameObject:
   - component: {fileID: 996414163}
   - component: {fileID: 996414165}
   - component: {fileID: 996414164}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Yellow_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18614,7 +18614,7 @@ GameObject:
   - component: {fileID: 1008266247}
   - component: {fileID: 1008266249}
   - component: {fileID: 1008266248}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Purple_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19136,7 +19136,7 @@ GameObject:
   - component: {fileID: 1055062513}
   - component: {fileID: 1055062515}
   - component: {fileID: 1055062514}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20181,7 +20181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1111627002}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20217,7 +20217,7 @@ GameObject:
   - component: {fileID: 1112199774}
   - component: {fileID: 1112199776}
   - component: {fileID: 1112199775}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20318,7 +20318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118315445}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20466,7 +20466,7 @@ GameObject:
   - component: {fileID: 1120126140}
   - component: {fileID: 1120126142}
   - component: {fileID: 1120126141}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Blue_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21709,7 +21709,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1188500601}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21774,7 +21774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1193993807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21810,7 +21810,7 @@ GameObject:
   - component: {fileID: 1195840805}
   - component: {fileID: 1195840807}
   - component: {fileID: 1195840806}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Blue_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21970,7 +21970,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1200989969}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22042,7 +22042,7 @@ GameObject:
   - component: {fileID: 1213043029}
   - component: {fileID: 1213043031}
   - component: {fileID: 1213043030}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Red_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22509,7 +22509,7 @@ GameObject:
   - component: {fileID: 1229389418}
   - component: {fileID: 1229389420}
   - component: {fileID: 1229389419}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Cyan_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22962,6 +22962,7 @@ GameObject:
   - component: {fileID: 1282994122}
   - component: {fileID: 1282994124}
   - component: {fileID: 1282994123}
+  - component: {fileID: 1282994199}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -23508,7 +23509,7 @@ GameObject:
   - component: {fileID: 1304158483}
   - component: {fileID: 1304158485}
   - component: {fileID: 1304158484}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Red_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23691,7 +23692,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1305577146}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23725,7 +23726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1310673459}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23761,7 +23762,7 @@ GameObject:
   - component: {fileID: 1312089738}
   - component: {fileID: 1312089740}
   - component: {fileID: 1312089739}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Purple_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24177,7 +24178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1350594153}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24293,7 +24294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1352629713}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24510,7 +24511,7 @@ GameObject:
   - component: {fileID: 1370873802}
   - component: {fileID: 1370873804}
   - component: {fileID: 1370873803}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24698,7 +24699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1399812760}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24732,7 +24733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1401431401}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24768,7 +24769,7 @@ GameObject:
   - component: {fileID: 1411130541}
   - component: {fileID: 1411130543}
   - component: {fileID: 1411130542}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Orange_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24840,7 +24841,7 @@ GameObject:
   - component: {fileID: 1411287206}
   - component: {fileID: 1411287208}
   - component: {fileID: 1411287207}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Orange_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24912,7 +24913,7 @@ GameObject:
   - component: {fileID: 1417619977}
   - component: {fileID: 1417619979}
   - component: {fileID: 1417619978}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Cyan_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24982,7 +24983,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1423381076}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26040,7 +26041,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470732565}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26370,7 +26371,7 @@ GameObject:
   - component: {fileID: 1490519435}
   - component: {fileID: 1490519437}
   - component: {fileID: 1490519436}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Blue_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26896,7 +26897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1505590202}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27144,7 +27145,7 @@ GameObject:
   - component: {fileID: 1527769558}
   - component: {fileID: 1527769560}
   - component: {fileID: 1527769559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28254,7 +28255,7 @@ GameObject:
   - component: {fileID: 1592581420}
   - component: {fileID: 1592581422}
   - component: {fileID: 1592581421}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Green_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28681,7 +28682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1621833668}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28715,7 +28716,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1625883790}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28749,7 +28750,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1627340607}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28783,7 +28784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1630313972}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28875,7 +28876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Project.Features.Climbing.Presentation.HipsMovementController
   tuningConfig: {fileID: 11400000, guid: d62176cda6b754462ab88c2f84d9c4c2, type: 2}
-  movementTarget: {fileID: 0}
+  movementTarget: {fileID: 1282994115}
   inputReader: {fileID: 1282994117}
   driver: {fileID: 1282994114}
   wallNormalReference: {fileID: 1837321125}
@@ -28894,7 +28895,7 @@ GameObject:
   - component: {fileID: 1635841483}
   - component: {fileID: 1635841485}
   - component: {fileID: 1635841484}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Yellow_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29226,7 +29227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1649934273}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29352,7 +29353,7 @@ GameObject:
   - component: {fileID: 1652340318}
   - component: {fileID: 1652340320}
   - component: {fileID: 1652340319}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Green_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29455,7 +29456,7 @@ GameObject:
   - component: {fileID: 1668510794}
   - component: {fileID: 1668510796}
   - component: {fileID: 1668510795}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Black_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29697,7 +29698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1701287481}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30024,7 +30025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1739835841}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30579,7 +30580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763418741}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30736,7 +30737,7 @@ GameObject:
   - component: {fileID: 1774350857}
   - component: {fileID: 1774350859}
   - component: {fileID: 1774350858}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Red_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30806,7 +30807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1784881299}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31209,7 +31210,7 @@ GameObject:
   - component: {fileID: 1791950011}
   - component: {fileID: 1791950013}
   - component: {fileID: 1791950012}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Blue_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31503,7 +31504,7 @@ GameObject:
   - component: {fileID: 1810213131}
   - component: {fileID: 1810213133}
   - component: {fileID: 1810213132}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Yellow_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31694,7 +31695,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1823329079}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31729,7 +31730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1829036257}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32320,7 +32321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1879899239}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32357,7 +32358,7 @@ GameObject:
   - component: {fileID: 1883553581}
   - component: {fileID: 1883553583}
   - component: {fileID: 1883553582}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Black_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32895,7 +32896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1905280819}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Pinch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33102,7 +33103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1923059989}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33218,7 +33219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1928328378}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33696,7 +33697,7 @@ GameObject:
   - component: {fileID: 1961230850}
   - component: {fileID: 1961230852}
   - component: {fileID: 1961230851}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Orange_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33940,7 +33941,7 @@ GameObject:
   - component: {fileID: 1973363411}
   - component: {fileID: 1973363413}
   - component: {fileID: 1973363412}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34633,7 +34634,7 @@ GameObject:
   - component: {fileID: 2020660360}
   - component: {fileID: 2020660362}
   - component: {fileID: 2020660361}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Cyan_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35057,7 +35058,7 @@ GameObject:
   - component: {fileID: 2030465739}
   - component: {fileID: 2030465741}
   - component: {fileID: 2030465740}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Yellow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35291,7 +35292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2045633326}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Crimp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35358,7 +35359,7 @@ GameObject:
   - component: {fileID: 2051323694}
   - component: {fileID: 2051323696}
   - component: {fileID: 2051323695}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Yellow_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36260,7 +36261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2077088993}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_Jug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37389,7 +37390,7 @@ GameObject:
   - component: {fileID: 2145158950}
   - component: {fileID: 2145158952}
   - component: {fileID: 2145158951}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hold_WhiteScatter_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37462,3 +37463,21 @@ SceneRoots:
   - {fileID: 1820594233}
   - {fileID: 2099618966}
   - {fileID: 1220750920}
+--- !u!114 &1282994199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282994113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5608da52f84fb668daabdb63a83d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Project.Features.Climbing.Presentation.HoldTargetingSystem
+  tuningConfig: {fileID: 11400000, guid: d62176cda6b754462ab88c2f84d9c4c2, type: 2}
+  inputReader: {fileID: 1282994117}
+  mainCamera: {fileID: 495966171}
+  holdLayerMask:
+    serializedVersion: 2
+    m_Bits: 8

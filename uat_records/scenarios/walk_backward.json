@@ -1,0 +1,9 @@
+{
+    "name": "walk_backward",
+    "scene": "VerticalPrototype",
+    "durationSeconds": 6.0,
+    "screenshotEveryNFrames": 2,
+    "steps": [
+        { "atSeconds": 0.5, "durationSeconds": 4.0, "key": "S", "mouseButton": -1 }
+    ]
+}
