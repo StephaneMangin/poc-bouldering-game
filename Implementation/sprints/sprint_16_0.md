@@ -138,6 +138,10 @@ restart.
   `captures/review_v4/photo_042_vs_art_v4.png`: the hall reads closer; the island shape is the
   main gap (photo: massive rounded nose, model: narrow pinched base), cockpit paint is large
   orange/teal facets (not bands), mats too white and regular.
+- 2026-11-16: art pass 2 (790ffee): mat covers with irregular dark seams (jittered grid Voronoi,
+  antialiased). Linux build 87 MB, 0 errors; 25 s batch run of the player without error.
+  Remaining gaps are geometry (stage 7b): island top too narrow, spinnaker is a tall tapering
+  yellow sail with an orange strip to the roof (model: low wall).
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).
