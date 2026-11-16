@@ -1,0 +1,2003 @@
+{
+ "name": "Block'Out Rennes",
+ "version": "3.0",
+ "envelope": {
+  "minX": -25.851,
+  "maxX": 16.931,
+  "minZ": -14.549,
+  "maxZ": 18.079,
+  "height": 7.0
+ },
+ "spawn": {
+  "x": 2.0,
+  "z": -6.5,
+  "yawDeg": 0.0
+ },
+ "palette": [
+  {
+   "id": "grey",
+   "r": 0.7,
+   "g": 0.71,
+   "b": 0.7
+  },
+  {
+   "id": "teal",
+   "r": 0.17,
+   "g": 0.55,
+   "b": 0.53
+  },
+  {
+   "id": "dark_teal",
+   "r": 0.08,
+   "g": 0.38,
+   "b": 0.38
+  },
+  {
+   "id": "orange",
+   "r": 0.92,
+   "g": 0.37,
+   "b": 0.22
+  },
+  {
+   "id": "red",
+   "r": 0.78,
+   "g": 0.16,
+   "b": 0.14
+  },
+  {
+   "id": "coral",
+   "r": 0.95,
+   "g": 0.5,
+   "b": 0.4
+  },
+  {
+   "id": "yellow",
+   "r": 0.98,
+   "g": 0.82,
+   "b": 0.1
+  },
+  {
+   "id": "green",
+   "r": 0.22,
+   "g": 0.72,
+   "b": 0.26
+  },
+  {
+   "id": "blue",
+   "r": 0.14,
+   "g": 0.4,
+   "b": 0.78
+  },
+  {
+   "id": "white",
+   "r": 0.92,
+   "g": 0.92,
+   "b": 0.89
+  },
+  {
+   "id": "black",
+   "r": 0.1,
+   "g": 0.1,
+   "b": 0.11
+  },
+  {
+   "id": "wood",
+   "r": 0.72,
+   "g": 0.55,
+   "b": 0.35
+  },
+  {
+   "id": "hold_orange",
+   "r": 1.0,
+   "g": 0.46,
+   "b": 0.08
+  },
+  {
+   "id": "hold_blue",
+   "r": 0.12,
+   "g": 0.42,
+   "b": 0.95
+  },
+  {
+   "id": "hold_red",
+   "r": 0.88,
+   "g": 0.08,
+   "b": 0.18
+  },
+  {
+   "id": "hold_white",
+   "r": 0.96,
+   "g": 0.96,
+   "b": 0.94
+  },
+  {
+   "id": "hold_black",
+   "r": 0.07,
+   "g": 0.07,
+   "b": 0.08
+  },
+  {
+   "id": "hold_lime",
+   "r": 0.7,
+   "g": 0.94,
+   "b": 0.12
+  }
+ ],
+ "structures": [
+  {
+   "id": "mur_peripherique_nord",
+   "name": "North wall",
+   "height": 4.5,
+   "vertices": [
+    {
+     "x": 7.175,
+     "z": 14.278
+    },
+    {
+     "x": 9.734,
+     "z": 13.727
+    },
+    {
+     "x": 15.389,
+     "z": 14.035
+    },
+    {
+     "x": 15.389,
+     "z": 11.654
+    },
+    {
+     "x": 16.931,
+     "z": 13.19
+    },
+    {
+     "x": 16.931,
+     "z": 18.079
+    },
+    {
+     "x": 10.971,
+     "z": 18.079
+    },
+    {
+     "x": 2.195,
+     "z": 14.67
+    },
+    {
+     "x": 6.789,
+     "z": 14.661
+    },
+    {
+     "x": 2.196,
+     "z": 18.079
+    },
+    {
+     "x": -3.159,
+     "z": 18.079
+    },
+    {
+     "x": -3.159,
+     "z": 14.67
+    },
+    {
+     "x": -12.171,
+     "z": 18.079
+    },
+    {
+     "x": -12.176,
+     "z": 16.799
+    },
+    {
+     "x": -10.794,
+     "z": 16.799
+    },
+    {
+     "x": -7.475,
+     "z": 14.885
+    },
+    {
+     "x": -6.297,
+     "z": 14.885
+    },
+    {
+     "x": -6.286,
+     "z": 18.079
+    },
+    {
+     "x": -6.286,
+     "z": 12.41
+    },
+    {
+     "x": -5.472,
+     "z": 11.523
+    },
+    {
+     "x": -5.461,
+     "z": 14.661
+    },
+    {
+     "x": 15.389,
+     "z": 5.164
+    },
+    {
+     "x": 16.931,
+     "z": 5.164
+    },
+    {
+     "x": -25.846,
+     "z": 18.06
+    },
+    {
+     "x": -25.112,
+     "z": 16.799
+    },
+    {
+     "x": -21.471,
+     "z": 16.799
+    },
+    {
+     "x": -21.477,
+     "z": 18.079
+    },
+    {
+     "x": -18.542,
+     "z": 18.079
+    },
+    {
+     "x": -18.548,
+     "z": 16.799
+    },
+    {
+     "x": -15.303,
+     "z": 16.799
+    },
+    {
+     "x": -15.297,
+     "z": 18.079
+    },
+    {
+     "x": -7.175,
+     "z": 11.523
+    },
+    {
+     "x": -25.851,
+     "z": 8.442
+    },
+    {
+     "x": -25.851,
+     "z": 8.404
+    },
+    {
+     "x": -22.124,
+     "z": 8.404
+    },
+    {
+     "x": -22.124,
+     "z": 9.17
+    },
+    {
+     "x": -25.112,
+     "z": 9.17
+    },
+    {
+     "x": -25.112,
+     "z": 11.915
+    },
+    {
+     "x": -25.851,
+     "z": 11.916
+    },
+    {
+     "x": -25.112,
+     "z": 10.169
+    },
+    {
+     "x": -25.166,
+     "z": 10.179
+    },
+    {
+     "x": -25.198,
+     "z": 10.225
+    },
+    {
+     "x": -25.166,
+     "z": 10.272
+    },
+    {
+     "x": -25.112,
+     "z": 10.281
+    },
+    {
+     "x": -25.851,
+     "z": 14.684
+    },
+    {
+     "x": -25.112,
+     "z": 13.307
+    },
+    {
+     "x": -25.144,
+     "z": 13.353
+    },
+    {
+     "x": -25.112,
+     "z": 13.41
+    },
+    {
+     "x": -25.112,
+     "z": 14.689
+    },
+    {
+     "x": -6.286,
+     "z": 12.41
+    },
+    {
+     "x": -7.175,
+     "z": 11.523
+    },
+    {
+     "x": -5.472,
+     "z": 11.523
+    }
+   ],
+   "sectors": [
+    {
+     "id": "vagues",
+     "name": "Vagues",
+     "loop": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "edges": [
+      "exposed",
+      "exposed",
+      "exposed",
+      "internal",
+      "back",
+      "back",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.2,
+       "angle": 0
+      },
+      {
+       "height": 3.3,
+       "angle": 35
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "dome",
+       "color": "orange",
+       "count": 2
+      },
+      {
+       "shape": "dome",
+       "color": "teal",
+       "count": 2
+      }
+     ],
+     "seed": 1839647719
+    },
+    {
+     "id": "starbloc_droit",
+     "name": "Starbloc Droit",
+     "loop": [
+      7,
+      8,
+      0,
+      6,
+      9
+     ],
+     "edges": [
+      "exposed",
+      "exposed",
+      "internal",
+      "back",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": 25
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "triangles",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 3
+      },
+      {
+       "shape": "pyramid",
+       "color": "yellow",
+       "count": 1
+      }
+     ],
+     "seed": 68262626
+    },
+    {
+     "id": "starbloc_gauche",
+     "name": "Starbloc Gauche",
+     "loop": [
+      10,
+      11,
+      7,
+      9
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "internal",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": -10
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "star",
+     "volumes": [
+      {
+       "shape": "pyramid",
+       "color": "yellow",
+       "count": 3
+      },
+      {
+       "shape": "dome",
+       "color": "white",
+       "count": 2
+      }
+     ],
+     "seed": 1414141976
+    },
+    {
+     "id": "bloc_de_secours",
+     "name": "Bloc de secours",
+     "loop": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "exposed",
+      "internal",
+      "internal",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 5
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "split",
+     "volumes": [
+      {
+       "shape": "box",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 2061885365
+    },
+    {
+     "id": "petitoie",
+     "name": "Petit'Oie",
+     "loop": [
+      10,
+      17,
+      16,
+      18,
+      19,
+      20,
+      11
+     ],
+     "edges": [
+      "back",
+      "internal",
+      "internal",
+      "internal",
+      "exposed",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": 12
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "star",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "box",
+       "color": "grey",
+       "count": 1
+      }
+     ],
+     "seed": 979143103
+    },
+    {
+     "id": "dolmen",
+     "name": "Dolmen",
+     "loop": [
+      4,
+      3,
+      21,
+      22
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "exposed",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": 15
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "diagonal",
+     "volumes": [],
+     "seed": 985321222
+    },
+    {
+     "id": "tour_de_piz",
+     "name": "Tour de Piz",
+     "loop": [
+      23,
+      24,
+      25,
+      26
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "internal",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "orange",
+      "teal"
+     ],
+     "pattern": "split",
+     "volumes": [
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 93047888
+    },
+    {
+     "id": "brouille_art",
+     "name": "Brouille Art",
+     "loop": [
+      27,
+      28,
+      29,
+      30
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "internal",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "teal",
+      "orange"
+     ],
+     "pattern": "split",
+     "volumes": [
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "dome",
+       "color": "black",
+       "count": 1
+      }
+     ],
+     "seed": 1046920194
+    },
+    {
+     "id": "sablier",
+     "name": "Sablier",
+     "loop": [
+      30,
+      29,
+      13,
+      12
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "internal",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 1.2,
+       "angle": 0
+      },
+      {
+       "height": 3.3,
+       "angle": -12
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "split",
+     "volumes": [
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 1
+      }
+     ],
+     "seed": 1891752700
+    },
+    {
+     "id": "cubicube",
+     "name": "Cubicube",
+     "loop": [
+      26,
+      25,
+      28,
+      27
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "internal",
+      "back"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 3
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "frames",
+     "volumes": [],
+     "seed": 1169314420
+    },
+    {
+     "id": "grand_bleu",
+     "name": "Grand Bleu",
+     "loop": [
+      16,
+      15,
+      31,
+      18
+     ],
+     "edges": [
+      "internal",
+      "exposed",
+      "internal",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "teal"
+     ],
+     "pattern": "plain",
+     "volumes": [],
+     "seed": 135072122
+    },
+    {
+     "id": "dalle",
+     "name": "Dalle",
+     "loop": [
+      32,
+      34,
+      35,
+      36
+     ],
+     "edges": [
+      "back",
+      "back",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": -15
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "orange",
+      "teal"
+     ],
+     "pattern": "frames",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 475477454
+    },
+    {
+     "id": "enclume",
+     "name": "Enclume",
+     "loop": [
+      37,
+      38,
+      32,
+      36
+     ],
+     "edges": [
+      "internal",
+      "back",
+      "internal",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": 10
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "diagonal",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 1
+      }
+     ],
+     "seed": 1724890550
+    },
+    {
+     "id": "cheminee",
+     "name": "Cheminée",
+     "loop": [
+      44,
+      38,
+      37,
+      48
+     ],
+     "edges": [
+      "back",
+      "internal",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "orange",
+      "teal"
+     ],
+     "pattern": "split",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 464585520
+    },
+    {
+     "id": "i_luzion",
+     "name": "I-Luzion",
+     "loop": [
+      23,
+      44,
+      48,
+      24
+     ],
+     "edges": [
+      "back",
+      "internal",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": -4
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "orange",
+      "teal"
+     ],
+     "pattern": "diagonal",
+     "volumes": [
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 1
+      }
+     ],
+     "seed": 989124185
+    },
+    {
+     "id": "lance_pierre",
+     "name": "Lance-Pierre",
+     "loop": [
+      19,
+      18,
+      31
+     ],
+     "edges": [
+      "internal",
+      "internal",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": -5
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "teal",
+      "red"
+     ],
+     "pattern": "diagonal",
+     "volumes": [
+      {
+       "shape": "dome",
+       "color": "black",
+       "count": 1
+      }
+     ],
+     "seed": 1155349868
+    }
+   ]
+  },
+  {
+   "id": "mur_peripherique_sud",
+   "name": "South wall",
+   "height": 4.5,
+   "vertices": [
+    {
+     "x": 10.527,
+     "z": -10.552
+    },
+    {
+     "x": 9.424,
+     "z": -10.543
+    },
+    {
+     "x": 8.867,
+     "z": -11.43
+    },
+    {
+     "x": 4.112,
+     "z": -11.85
+    },
+    {
+     "x": 4.107,
+     "z": -14.549
+    },
+    {
+     "x": 10.093,
+     "z": -14.549
+    },
+    {
+     "x": 10.088,
+     "z": -10.991
+    },
+    {
+     "x": 13.568,
+     "z": 0.28
+    },
+    {
+     "x": 14.982,
+     "z": -6.042
+    },
+    {
+     "x": 16.931,
+     "z": -6.042
+    },
+    {
+     "x": 16.931,
+     "z": 0.28
+    },
+    {
+     "x": 16.931,
+     "z": -14.521
+    },
+    {
+     "x": 14.971,
+     "z": -11.943
+    },
+    {
+     "x": 10.548,
+     "z": -11.841
+    },
+    {
+     "x": -1.778,
+     "z": -10.403
+    },
+    {
+     "x": -1.778,
+     "z": -14.549
+    },
+    {
+     "x": 1.066,
+     "z": -14.549
+    },
+    {
+     "x": 1.06,
+     "z": -11.785
+    },
+    {
+     "x": 0.246,
+     "z": -11.766
+    },
+    {
+     "x": 0.075,
+     "z": -11.15
+    }
+   ],
+   "sectors": [
+    {
+     "id": "inception",
+     "name": "Inception",
+     "loop": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "edges": [
+      "exposed",
+      "exposed",
+      "exposed",
+      "internal",
+      "back",
+      "internal",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 1.8,
+       "angle": 20
+      },
+      {
+       "height": 1.7,
+       "angle": 5
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "frames",
+     "volumes": [
+      {
+       "shape": "pyramid",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "triangle",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 589907413
+    },
+    {
+     "id": "la_grille",
+     "name": "La Grille",
+     "loop": [
+      7,
+      8,
+      9,
+      10
+     ],
+     "edges": [
+      "exposed",
+      "internal",
+      "back",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "wood",
+      "teal",
+      "red"
+     ],
+     "pattern": "lattice",
+     "volumes": [],
+     "seed": 1880287385
+    },
+    {
+     "id": "taverne",
+     "name": "Taverne",
+     "loop": [
+      6,
+      5,
+      11,
+      12,
+      13,
+      0
+     ],
+     "edges": [
+      "internal",
+      "back",
+      "internal",
+      "exposed",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.2,
+       "angle": 0
+      },
+      {
+       "height": 3.3,
+       "angle": 25
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "grey",
+      "teal"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "pyramid",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "box",
+       "color": "black",
+       "count": 2
+      }
+     ],
+     "seed": 760908327
+    },
+    {
+     "id": "pan_gullish",
+     "name": "Pan Gullish",
+     "loop": [
+      8,
+      12,
+      11,
+      9
+     ],
+     "edges": [
+      "exposed",
+      "internal",
+      "back",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 4.5,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "white",
+      "black"
+     ],
+     "pattern": "ermine",
+     "volumes": [],
+     "seed": 194394131
+    },
+    {
+     "id": "the_last",
+     "name": "The Last",
+     "loop": [
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+     ],
+     "edges": [
+      "exposed",
+      "back",
+      "internal",
+      "exposed",
+      "exposed",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": 18
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "black",
+       "count": 2
+      },
+      {
+       "shape": "box",
+       "color": "wood",
+       "count": 1
+      }
+     ],
+     "seed": 2089087694
+    },
+    {
+     "id": "aileron",
+     "name": "Aileron",
+     "loop": [
+      17,
+      16,
+      4,
+      3
+     ],
+     "edges": [
+      "internal",
+      "back",
+      "internal",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 3.5,
+       "angle": 20
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "grey",
+       "count": 3
+      },
+      {
+       "shape": "pyramid",
+       "color": "grey",
+       "count": 1
+      }
+     ],
+     "seed": 1349967049
+    }
+   ]
+  },
+  {
+   "id": "island",
+   "name": "Island",
+   "height": 4.2,
+   "vertices": [
+    {
+     "x": -3.416,
+     "z": 1.615
+    },
+    {
+     "x": -2.185,
+     "z": -0.812
+    },
+    {
+     "x": 0.214,
+     "z": -1.018
+    },
+    {
+     "x": 2.784,
+     "z": -2.148
+    },
+    {
+     "x": 3.416,
+     "z": 0.579
+    },
+    {
+     "x": -0.814,
+     "z": 1.784
+    },
+    {
+     "x": -4.887,
+     "z": 5.237
+    },
+    {
+     "x": 0.257,
+     "z": 3.875
+    },
+    {
+     "x": 0.332,
+     "z": 5.304
+    },
+    {
+     "x": -2.099,
+     "z": 5.341
+    },
+    {
+     "x": -2.11,
+     "z": 5.734
+    },
+    {
+     "x": 5.515,
+     "z": 1.345
+    },
+    {
+     "x": 6.382,
+     "z": 0.728
+    },
+    {
+     "x": 5.087,
+     "z": -1.821
+    },
+    {
+     "x": 6.382,
+     "z": -0.42
+    },
+    {
+     "x": -5.922,
+     "z": 3.455
+    },
+    {
+     "x": -7.892,
+     "z": 5.995
+    },
+    {
+     "x": -5.922,
+     "z": 7.872
+    },
+    {
+     "x": -7.261,
+     "z": 7.134
+    },
+    {
+     "x": -7.721,
+     "z": 4.79
+    }
+   ],
+   "sectors": [
+    {
+     "id": "quinquin",
+     "name": "Quinquin",
+     "loop": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "edges": [
+      "exposed",
+      "exposed",
+      "exposed",
+      "internal",
+      "internal",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.5,
+       "angle": 0
+      },
+      {
+       "height": 2.0,
+       "angle": 10
+      },
+      {
+       "height": 0.7,
+       "angle": -30
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 1
+      },
+      {
+       "shape": "box",
+       "color": "black",
+       "count": 2
+      }
+     ],
+     "seed": 771610534
+    },
+    {
+     "id": "cyrano",
+     "name": "Cyrano",
+     "loop": [
+      6,
+      5,
+      7,
+      8,
+      9,
+      10
+     ],
+     "edges": [
+      "internal",
+      "internal",
+      "exposed",
+      "exposed",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 0.9,
+       "angle": 0
+      },
+      {
+       "height": 2.0,
+       "angle": 35
+      },
+      {
+       "height": 1.3,
+       "angle": -15
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "triangles",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "pyramid",
+       "color": "yellow",
+       "count": 1
+      }
+     ],
+     "seed": 1697688841
+    },
+    {
+     "id": "entre_deux",
+     "name": "Entre Deux",
+     "loop": [
+      5,
+      4,
+      11,
+      7
+     ],
+     "edges": [
+      "internal",
+      "internal",
+      "exposed",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 1.5,
+       "angle": 0
+      },
+      {
+       "height": 1.5,
+       "angle": 15
+      },
+      {
+       "height": 1.2,
+       "angle": -25
+      }
+     ],
+     "panelColors": [
+      "orange",
+      "teal",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 129792205
+    },
+    {
+     "id": "oublie",
+     "name": "Oublié",
+     "loop": [
+      12,
+      11,
+      4,
+      3,
+      13,
+      14
+     ],
+     "edges": [
+      "exposed",
+      "internal",
+      "internal",
+      "exposed",
+      "exposed",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 1.0,
+       "angle": 0
+      },
+      {
+       "height": 1.5,
+       "angle": 25
+      },
+      {
+       "height": 1.7,
+       "angle": -20
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "red",
+       "count": 1
+      }
+     ],
+     "seed": 542587750
+    },
+    {
+     "id": "bloc_a_pic",
+     "name": "Bloc à Pic",
+     "loop": [
+      15,
+      0,
+      5,
+      6
+     ],
+     "edges": [
+      "exposed",
+      "internal",
+      "internal",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 4.2,
+       "angle": 0
+      }
+     ],
+     "panelColors": [
+      "grey",
+      "orange",
+      "teal"
+     ],
+     "pattern": "diagonal",
+     "volumes": [
+      {
+       "shape": "pyramid",
+       "color": "blue",
+       "count": 1
+      },
+      {
+       "shape": "pyramid",
+       "color": "green",
+       "count": 1
+      }
+     ],
+     "seed": 1103845779
+    },
+    {
+     "id": "tortue",
+     "name": "Tortue",
+     "loop": [
+      16,
+      6,
+      17,
+      18
+     ],
+     "edges": [
+      "internal",
+      "internal",
+      "exposed",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 0.9,
+       "angle": 0
+      },
+      {
+       "height": 1.8,
+       "angle": 30
+      },
+      {
+       "height": 1.5,
+       "angle": -15
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      },
+      {
+       "shape": "pyramid",
+       "color": "yellow",
+       "count": 1
+      }
+     ],
+     "seed": 1196277271
+    },
+    {
+     "id": "point_and_clic",
+     "name": "Point and Clic",
+     "loop": [
+      16,
+      19,
+      15,
+      6
+     ],
+     "edges": [
+      "exposed",
+      "exposed",
+      "internal",
+      "internal"
+     ],
+     "profile": [
+      {
+       "height": 0.9,
+       "angle": 0
+      },
+      {
+       "height": 1.8,
+       "angle": 25
+      },
+      {
+       "height": 1.5,
+       "angle": -20
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "bands",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 292785509
+    },
+    {
+     "id": "dodecaedre",
+     "name": "Dodécaèdre",
+     "loop": [
+      17,
+      6,
+      10
+     ],
+     "edges": [
+      "internal",
+      "internal",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 0.9,
+       "angle": 0
+      },
+      {
+       "height": 1.8,
+       "angle": 30
+      },
+      {
+       "height": 1.5,
+       "angle": -20
+      }
+     ],
+     "panelColors": [
+      "teal",
+      "orange",
+      "grey"
+     ],
+     "pattern": "triangles",
+     "volumes": [
+      {
+       "shape": "wedge",
+       "color": "yellow",
+       "count": 2
+      }
+     ],
+     "seed": 2092336749
+    }
+   ]
+  },
+  {
+   "id": "spinnaker",
+   "name": "Spinnaker",
+   "height": 4.0,
+   "vertices": [
+    {
+     "x": -13.108,
+     "z": 1.149
+    },
+    {
+     "x": -13.322,
+     "z": -0.121
+    },
+    {
+     "x": -13.429,
+     "z": -1.989
+    },
+    {
+     "x": -13.322,
+     "z": -2.755
+    },
+    {
+     "x": -13.065,
+     "z": -3.418
+    },
+    {
+     "x": -12.39,
+     "z": -4.258
+    },
+    {
+     "x": -11.394,
+     "z": -5.127
+    },
+    {
+     "x": -10.366,
+     "z": -5.808
+    },
+    {
+     "x": -9.102,
+     "z": -6.322
+    },
+    {
+     "x": -7.721,
+     "z": -6.462
+    },
+    {
+     "x": -5.204,
+     "z": -6.219
+    },
+    {
+     "x": -4.112,
+     "z": -6.004
+    },
+    {
+     "x": -4.112,
+     "z": -5.79
+    },
+    {
+     "x": -9.231,
+     "z": -5.79
+    },
+    {
+     "x": -12.583,
+     "z": -2.783
+    },
+    {
+     "x": -12.947,
+     "z": 1.139
+    },
+    {
+     "x": -4.112,
+     "z": -5.631
+    },
+    {
+     "x": -5.997,
+     "z": -5.537
+    },
+    {
+     "x": -7.753,
+     "z": -5.341
+    },
+    {
+     "x": -9.338,
+     "z": -4.8
+    },
+    {
+     "x": -10.827,
+     "z": -3.483
+    },
+    {
+     "x": -11.78,
+     "z": -2.278
+    },
+    {
+     "x": -12.337,
+     "z": -0.85
+    },
+    {
+     "x": -12.808,
+     "z": 1.13
+    }
+   ],
+   "sectors": [
+    {
+     "id": "spinaker_sud",
+     "name": "Spinaker Sud",
+     "loop": [
+      0,
+      3,
+      5,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15
+     ],
+     "edges": [
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed",
+      "internal",
+      "internal",
+      "internal",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 0.8,
+       "angle": 15
+      },
+      {
+       "height": 1.2,
+       "angle": -5
+      },
+      {
+       "height": 2.0,
+       "angle": -25
+      }
+     ],
+     "panelColors": [
+      "yellow"
+     ],
+     "pattern": "plain",
+     "volumes": [
+      {
+       "shape": "triangle",
+       "color": "black",
+       "count": 2
+      }
+     ],
+     "seed": 2095433319
+    },
+    {
+     "id": "spinaker_nord",
+     "name": "Spinaker Nord",
+     "loop": [
+      15,
+      14,
+      13,
+      12,
+      16,
+      18,
+      19,
+      20,
+      21
+     ],
+     "edges": [
+      "internal",
+      "internal",
+      "internal",
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed",
+      "exposed"
+     ],
+     "profile": [
+      {
+       "height": 0.8,
+       "angle": -15
+      },
+      {
+       "height": 1.2,
+       "angle": 5
+      },
+      {
+       "height": 2.0,
+       "angle": 25
+      }
+     ],
+     "panelColors": [
+      "yellow"
+     ],
+     "pattern": "plain",
+     "volumes": [
+      {
+       "shape": "triangle",
+       "color": "black",
+       "count": 2
+      },
+      {
+       "shape": "wedge",
+       "color": "wood",
+       "count": 1
+      }
+     ],
+     "seed": 1689077698
+    }
+   ]
+  }
+ ]
+}
