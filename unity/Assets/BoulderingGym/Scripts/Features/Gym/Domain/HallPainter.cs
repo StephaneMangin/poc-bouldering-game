@@ -7,17 +7,16 @@ namespace Project.Features.Gym.Domain
     public static class HallPainter
     {
         private const int FloorPixelsPerMeter = 24;
-        private const float MatWidth = 2f;
-        private const float MatLength = 4f;
-        private const float SeamWidth = 0.03f;
-        private const float CreaseScale = 0.35f;
-        private static readonly Color Mat = new(0.74f, 0.75f, 0.74f);
-        private static readonly Color Seam = new(0.36f, 0.36f, 0.37f);
+        private const float MatCover = 7f;
+        private const float SeamWidth = 0.05f;
+        private const float CoverShadeSpread = 0.06f;
+        private static readonly Color Mat = new(0.62f, 0.63f, 0.64f);
+        private static readonly Color Seam = new(0.27f, 0.27f, 0.29f);
         private static readonly Color Tape = new(0.95f, 0.45f, 0.15f);
         private static readonly Color Cladding = new(0.64f, 0.66f, 0.68f);
         private static readonly Color Roof = new(0.47f, 0.49f, 0.50f);
 
-        /// <summary>Whole floor in one texture (UV 0..1 over the hall): staggered mats and orange tape marks.</summary>
+        /// <summary>Whole floor in one texture (UV 0..1 over the hall): large mat covers with dark irregular seams and orange tape marks.</summary>
         public static PanelCanvas Floor(Vector2 size)
         {
             var width = Mathf.CeilToInt(size.x * FloorPixelsPerMeter);
@@ -25,13 +24,14 @@ namespace Project.Features.Gym.Domain
             var pixels = new Color32[width * height];
             var random = new Random(11);
             var tapes = TapeMarks(random, size);
+            var covers = new MatCovers(size);
             for (var y = 0; y < height; y++)
             {
                 var z = (y + 0.5f) / FloorPixelsPerMeter;
                 for (var x = 0; x < width; x++)
                 {
                     var u = (x + 0.5f) / FloorPixelsPerMeter;
-                    pixels[y * width + x] = FloorColor(u, z, tapes);
+                    pixels[y * width + x] = FloorColor(new Vector2(u, z), tapes, covers);
                 }
             }
 
@@ -44,26 +44,78 @@ namespace Project.Features.Gym.Domain
         /// <summary>One meter of roof sheeting, tiled on the ceiling.</summary>
         public static PanelCanvas RoofSheeting() => Corrugation(Roof, 0.2f);
 
-        private static Color32 FloorColor(float u, float z, Vector4[] tapes)
+        private static Color32 FloorColor(Vector2 point, Vector4[] tapes, MatCovers covers)
         {
-            var row = Mathf.FloorToInt(z / MatLength);
-            var shiftedU = u + (row % 2) * MatWidth * 0.5f;
-            var onSeam = Mathf.Repeat(shiftedU, MatWidth) < SeamWidth || Mathf.Repeat(z, MatLength) < SeamWidth;
-            if (onSeam)
-            {
-                return Seam;
-            }
-
+            var (shade, seamDistance) = covers.At(point);
+            var color = Mat * shade;
             foreach (var tape in tapes)
             {
-                if (Mathf.Abs(u - tape.x) < tape.z && Mathf.Abs(z - tape.y) < tape.w)
+                if (Mathf.Abs(point.x - tape.x) < tape.z && Mathf.Abs(point.y - tape.y) < tape.w)
                 {
-                    return Tape;
+                    color = Tape;
                 }
             }
 
-            var crease = 0.94f + 0.06f * Mathf.Abs(Mathf.Sin(u / CreaseScale * 3.1f + Mathf.Sin(z / CreaseScale) * 2f));
-            return Mat * crease;
+            // Seam edge blended over one texel so the lines do not step
+            const float texel = 1f / FloorPixelsPerMeter;
+            var seam = Mathf.InverseLerp(SeamWidth * 0.5f + texel * 0.5f, SeamWidth * 0.5f - texel * 0.5f, seamDistance);
+            return Color.Lerp(color, Seam, seam);
+        }
+
+        /// <summary>Large mat covers, one per jittered grid cell, each with its own shade.</summary>
+        private sealed class MatCovers
+        {
+            private readonly Vector2[,] _seeds;
+            private readonly float[,] _shades;
+
+            public MatCovers(Vector2 size)
+            {
+                // One spare cell on every side so points on the hall edge find all their neighbors
+                var columns = Mathf.CeilToInt(size.x / MatCover) + 2;
+                var rows = Mathf.CeilToInt(size.y / MatCover) + 2;
+                _seeds = new Vector2[columns, rows];
+                _shades = new float[columns, rows];
+                var random = new Random(23);
+                for (var i = 0; i < columns; i++)
+                {
+                    for (var j = 0; j < rows; j++)
+                    {
+                        var jitter = new Vector2((float)random.NextDouble(), (float)random.NextDouble());
+                        _seeds[i, j] = (new Vector2(i - 1, j - 1) + new Vector2(0.15f, 0.15f) + jitter * 0.7f) * MatCover;
+                        _shades[i, j] = 1f - CoverShadeSpread * (float)random.NextDouble();
+                    }
+                }
+            }
+
+            /// <summary>Shade of the cover under a floor point and the distance to its nearest seam.</summary>
+            public (float shade, float seamDistance) At(Vector2 point)
+            {
+                var column = Mathf.FloorToInt(point.x / MatCover) + 1;
+                var row = Mathf.FloorToInt(point.y / MatCover) + 1;
+                var nearest = (cell: new Vector2Int(column, row), distance: float.MaxValue);
+                var second = nearest;
+                for (var i = column - 1; i <= column + 1; i++)
+                {
+                    for (var j = row - 1; j <= row + 1; j++)
+                    {
+                        var distance = Vector2.Distance(point, _seeds[i, j]);
+                        if (distance < nearest.distance)
+                        {
+                            second = nearest;
+                            nearest = (new Vector2Int(i, j), distance);
+                        }
+                        else if (distance < second.distance)
+                        {
+                            second = (new Vector2Int(i, j), distance);
+                        }
+                    }
+                }
+
+                var near = _seeds[nearest.cell.x, nearest.cell.y];
+                var far = _seeds[second.cell.x, second.cell.y];
+                var seam = Vector2.Dot((near + far) * 0.5f - point, (far - near).normalized);
+                return (_shades[nearest.cell.x, nearest.cell.y], seam);
+            }
         }
 
         /// <summary>Short tape strips: center (x, y) and half extents (z, w), meters.</summary>

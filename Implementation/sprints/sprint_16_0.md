@@ -73,7 +73,7 @@ restart.
 | 6 | Editor: scene setup, problem bake, Linux build entry points; preview tool (OBJ + Blender) | done |
 | 7 | Unity verification: tests, UAT scenarios, build | done (248 EditMode tests, scripted top-out, build) |
 | 7b | Whitebox photo calibration: labelled corners → cameras + 3D corners (bundle adjustment), overlays, geometry fixes | blocked: photos insufficient, waiting for the user's video or measures |
-| 8 | Art pass: panel patterns, lighting, ceiling/beams/ducts, mats; photo-match again | todo |
+| 8 | Art pass: panel patterns, lighting, ceiling/beams/ducts, mats; photo-match again | in progress (hull bands, roof beams, girt, cladding done; mats, cockpit facets, mezzanine todo) |
 | 9 | Cleanup prototype + docs | todo |
 
 ## Top 3 risks
@@ -130,6 +130,14 @@ restart.
   the user: a 2–3 min phone video around the island and along the walls (COLMAP, needs
   `pycolmap` from PyPI: ask before installing) or a few tape measures on site. Public listings
   give walls up to 4.5 m. Waiting for the user's choice; meanwhile art pass on the hall.
+- 2026-11-16: art pass 1 (6c0ec12): island sectors painted with the "hull" pattern (grey base and
+  teal triangles on their tip, thin red, dark teal, orange, light teal top), solid yellow I-beam
+  rafters instead of trusses, yellow girt at 5 m on the hall walls, cladding with vertical ribs.
+  248 EditMode tests green. Camera of image_042 from vanishing points (focal 1238 px, 15° down,
+  looking east) placed with the mast and the island nose: ~(-17.8, 6.1, 6.0).
+  `captures/review_v4/photo_042_vs_art_v4.png`: the hall reads closer; the island shape is the
+  main gap (photo: massive rounded nose, model: narrow pinched base), cockpit paint is large
+  orange/teal facets (not bands), mats too white and regular.
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).
