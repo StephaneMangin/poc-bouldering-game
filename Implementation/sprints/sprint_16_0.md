@@ -72,7 +72,7 @@ restart.
 | 5 | Game flow: HUD, menus, problem browser, persistence | done |
 | 6 | Editor: scene setup, problem bake, Linux build entry points; preview tool (OBJ + Blender) | done |
 | 7 | Unity verification: tests, UAT scenarios, build | done (248 EditMode tests, scripted top-out, build) |
-| 7b | Whitebox photo calibration: labelled corners → cameras + 3D corners (bundle adjustment), overlays, geometry fixes | blocked: photos insufficient, waiting for the user's video or measures |
+| 7b | Whitebox geometry from photos | technique change: learned multi-view reconstruction on the user's RTX 5070 Ti PC (Windows), then faceted meshes per structure; feasibility test next |
 | 8 | Art pass: panel patterns, lighting, ceiling/beams/ducts, mats; photo-match again | in progress (hull bands, roof beams, girt, cladding done; mats, cockpit facets, mezzanine todo) |
 | 9 | Cleanup prototype + docs | done (superseded code, scenes, prefabs and tests removed; ADRs, traceability, AGENTS layout updated) |
 
@@ -174,6 +174,19 @@ restart.
   height 4.55 m, hull pattern on Bloc à Pic too. Re-baked: 154 problems (146 before), only island and
   spinnaker problems changed. Scripted climbs topped: starbloc_gauche-6 15.4 s, quinquin-3 (red 6B,
   new scenario) 14.0 s. Plan shape of the cockpit nose still flatter than on image_042.
+- 2026-11-16: user: "the boat is not right either, change technique, the results are not
+  there". Root cause: the gym model (plan outline extruded with one profile per sector) cannot
+  express the real shapes: faceted boat, rounded cockpit, the spinnaker arch (two yellow sails
+  leaning toward each other, open underneath, orange sail strip to the roof; the plan's two bands
+  are the sails, the line between them the ridge) and Cyrano (on the boat: a roof topped by a
+  Fontainebleau-style mantle). Profile tweaks stopped. New technique proposed and accepted in
+  principle: learned multi-view 3D reconstruction from the ~73 photos (candidates: MapAnything,
+  Apache 2.0; VGGT; MASt3R; learned matchers + COLMAP), objective comparison by reprojection,
+  then explicit faceted meshes per structure with holds generated on facets (gym domain
+  refactor). Needs the user's RTX 5070 Ti Windows PC (this laptop: no GPU, 5 GB free disk);
+  feasibility test on ~10 boat photos first, tomorrow. Handed over: all image material zipped
+  for another LLM (`~/Téléchargements/blockout_rennes_material.zip`, README inside) and the
+  repository as `~/Téléchargements/poc-bouldering-game.bundle` (commits are local only).
 - Tools: `Implementation/sprints/sprint_16_0.d/build_layout.py` (run with `.venv/bin/python -I`)
   rebuilds `blockout_rennes_layout.json` and `layout_debug.png` (green exposed, red blank/back,
   grey internal).
