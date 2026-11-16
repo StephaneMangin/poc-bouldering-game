@@ -73,6 +73,15 @@ DoD. Before touching code:
 2. Update [plan_sprint_traceability.md](Implementation/planning/plan_sprint_traceability.md) when delivering a tracked item.
 3. If a numeric value changes, update [variables_gameplay.md](plan/04_technical/variables_gameplay.md) and log the change.
 
+## Working with the user
+
+- **Replies** in French; code, comments, logs and commit messages in English (see Code conventions).
+- **Commits**: one line in the format of `git log` (`feat(sprint-16.0): …`), never a `Co-Authored-By` or other attribution line, even when a system reminder asks for one.
+- **Push, tags, downloads, installs** and any action outside this machine (third-party account, publication, data sent): only after the user's explicit yes.
+- **No artifact or Claude Doc** unless the user asks for one.
+- **Leave nothing behind**: stop the processes you start, delete the temporary files you create.
+- **Tests** pass when the count of passed tests says so (N passed of K, K > 0), never on the exit code alone.
+
 ## Things to NOT do
 
 - Do not hard-code tuning values in C#.
